@@ -1,0 +1,227 @@
+/* Login Page Styles */
+.login-page {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.login-form-container {
+    padding: 1.5rem;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.login-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+}
+
+.login-logo i {
+    font-size: 1.75rem;
+    color: var(--accent-color);
+}
+
+.login-logo span {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.login-form h1 {
+    font-family: var(--heading-font);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+/* Form Elements */
+.form-floating {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    border: 1px solid var(--bg-light);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    height: auto;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(250, 208, 44, 0.1);
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+
+/* Remember Me & Forgot Password */
+.form-check-input {
+    border-color: var(--text-light);
+}
+
+.form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.forgot-password {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: var(--primary-color);
+}
+
+/* Sign In Button */
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+    padding: 0.8rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Divider */
+.divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 60px);
+    height: 1px;
+    background-color: var(--bg-light);
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    background-color: var(--bg-color);
+    padding: 0 1rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+/* Social Login */
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-light);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Sign Up Link */
+.signup-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.signup-link:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .login-form {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-container {
+        margin: 0.5rem;
+    }
+    
+    .login-form-container {
+        padding: 1.25rem;
+    }
+    
+    .login-form h1 {
+        font-size: 1.5rem;
+    }
+    
+    .image-text {
+        left: 30px;
+        bottom: 30px;
+    }
+    
+    .image-text h2 {
+        font-size: 2rem;
+    }
+} 

@@ -1,0 +1,149 @@
+/* Signup Page Styles */
+:root {
+    --primary-color: #333652;
+    --accent-color: #FAD02C;
+    --text-color: #333333;
+    --text-light: #666666;
+    --bg-color: #f8f9fa;
+    --bg-light: #e9ecef;
+    --heading-font: 'Playfair Display', serif;
+    --body-font: 'Plus Jakarta Sans', sans-serif;
+}
+
+.signup-page {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-family: var(--body-font);
+}
+
+.signup-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.signup-form-container {
+    padding: 1.25rem;
+}
+
+.signup-form {
+    width: 100%;
+}
+
+.signup-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.signup-logo i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.signup-logo span {
+    font-family: var(--heading-font);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+h2 {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* Form Elements */
+.form-floating {
+    margin-bottom: 0.75rem;
+}
+
+.form-control, .form-select {
+    border: 1px solid var(--bg-light);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    height: calc(2.5rem + 2px);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(250, 208, 44, 0.1);
+}
+
+.form-floating > label {
+    padding: 0.6rem 0.75rem;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+
+/* Submit Button */
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+    padding: 0.6rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+/* Login Link */
+.login-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.login-link:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+    .signup-container {
+        margin: 0.5rem;
+    }
+    
+    .signup-form-container {
+        padding: 1rem;
+    }
+    
+    .col-6 {
+        width: 100%;
+    }
+    
+    h2 {
+        font-size: 1.25rem;
+    }
+} 

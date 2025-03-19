@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookHaven - Your Literary Paradise</title>
+    <title>E-Books - Your Digital Library</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/book-reader.svg">
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wA=">
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wA=">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -18,275 +20,212 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <i class="fas fa-book-reader text-danger me-2"></i>
-                    <h1 class="mb-0 d-inline">BookHaven</h1>
+                    <i class="fas fa-book-reader me-2"></i>
+                    <span class="brand-text">E-Books</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <div class="search-container">
-                                <input type="text" class="search-input" id="searchInput" placeholder="Search books...">
-                                <button class="search-btn" id="searchBtn">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <div class="search-results" id="searchResults"></div>
-                            </div>
+                            <a class="nav-link" href="#home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#home">Home</a>
+                            <a class="nav-link" href="#Featuredbooks">Explore Now</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#bestsellers">Bestsellers</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#categories">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
                     </ul>
-                    <a href="#cart" class="btn btn-outline-danger cart-button position-relative">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-danger">0</span>
-                    </a>
+                    <div class="nav-right d-flex align-items-center">
+                        <div class="search-container me-3">
+                            <div class="search-wrapper">
+                                <input type="text" class="search-input" id="searchInput" placeholder="Search books...">
+                                <i class="fas fa-search search-icon"></i>
+                            </div>
+                            <div class="search-results" id="searchResults"></div>
+                        </div>
+                        <a href="#cart" class="btn cart-button me-2">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                        <a href="login.html" class="btn login-button">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero d-flex align-items-center">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 text-white" data-aos="fade-right">
-                        <div class="hero-content text-start">
-                            <h1 class="display-3 fw-bold mb-4">Discover Your Next Great Read</h1>
-                            <p class="lead mb-4">Explore thousands of books from classic literature to the latest bestsellers</p>
-                            <div class="hero-buttons">
-                                <a href="#browse" class="btn btn-danger btn-lg me-3">Browse Books</a>
-                                <a href="#membership" class="btn btn-outline-light btn-lg">Join Membership</a>
+        <section class="hero-section">
+            <div class="slideshow-container">
+                <div class="slides fade active">
+                    <img src="images/slideshow/bookslide (1).jpg" alt="Book Collection">
+                    <div class="slide-content">
+                        <h1>Browse & Select E-Books</h1>
+                        <p class="lead">Find the best e-books from your favorite authors, with all genres available at your fingertips.</p>
+                        <!-- <a href="#Featuredbooks"><button class="btn btn-primary">Explore Now</button></a> -->
+                    </div>
+                </div>
+                <div class="slides fade">
+                    <img src="images/slideshow/bookslide (2).jpg" alt="Reading Time">
+                    <div class="slide-content">
+                        <h1>Read Anywhere, Anytime</h1>
+                        <p class="lead">Access your digital library on any device, perfect for your reading journey.</p>
+                        <!-- <a href="#categories"><button class="btn btn-primary">View Categories</button></a> -->
                             </div>
                         </div>
+                <div class="slides fade">
+                    <img src="images/slideshow/bookslide (3).jpg" alt="Special Offers">
+                    <div class="slide-content">
+                        <h1>Special Offers</h1>
+                        <p class="lead">Discover amazing deals on bestsellers and new releases every week.</p>
+                        <!-- <a href="#Featuredbooks"><button class="btn btn-primary">Shop Now</button></a> -->
                     </div>
-                    <div class="col-lg-6" data-aos="fade-left">
-                        <img src="https://via.placeholder.com/600x400" alt="Books Collection" class="img-fluid rounded-4 hero-image">
+                </div>
+                <div class="slides fade">
+                    <img src="images/slideshow/bookslide (4).jpg" alt="Digital Reading">
+                    <div class="slide-content">
+                        <h1>Digital Reading Experience</h1>
+                        <p class="lead">Customize your reading with adjustable fonts, themes, and bookmarking features.</p>
+                        <!-- <a href="#features"><button class="btn btn-primary">Learn More</button></a> -->
                     </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="prev" onclick="changeSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="next" onclick="changeSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <!-- Dots Navigation -->
+                <div class="dots-container">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
                 </div>
             </div>
         </section>
 
-        <section class="featured-books py-5 bg-light">
+        <section id="categories" class="categories-section">
             <div class="container">
-                <div class="section-header text-center mb-5" data-aos="fade-up">
-                    <h2 class="display-6 fw-bold">Featured Books</h2>
-                    <p class="text-muted">Handpicked selections for your reading pleasure</p>
-                </div>
-                <div class="row g-4">
-                    <!-- Book 1 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1684734440i/123771533.jpg" class="card-img-top" alt="Iron Flame">
-                                <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
+                <h2 class="section-title">Popular Categories</h2>
+                <p class="text-center text-muted mb-5">Find your favorite genre</p>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                       <a href="categories.html#thriller" style="text-decoration: none; color: inherit;">
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-mask"></i>
+                            </div>
+                            <h3>Thriller</h3>
+                            <!-- <p>850+ Books</p> -->
+                        </div>
+                       </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <a href="categories.html#horror" style="text-decoration: none; color: inherit;">
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-ghost"></i>
+                            </div>
+                            <h3>Horror</h3>
+                            <!-- <p>600+ Books</p> -->
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <a href="categories.html#mystery" style="text-decoration: none; color: inherit;">
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-magnifying-glass"></i>
+                            </div>
+                            <h3>Mystery</h3>
+                            <!-- <p>750+ Books</p> -->
+                        </div>
+                    </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <a href="categories.html#fantasy" style="text-decoration: none; color: inherit;">
+                        <div class="category-card">
+                            <div class="category-icon">
+                                <i class="fas fa-dragon"></i>
+                            </div>
+                            <h3>Fantasy</h3>
+                            <!-- <p>900+ Books</p> -->
+                        </div>
+                    </a>
+                    </div>
                                 </div>
                             </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star-half-alt text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.8)</span>
+        </section>
+
+        <section id="Featuredbooks" class="new-books-section">
+            <div class="container">
+                <h2 class="section-title">Featured Books</h2>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="book-card">
+                            <div class="book-image-container">
+                                <img src="images/hp.jpg" alt="The Silent Patient">
+                                <div class="book-overlay">
+                                    <button class="btn quick-view">Quick View</button>
+                                    <button class="btn add-to-cart">Add to Cart</button>
                                 </div>
-                                <h3 class="card-title h5">Iron Flame</h3>
-                                <p class="card-text text-muted">Rebecca Yarros</p>
-                                <span class="price d-block mb-3">$29.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
+                            </div>
+                            <div class="book-info">
+                                <h3>The Silent Patient</h3>
+                                <p class="book-author">Alex Michaelides</p>
+                                <div class="price">$19.99</div>
+                                <div class="category-tag">Thriller</div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Book 2 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1674488235i/62897140.jpg" class="card-img-top" alt="Happy Place">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="book-card">
+                            <div class="book-image-container">
+                                <img src="images/ml.jpg" alt="The Midnight Library">
                                 <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
+                                    <button class="btn quick-view">Quick View</button>
+                                    <button class="btn add-to-cart">Add to Cart</button>
                                 </div>
                             </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star-half-alt text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.6)</span>
-                                </div>
-                                <h3 class="card-title h5">Happy Place</h3>
-                                <p class="card-text text-muted">Emily Henry</p>
-                                <span class="price d-block mb-3">$25.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
+                            <div class="book-info">
+                                <h3>The Midnight Library</h3>
+                                <p class="book-author">Matt Haig</p>
+                                <div class="price">$21.99</div>
+                                <div class="category-tag">Fantasy</div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Book 3 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1684937601i/123772674.jpg" class="card-img-top" alt="House of Flame and Shadow">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="book-card">
+                            <div class="book-image-container">
+                                <img src="images/sdp.jpeg" alt="Project Hail Mary">
                                 <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
+                                    <button class="btn quick-view">Quick View</button>
+                                    <button class="btn add-to-cart">Add to Cart</button>
                                 </div>
                             </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.9)</span>
-                                </div>
-                                <h3 class="card-title h5">House of Flame and Shadow</h3>
-                                <p class="card-text text-muted">Sarah J. Maas</p>
-                                <span class="price d-block mb-3">$28.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book 4 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1636978687i/58784475.jpg" class="card-img-top" alt="Tomorrow, and Tomorrow, and Tomorrow">
-                                <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
-                                </div>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star-half-alt text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.7)</span>
-                                </div>
-                                <h3 class="card-title h5">Tomorrow, and Tomorrow, and Tomorrow</h3>
-                                <p class="card-text text-muted">Gabrielle Zevin</p>
-                                <span class="price d-block mb-3">$26.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book 5 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1664458703i/32620332.jpg" class="card-img-top" alt="The Seven Husbands of Evelyn Hugo">
-                                <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
-                                </div>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.8)</span>
-                                </div>
-                                <h3 class="card-title h5">The Seven Husbands of Evelyn Hugo</h3>
-                                <p class="card-text text-muted">Taylor Jenkins Reid</p>
-                                <span class="price d-block mb-3">$23.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book 6 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1681292311i/61431922.jpg" class="card-img-top" alt="Fourth Wing">
-                                <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
-                                </div>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star-half-alt text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.7)</span>
-                                </div>
-                                <h3 class="card-title h5">Fourth Wing</h3>
-                                <p class="card-text text-muted">Rebecca Yarros</p>
-                                <span class="price d-block mb-3">$27.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book 7 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1642705453i/60177373.jpg" class="card-img-top" alt="Demon Copperhead">
-                                <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
-                                </div>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star-half-alt text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.6)</span>
-                                </div>
-                                <h3 class="card-title h5">Demon Copperhead</h3>
-                                <p class="card-text text-muted">Barbara Kingsolver</p>
-                                <span class="price d-block mb-3">$26.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book 8 -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up">
-                        <div class="card h-100 book-card border-0 shadow-sm">
-                            <div class="book-image-wrapper">
-                                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1620324329i/16096824.jpg" class="card-img-top" alt="A Court of Thorns and Roses">
-                                <div class="book-overlay">
-                                    <button class="btn btn-light btn-sm quick-view">Quick View</button>
-                                </div>
-                            </div>
-                            <div class="card-body text-center">
-                                <div class="book-rating mb-2">
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star text-danger"></i>
-                                    <i class="fas fa-star-half-alt text-danger"></i>
-                                    <span class="ms-2 text-muted">(4.5)</span>
-                                </div>
-                                <h3 class="card-title h5">A Court of Thorns and Roses</h3>
-                                <p class="card-text text-muted">Sarah J. Maas</p>
-                                <span class="price d-block mb-3">$24.99</span>
-                                <button class="btn btn-danger w-100">Add to Cart</button>
+                            <div class="book-info">
+                                <h3>Project Hail Mary</h3>
+                                <p class="book-author">Andy Weir</p>
+                                <div class="price">$24.99</div>
+                                <div class="category-tag">Sci-Fi</div>
                             </div>
                         </div>
                     </div>
@@ -294,58 +233,15 @@
             </div>
         </section>
 
-        <section class="categories py-5">
-            <div class="container">
-                <div class="section-header text-center mb-5" data-aos="fade-up">
-                    <h2 class="display-6 fw-bold">Popular Categories</h2>
-                    <p class="text-muted">Find your favorite genre</p>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="card category-card border-0 shadow-sm text-center p-4">
-                            <i class="fas fa-book-open fa-3x mb-3 text-danger"></i>
-                            <h3 class="h5">Fiction</h3>
-                            <p class="text-muted mb-0">1200+ Books</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="card category-card border-0 shadow-sm text-center p-4">
-                            <i class="fas fa-graduation-cap fa-3x mb-3 text-danger"></i>
-                            <h3 class="h5">Academic</h3>
-                            <p class="text-muted mb-0">800+ Books</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="card category-card border-0 shadow-sm text-center p-4">
-                            <i class="fas fa-ghost fa-3x mb-3 text-danger"></i>
-                            <h3 class="h5">Horror</h3>
-                            <p class="text-muted mb-0">500+ Books</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="card category-card border-0 shadow-sm text-center p-4">
-                            <i class="fas fa-microscope fa-3x mb-3 text-danger"></i>
-                            <h3 class="h5">Science</h3>
-                            <p class="text-muted mb-0">600+ Books</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="newsletter py-5 bg-dark text-white">
+        <section class="subscribe-section">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-8 text-center" data-aos="fade-up">
-                        <h2 class="display-6 fw-bold mb-4">Stay Updated</h2>
-                        <p class="lead mb-4">Subscribe to our newsletter for the latest books and exclusive offers!</p>
+                    <div class="col-md-8 text-center">
+                        <h2>Subscribe To Receive The Latest Updates</h2>
                         <form class="subscribe-form">
                             <div class="input-group">
-                                <input type="email" class="form-control form-control-lg" placeholder="Enter your email">
-                                <button class="btn btn-danger btn-lg" type="submit">
-                                    Subscribe
-                                    <i class="fas fa-paper-plane ms-2"></i>
-                                </button>
+                                <input type="email" class="form-control" placeholder="Enter your email">
+                                <button type="submit" class="btn btn-primary">Subscribe</button>
                             </div>
                         </form>
                     </div>
@@ -354,162 +250,196 @@
         </section>
     </main>
 
-    <footer class="bg-dark text-white py-5">
+    <footer>
         <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <h3 class="h5 mb-3">About BookHaven</h3>
-                    <p class="text-muted">Your one-stop destination for all literary needs. We provide the best collection of books at competitive prices.</p>
-                    <div class="social-links mt-3">
-                        <a href="#" class="text-muted me-3"><i class="fab fa-facebook fa-lg"></i></a>
-                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a href="#" class="text-muted me-3"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-pinterest fa-lg"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h3 class="h5 mb-3">Quick Links</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#about" class="text-muted text-decoration-none">About Us</a></li>
-                        <li><a href="#contact" class="text-muted text-decoration-none">Contact</a></li>
-                        <li><a href="#shipping" class="text-muted text-decoration-none">Shipping Info</a></li>
-                        <li><a href="#returns" class="text-muted text-decoration-none">Returns</a></li>
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="#faq">FAQs</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h3 class="h5 mb-3">Customer Service</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#faq" class="text-muted text-decoration-none">FAQ</a></li>
-                        <li><a href="#track" class="text-muted text-decoration-none">Track Order</a></li>
-                        <li><a href="#privacy" class="text-muted text-decoration-none">Privacy Policy</a></li>
-                        <li><a href="#terms" class="text-muted text-decoration-none">Terms & Conditions</a></li>
+                <div class="col-md-3">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#careers">Our team</a></li>
+                        <li><a href="#help">Help center</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h3 class="h5 mb-3">Contact Us</h3>
-                    <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Book Street, Reading City</li>
-                        <li><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-envelope me-2"></i> info@bookhaven.com</li>
+                <div class="col-md-3">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="#email">info@ebooks.com</a></li>
+                        <li><a href="#phone">+1 234 567 890</a></li>
+                        <li><a href="#location">New York, USA</a></li>
                     </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Social</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
-            <div class="border-top border-secondary mt-4 pt-4 text-center">
-                <p class="text-muted mb-0">&copy; 2024 BookHaven. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-    <!-- AOS Animation -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Search Functionality -->
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
         // Get DOM elements
-        const searchInput = document.querySelector('.search-input');
-        const searchBtn = document.querySelector('.search-btn');
-
-        // Add floating search results container
-        const searchContainer = document.querySelector('.search-container');
-        const resultsContainer = document.createElement('div');
-        resultsContainer.className = 'search-results';
-        searchContainer.appendChild(resultsContainer);
-
-        // Add real-time search suggestions
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            if (searchTerm.length > 0) {
-                // Get all book cards
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
                 const bookCards = document.querySelectorAll('.book-card');
-                const suggestions = Array.from(bookCards)
-                    .filter(card => {
-                        const title = card.querySelector('.card-title').textContent.toLowerCase();
-                        const author = card.querySelector('.card-text').textContent.toLowerCase();
-                        return title.includes(searchTerm) || author.includes(searchTerm);
-                    })
-                    .slice(0, 5);
 
-                if (suggestions.length > 0) {
-                    resultsContainer.innerHTML = suggestions.map(card => `
-                        <div class="search-suggestion" onclick="selectBook('${card.querySelector('.card-title').textContent}')">
-                            <div class="suggestion-title">${card.querySelector('.card-title').textContent}</div>
-                            <div class="suggestion-author">by ${card.querySelector('.card-text').textContent}</div>
-                        </div>
-                    `).join('');
-                    resultsContainer.style.display = 'block';
-                } else {
-                    resultsContainer.style.display = 'none';
-                }
-            } else {
-                resultsContainer.style.display = 'none';
-            }
-        });
-
-        // Function to handle book selection from suggestions
-        window.selectBook = function(title) {
-            searchInput.value = title;
-            resultsContainer.style.display = 'none';
-            filterBooks(title);
-        };
-
-        // Function to filter and display books
-        function filterBooks(searchTerm) {
-            const bookCards = document.querySelectorAll('.book-card');
-            const searchString = searchTerm.toLowerCase();
-
+        // Function to show/hide books based on search
+        function filterVisibleBooks(searchTerm) {
             bookCards.forEach(card => {
-                const title = card.querySelector('.card-title').textContent.toLowerCase();
-                const author = card.querySelector('.card-text').textContent.toLowerCase();
-                const cardContainer = card.closest('.col-lg-3');
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const author = card.querySelector('.book-author').textContent.toLowerCase();
                 
-                if (title.includes(searchString) || author.includes(searchString)) {
-                    cardContainer.style.display = '';
+                if (searchTerm === '' || 
+                    title.includes(searchTerm) || 
+                    author.includes(searchTerm)) {
+                    card.style.display = 'block';
                 } else {
-                    cardContainer.style.display = 'none';
+                    card.style.display = 'none';
                 }
             });
-
-            // Show "No results" message if all books are hidden
-            const visibleBooks = document.querySelectorAll('.book-card:not([style*="display: none"])');
-            const noResultsMessage = document.querySelector('.no-results-message');
-            
-            if (visibleBooks.length === 0) {
-                if (!noResultsMessage) {
-                    const message = document.createElement('div');
-                    message.className = 'col-12 text-center no-results-message';
-                    message.innerHTML = `
-                        <div class="alert alert-info" role="alert">
-                            No books found matching "${searchTerm}"
-                        </div>
-                    `;
-                    document.querySelector('.row.g-4').appendChild(message);
-                }
-            } else if (noResultsMessage) {
-                noResultsMessage.remove();
-            }
         }
 
-        // Event listeners
-        searchInput.addEventListener('input', (e) => {
-            filterBooks(e.target.value);
-        });
+        // Function to get visible books data
+        function getVisibleBooksData() {
+            return Array.from(bookCards).filter(card => 
+                card.style.display !== 'none'
+            ).map(card => ({
+                title: card.querySelector('h3').textContent,
+                author: card.querySelector('.book-author').textContent,
+                price: card.querySelector('.price').textContent,
+                image: card.querySelector('img').src,
+                category: card.querySelector('.category-tag').textContent
+            }));
+        }
 
-        searchBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            filterBooks(searchInput.value);
-        });
-
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!searchContainer.contains(e.target)) {
-                resultsContainer.style.display = 'none';
+        // Function to display search results dropdown
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">No books found</div>';
+            } else {
+                const html = results.map(book => `
+                    <div class="search-result-item" onclick="selectBook('${book.title}')">
+                        <img src="${book.image}" alt="${book.title}">
+                        <div class="book-details">
+                            <div class="book-title">${book.title}</div>
+                            <div class="book-author">${book.author}</div>
+                            <div class="book-price">${book.price}</div>
+                        </div>
+                    </div>
+                `).join('');
+                searchResults.innerHTML = html;
             }
+            searchResults.style.display = 'block';
+        }
+
+        // Function to handle book selection
+        function selectBook(title) {
+            searchInput.value = title;
+            searchResults.style.display = 'none';
+            // Filter books to show only the selected one
+            filterVisibleBooks(title.toLowerCase());
+            // Scroll to the book section
+            const bookSection = document.querySelector('.new-books-section');
+            bookSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Search input event listener
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            // Show/hide books based on search
+            filterVisibleBooks(searchTerm);
+            
+            if (searchTerm === '') {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            // Update dropdown with visible books
+            const visibleBooks = getVisibleBooksData();
+            displaySearchResults(visibleBooks);
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- Slideshow Script -->
+    <script>
+        let slideIndex = 1;
+        let slideInterval;
+
+        // Show slides
+        function showSlides(n) {
+            const slides = document.getElementsByClassName("slides");
+            const dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+            
+            // Hide all slides
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+                dots[i].classList.remove("active");
+            }
+            
+            // Show current slide
+            slides[slideIndex - 1].classList.add("active");
+            dots[slideIndex - 1].classList.add("active");
+        }
+
+        // Next/previous controls
+        function changeSlide(n) {
+            clearInterval(slideInterval);
+            showSlides(slideIndex += n);
+            startSlideshow();
+        }
+
+        // Dot controls
+        function currentSlide(n) {
+            clearInterval(slideInterval);
+            showSlides(slideIndex = n);
+            startSlideshow();
+        }
+
+        // Auto slideshow
+        function startSlideshow() {
+            slideInterval = setInterval(() => {
+                showSlides(slideIndex += 1);
+            }, 5000); // Change slide every 5 seconds
+        }
+
+        // Initialize slideshow
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlides(slideIndex);
+            startSlideshow();
         });
     </script>
 </body>

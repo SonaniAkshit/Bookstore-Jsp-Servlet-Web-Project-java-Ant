@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - E-Books Digital Library</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/book-reader.svg">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <!-- Header/Navbar (Same as index.html) -->
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <i class="fas fa-book-reader me-2"></i>
+                    <span class="brand-text">E-Books</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#Featuredbooks">Explore Now</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#categories">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="nav-right d-flex align-items-center">
+                        <a href="#cart" class="btn cart-button me-2">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                        <a href="login.html" class="btn login-button">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="about-hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h1 class="display-4 fw-bold mb-4">Our Story</h1>
+                        <p class="lead mb-4">Welcome to E-Books, your premier digital library destination. Since our founding in 2020, we've been passionate about making literature accessible to everyone, everywhere.</p>
+                        <div class="d-flex gap-3">
+                            <div class="stat-box">
+                                <h3>50K+</h3>
+                                <p>Active Readers</p>
+                            </div>
+                            <div class="stat-box">
+                                <h3>100K+</h3>
+                                <p>Books Available</p>
+                            </div>
+                            <div class="stat-box">
+                                <h3>24/7</h3>
+                                <p>Customer Support</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <img src="images/about-hero.jpg" alt="About Us Hero Image" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="mission-card">
+                            <div class="icon-box">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3>Our Mission</h3>
+                            <p>To make quality literature accessible to everyone through innovative digital solutions.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="mission-card">
+                            <div class="icon-box">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>Our Vision</h3>
+                            <p>To become the world's most trusted and comprehensive digital library platform.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="mission-card">
+                            <div class="icon-box">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3>Our Values</h3>
+                            <p>Innovation, accessibility, integrity, and passion for literature guide everything we do.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="container">
+                <h2 class="section-title text-center mb-5">Meet Our Team</h2>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="team-card">
+                            <img src="images/team1.jpg" alt="Team Member" class="team-img">
+                            <div class="team-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>CEO & Founder</p>
+                                <div class="social-links">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="team-card">
+                            <img src="images/team2.jpg" alt="Team Member" class="team-img">
+                            <div class="team-info">
+                                <h4>Michael Chen</h4>
+                                <p>Head of Technology</p>
+                                <div class="social-links">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="team-card">
+                            <img src="images/team3.jpg" alt="Team Member" class="team-img">
+                            <div class="team-info">
+                                <h4>Emily Rodriguez</h4>
+                                <p>Content Director</p>
+                                <div class="social-links">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="team-card">
+                            <img src="images/team4.jpg" alt="Team Member" class="team-img">
+                            <div class="team-info">
+                                <h4>David Kim</h4>
+                                <p>UX Designer</p>
+                                <div class="social-links">
+                                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="achievements-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h2 class="section-title">Our Achievements</h2>
+                        <div class="achievement-timeline">
+                            <div class="timeline-item">
+                                <div class="year">2020</div>
+                                <div class="content">
+                                    <h4>Platform Launch</h4>
+                                    <p>Successfully launched our digital library platform with 10,000 titles.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="year">2021</div>
+                                <div class="content">
+                                    <h4>Mobile App Release</h4>
+                                    <p>Launched our mobile application with offline reading capabilities.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="year">2022</div>
+                                <div class="content">
+                                    <h4>Global Expansion</h4>
+                                    <p>Expanded our services to 50+ countries worldwide.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="year">2023</div>
+                                <div class="content">
+                                    <h4>Industry Recognition</h4>
+                                    <p>Received "Best Digital Library Platform" award.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <img src="images/achievements.jpg" alt="Our Achievements" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Same as index.html) -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="#faq">FAQs</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#community">Community</a></li>
+                        <li><a href="#careers">Our team</a></li>
+                        <li><a href="#help">Help center</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="#email">info@ebooks.com</a></li>
+                        <li><a href="#phone">+1 234 567 890</a></li>
+                        <li><a href="#location">New York, USA</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Social</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+</html> 

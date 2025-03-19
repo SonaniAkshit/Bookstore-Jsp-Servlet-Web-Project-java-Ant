@@ -1,0 +1,135 @@
+/* OTP Page Styles */
+:root {
+    --primary-color: #333652;
+    --accent-color: #FAD02C;
+    --text-color: #333333;
+    --text-light: #666666;
+    --bg-color: #f8f9fa;
+    --bg-light: #e9ecef;
+    --heading-font: 'Playfair Display', serif;
+    --body-font: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-family: var(--body-font);
+    margin: 0;
+}
+
+.otp-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 2rem 1.5rem;
+}
+
+.otp-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+}
+
+.otp-logo i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.otp-logo span {
+    font-family: var(--heading-font);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+h2 {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.otp-input {
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--bg-light);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(250, 208, 44, 0.1);
+    outline: none;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: 100%;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.resend-timer {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+#timer {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.resend {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.resend:hover {
+    color: var(--primary-color);
+}
+
+@media (max-width: 576px) {
+    .otp-container {
+        margin: 0.5rem;
+        padding: 1.5rem 1rem;
+    }
+    
+    .otp-input {
+        width: 45px;
+        height: 45px;
+        font-size: 1.125rem;
+    }
+} 

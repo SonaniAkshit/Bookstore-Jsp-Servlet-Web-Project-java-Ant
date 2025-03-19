@@ -1,0 +1,18 @@
+MyWebProject/                   
+│── src/                        # Java source files
+│── web/                        # Web application root directory
+│   ├── index.jsp               # Main JSP file
+│   ├── css/                    # CSS files
+│   │   ├── style.css           # Main CSS file
+│   ├── js/                     # JavaScript files
+│   │   ├── script.js           # Custom JavaScript file
+│   ├── images/                 # Images and icons
+│   ├── WEB-INF/                # Web Application Configuration
+│   │   ├── web.xml             # Deployment Descriptor
+│   │   ├── lib/                # External JAR Libraries
+│── build.xml                   # Ant build script
+│── nbproject/                  # NetBeans-specific files
+│── dist/                       # Generated WAR file
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="js/script.js"></script>

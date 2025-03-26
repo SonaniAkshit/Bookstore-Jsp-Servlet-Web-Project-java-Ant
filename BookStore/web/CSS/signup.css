@@ -66,6 +66,49 @@ h2 {
     margin-bottom: 0.75rem;
 }
 
+.gender-radio-group {
+    background-color: var(--bg-color);
+    border: 1px solid var(--bg-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+    height: 100%;
+}
+
+.gender-radio-group .form-label {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-check-inline {
+    margin-right: 1.25rem;
+}
+
+.form-check-input[type="radio"] {
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: 0.2rem;
+    border: 2px solid var(--text-light);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.form-check-input[type="radio"]:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-input[type="radio"]:hover {
+    border-color: var(--primary-color);
+}
+
+.form-check-label {
+    padding-left: 0.25rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
 .form-control, .form-select {
     border: 1px solid var(--bg-light);
     border-radius: 8px;
@@ -146,4 +189,4 @@ h2 {
     h2 {
         font-size: 1.25rem;
     }
-} 
+}

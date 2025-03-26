@@ -3,7 +3,8 @@
 <!-- Include Header -->
 <jsp:include page="header.jsp" />
 
-<main>
+<!-- Main Content -->
+<main class="main-content">
 <section class="hero-section">
     <div class="slideshow-container">
         <div class="slides fade active">
@@ -62,7 +63,7 @@
         <p class="text-center text-muted mb-5">Find your favorite genre</p>
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.html#thriller" style="text-decoration: none; color: inherit;">
+                <a href="categories.jsp#thriller" style="text-decoration: none; color: inherit;">
                 <div class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-mask"></i>
@@ -73,7 +74,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.html#horror" style="text-decoration: none; color: inherit;">
+                <a href="categories.jsp#horror" style="text-decoration: none; color: inherit;">
                 <div class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-ghost"></i>
@@ -84,7 +85,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.html#mystery" style="text-decoration: none; color: inherit;">
+                <a href="categories.jsp#mystery" style="text-decoration: none; color: inherit;">
                 <div class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-magnifying-glass"></i>
@@ -95,7 +96,7 @@
             </a>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.html#fantasy" style="text-decoration: none; color: inherit;">
+                <a href="categories.jsp#fantasy" style="text-decoration: none; color: inherit;">
                 <div class="category-card">
                     <div class="category-icon">
                         <i class="fas fa-dragon"></i>
@@ -167,7 +168,7 @@
         </div>
     </div>
 </section>
-
+<!-- 
 <section class="subscribe-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -182,12 +183,13 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 </main>
 
 <!-- Include Footer -->
 <jsp:include page="footer.jsp" />
 
-<!-- Bootstrap JS -->
+<!-- JavaScript Dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="Js/search.js"></script>
+<script src="Js/slideshow.js"></script>

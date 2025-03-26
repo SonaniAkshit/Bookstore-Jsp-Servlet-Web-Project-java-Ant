@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,53 +17,8 @@
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <i class="fas fa-book-reader me-2"></i>
-                    <span class="brand-text">E-Books</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#Featuredbooks">Explore Now</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#categories">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                    </ul>
-                    <div class="nav-right d-flex align-items-center">
-                        <div class="search-container me-3">
-                            <div class="search-wrapper">
-                                <input type="text" class="search-input" id="searchInput" placeholder="Search books...">
-                                <i class="fas fa-search search-icon"></i>
-                            </div>
-                            <div class="search-results" id="searchResults"></div>
-                        </div>
-                        <a href="#cart" class="btn cart-button me-2">
-                            <i class="fas fa-shopping-cart"></i>
-                        </a>
-                        <a href="login.html" class="btn login-button">
-                            <i class="fas fa-user"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- Include Header -->
+    <jsp:include page="header.jsp" />
 
     <main>
         <!-- Category Search Section -->
@@ -397,326 +353,287 @@
             </div>
         </section>
     </main>
+    <!-- Include Footer -->
+    <jsp:include page="footer.jsp" />
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h3>About</h3>
-                    <ul class="footer-links">
-                        <li><a href="#faq">FAQs</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#community">Community</a></li>
-                        <li><a href="#careers">Our team</a></li>
-                        <li><a href="#help">Help center</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h3>Contact</h3>
-                    <ul class="footer-links">
-                        <li><a href="#email">info@ebooks.com</a></li>
-                        <li><a href="#phone">+1 234 567 890</a></li>
-                        <li><a href="#location">New York, USA</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h3>Social</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="Js/search.js"></script>
+    <!-- Search Functionality -->
+   <script>
+    // Get DOM elements
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+            const bookCards = document.querySelectorAll('.book-card');
+
+    // Function to show/hide books based on search
+    function filterVisibleBooks(searchTerm) {
+        bookCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const author = card.querySelector('.book-author').textContent.toLowerCase();
+            
+            if (searchTerm === '' || 
+                title.includes(searchTerm) || 
+                author.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to get visible books data
+    function getVisibleBooksData() {
+        return Array.from(bookCards).filter(card => 
+            card.style.display !== 'none'
+        ).map(card => ({
+            title: card.querySelector('h3').textContent,
+            author: card.querySelector('.book-author').textContent,
+            price: card.querySelector('.price').textContent,
+            image: card.querySelector('img').src,
+            category: card.querySelector('.category-tag').textContent
+        }));
+    }
+
+    // Function to display search results dropdown
+    function displaySearchResults(results) {
+        if (results.length === 0) {
+            searchResults.innerHTML = '<div class="no-results">No books found</div>';
+        } else {
+            const html = results.map(book => `
+                <div class="search-result-item" onclick="selectBook('${book.title}')">
+                    <img src="${book.image}" alt="${book.title}">
+                    <div class="book-details">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">${book.author}</div>
+                        <div class="book-price">${book.price}</div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </footer>
+            `).join('');
+            searchResults.innerHTML = html;
+        }
+        searchResults.style.display = 'block';
+    }
 
-   <!-- Bootstrap JS -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-   <!-- Search Functionality -->
-   <script>
-       // Get DOM elements
-       const searchInput = document.getElementById('searchInput');
-       const searchResults = document.getElementById('searchResults');
-               const bookCards = document.querySelectorAll('.book-card');
+    // Function to handle book selection
+    function selectBook(title) {
+        searchInput.value = title;
+        searchResults.style.display = 'none';
+        // Filter books to show only the selected one
+        filterVisibleBooks(title.toLowerCase());
+        // Scroll to the book section
+        const bookSection = document.querySelector('.new-books-section');
+        bookSection.scrollIntoView({ behavior: 'smooth' });
+    }
 
-       // Function to show/hide books based on search
-       function filterVisibleBooks(searchTerm) {
-           bookCards.forEach(card => {
-               const title = card.querySelector('h3').textContent.toLowerCase();
-               const author = card.querySelector('.book-author').textContent.toLowerCase();
-               
-               if (searchTerm === '' || 
-                   title.includes(searchTerm) || 
-                   author.includes(searchTerm)) {
-                   card.style.display = 'block';
-               } else {
-                   card.style.display = 'none';
-               }
-           });
-       }
+    // Search input event listener
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        
+        // Show/hide books based on search
+        filterVisibleBooks(searchTerm);
+        
+        if (searchTerm === '') {
+            searchResults.style.display = 'none';
+            return;
+        }
 
-       // Function to get visible books data
-       function getVisibleBooksData() {
-           return Array.from(bookCards).filter(card => 
-               card.style.display !== 'none'
-           ).map(card => ({
-               title: card.querySelector('h3').textContent,
-               author: card.querySelector('.book-author').textContent,
-               price: card.querySelector('.price').textContent,
-               image: card.querySelector('img').src,
-               category: card.querySelector('.category-tag').textContent
-           }));
-       }
+        // Update dropdown with visible books
+        const visibleBooks = getVisibleBooksData();
+        displaySearchResults(visibleBooks);
+    });
 
-       // Function to display search results dropdown
-       function displaySearchResults(results) {
-           if (results.length === 0) {
-               searchResults.innerHTML = '<div class="no-results">No books found</div>';
-           } else {
-               const html = results.map(book => `
-                   <div class="search-result-item" onclick="selectBook('${book.title}')">
-                       <img src="${book.image}" alt="${book.title}">
-                       <div class="book-details">
-                           <div class="book-title">${book.title}</div>
-                           <div class="book-author">${book.author}</div>
-                           <div class="book-price">${book.price}</div>
-                       </div>
-                   </div>
-               `).join('');
-               searchResults.innerHTML = html;
-           }
-           searchResults.style.display = 'block';
-       }
+    // Close search results when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.style.display = 'none';
+        }
+    });
+</script>
 
-       // Function to handle book selection
-       function selectBook(title) {
-           searchInput.value = title;
-           searchResults.style.display = 'none';
-           // Filter books to show only the selected one
-           filterVisibleBooks(title.toLowerCase());
-           // Scroll to the book section
-           const bookSection = document.querySelector('.new-books-section');
-           bookSection.scrollIntoView({ behavior: 'smooth' });
-       }
+<!-- Slideshow Script -->
+<script>
+    let slideIndex = 1;
+    let slideInterval;
 
-       // Search input event listener
-       searchInput.addEventListener('input', (e) => {
-           const searchTerm = e.target.value.toLowerCase().trim();
-           
-           // Show/hide books based on search
-           filterVisibleBooks(searchTerm);
-           
-           if (searchTerm === '') {
-               searchResults.style.display = 'none';
-               return;
-           }
+    // Show slides
+    function showSlides(n) {
+        const slides = document.getElementsByClassName("slides");
+        const dots = document.getElementsByClassName("dot");
+        
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        
+        // Hide all slides
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("active");
+            dots[i].classList.remove("active");
+        }
+        
+        // Show current slide
+        slides[slideIndex - 1].classList.add("active");
+        dots[slideIndex - 1].classList.add("active");
+    }
 
-           // Update dropdown with visible books
-           const visibleBooks = getVisibleBooksData();
-           displaySearchResults(visibleBooks);
-       });
+    // Next/previous controls
+    function changeSlide(n) {
+        clearInterval(slideInterval);
+        showSlides(slideIndex += n);
+        startSlideshow();
+    }
 
-       // Close search results when clicking outside
-       document.addEventListener('click', (e) => {
-           if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-               searchResults.style.display = 'none';
-           }
-       });
-   </script>
+    // Dot controls
+    function currentSlide(n) {
+        clearInterval(slideInterval);
+        showSlides(slideIndex = n);
+        startSlideshow();
+    }
 
-   <!-- Slideshow Script -->
-   <script>
-       let slideIndex = 1;
-       let slideInterval;
+    // Auto slideshow
+    function startSlideshow() {
+        slideInterval = setInterval(() => {
+            showSlides(slideIndex += 1);
+        }, 5000); // Change slide every 5 seconds
+    }
 
-       // Show slides
-       function showSlides(n) {
-           const slides = document.getElementsByClassName("slides");
-           const dots = document.getElementsByClassName("dot");
-           
-           if (n > slides.length) {
-               slideIndex = 1;
-           }
-           if (n < 1) {
-               slideIndex = slides.length;
-           }
-           
-           // Hide all slides
-           for (let i = 0; i < slides.length; i++) {
-               slides[i].classList.remove("active");
-               dots[i].classList.remove("active");
-           }
-           
-           // Show current slide
-           slides[slideIndex - 1].classList.add("active");
-           dots[slideIndex - 1].classList.add("active");
-       }
+    // Initialize slideshow
+    document.addEventListener('DOMContentLoaded', function() {
+        showSlides(slideIndex);
+        startSlideshow();
+    });
+</script>
 
-       // Next/previous controls
-       function changeSlide(n) {
-           clearInterval(slideInterval);
-           showSlides(slideIndex += n);
-           startSlideshow();
-       }
+<!-- Category Search Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all filter buttons and book cards
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const bookCards = document.querySelectorAll('.book-card');
+        const searchInput = document.getElementById('categorySearchInput');
+        const searchResults = document.getElementById('categorySearchResults');
 
-       // Dot controls
-       function currentSlide(n) {
-           clearInterval(slideInterval);
-           showSlides(slideIndex = n);
-           startSlideshow();
-       }
+        // Function to filter books by category and search term
+        function filterBooks() {
+            const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
 
-       // Auto slideshow
-       function startSlideshow() {
-           slideInterval = setInterval(() => {
-               showSlides(slideIndex += 1);
-           }, 5000); // Change slide every 5 seconds
-       }
+            bookCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const author = card.querySelector('.book-author').textContent.toLowerCase();
+                const category = card.dataset.category;
+                
+                const matchesSearch = !searchTerm || 
+                                    title.includes(searchTerm) || 
+                                    author.includes(searchTerm);
+                const matchesCategory = activeCategory === 'all' || 
+                                      category === activeCategory;
 
-       // Initialize slideshow
-       document.addEventListener('DOMContentLoaded', function() {
-           showSlides(slideIndex);
-           startSlideshow();
-       });
-   </script>
+                // Get the parent section
+                const parentSection = card.closest('.category-books-section');
+                
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'block';
+                    if (parentSection) {
+                        parentSection.style.display = 'block';
+                    }
+                } else {
+                    card.style.display = 'none';
+                    // Check if all cards in this section are hidden
+                    if (parentSection) {
+                        const visibleCards = parentSection.querySelectorAll('.book-card[style="display: block;"]');
+                        if (visibleCards.length === 0) {
+                            parentSection.style.display = 'none';
+                        }
+                    }
+                }
+            });
 
-   <!-- Category Search Script -->
-   <script>
-       document.addEventListener('DOMContentLoaded', function() {
-           // Get all filter buttons and book cards
-           const filterButtons = document.querySelectorAll('.filter-btn');
-           const bookCards = document.querySelectorAll('.book-card');
-           const searchInput = document.getElementById('categorySearchInput');
-           const searchResults = document.getElementById('categorySearchResults');
+            // Update search results if search input exists
+            if (searchInput && searchTerm) {
+                updateSearchResults(searchTerm);
+            }
+        }
 
-           // Function to filter books by category and search term
-           function filterBooks() {
-               const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
-               const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+        // Function to update search results dropdown
+        function updateSearchResults(searchTerm) {
+            const visibleBooks = Array.from(bookCards)
+                .filter(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const author = card.querySelector('.book-author').textContent.toLowerCase();
+                    return title.includes(searchTerm) || author.includes(searchTerm);
+                })
+                .map(card => ({
+                    title: card.querySelector('h3').textContent,
+                    author: card.querySelector('.book-author').textContent,
+                    price: card.querySelector('.price').textContent,
+                    image: card.querySelector('img').src,
+                    category: card.querySelector('.category-tag').textContent
+                }));
 
-               bookCards.forEach(card => {
-                   const title = card.querySelector('h3').textContent.toLowerCase();
-                   const author = card.querySelector('.book-author').textContent.toLowerCase();
-                   const category = card.dataset.category;
-                   
-                   const matchesSearch = !searchTerm || 
-                                       title.includes(searchTerm) || 
-                                       author.includes(searchTerm);
-                   const matchesCategory = activeCategory === 'all' || 
-                                         category === activeCategory;
+            if (visibleBooks.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">No books found</div>';
+            } else {
+                const html = visibleBooks.map(book => `
+                    <div class="search-result-item" onclick="scrollToBook('${book.title}')">
+                        <img src="${book.image}" alt="${book.title}">
+                        <div class="book-details">
+                            <div class="book-title">${book.title}</div>
+                            <div class="book-author">${book.author}</div>
+                            <div class="book-price">${book.price}</div>
+                        </div>
+                    </div>
+                `).join('');
+                searchResults.innerHTML = html;
+            }
+            searchResults.style.display = 'block';
+        }
 
-                   // Get the parent section
-                   const parentSection = card.closest('.category-books-section');
-                   
-                   if (matchesSearch && matchesCategory) {
-                       card.style.display = 'block';
-                       if (parentSection) {
-                           parentSection.style.display = 'block';
-                       }
-                   } else {
-                       card.style.display = 'none';
-                       // Check if all cards in this section are hidden
-                       if (parentSection) {
-                           const visibleCards = parentSection.querySelectorAll('.book-card[style="display: block;"]');
-                           if (visibleCards.length === 0) {
-                               parentSection.style.display = 'none';
-                           }
-                       }
-                   }
-               });
+        // Function to scroll to a book
+        window.scrollToBook = function(title) {
+            const book = Array.from(bookCards).find(card => 
+                card.querySelector('h3').textContent === title
+            );
+            if (book) {
+                book.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                searchResults.style.display = 'none';
+                if (searchInput) {
+                    searchInput.value = '';
+                }
+            }
+        };
 
-               // Update search results if search input exists
-               if (searchInput && searchTerm) {
-                   updateSearchResults(searchTerm);
-               }
-           }
+        // Add click event listeners to filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                // Filter books
+                filterBooks();
+            });
+        });
 
-           // Function to update search results dropdown
-           function updateSearchResults(searchTerm) {
-               const visibleBooks = Array.from(bookCards)
-                   .filter(card => {
-                       const title = card.querySelector('h3').textContent.toLowerCase();
-                       const author = card.querySelector('.book-author').textContent.toLowerCase();
-                       return title.includes(searchTerm) || author.includes(searchTerm);
-                   })
-                   .map(card => ({
-                       title: card.querySelector('h3').textContent,
-                       author: card.querySelector('.book-author').textContent,
-                       price: card.querySelector('.price').textContent,
-                       image: card.querySelector('img').src,
-                       category: card.querySelector('.category-tag').textContent
-                   }));
+        // Add input event listener to search input if it exists
+        if (searchInput) {
+            searchInput.addEventListener('input', filterBooks);
+        }
 
-               if (visibleBooks.length === 0) {
-                   searchResults.innerHTML = '<div class="no-results">No books found</div>';
-               } else {
-                   const html = visibleBooks.map(book => `
-                       <div class="search-result-item" onclick="scrollToBook('${book.title}')">
-                           <img src="${book.image}" alt="${book.title}">
-                           <div class="book-details">
-                               <div class="book-title">${book.title}</div>
-                               <div class="book-author">${book.author}</div>
-                               <div class="book-price">${book.price}</div>
-                           </div>
-                       </div>
-                   `).join('');
-                   searchResults.innerHTML = html;
-               }
-               searchResults.style.display = 'block';
-           }
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (searchResults && !searchInput?.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
 
-           // Function to scroll to a book
-           window.scrollToBook = function(title) {
-               const book = Array.from(bookCards).find(card => 
-                   card.querySelector('h3').textContent === title
-               );
-               if (book) {
-                   book.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                   searchResults.style.display = 'none';
-                   if (searchInput) {
-                       searchInput.value = '';
-                   }
-               }
-           };
-
-           // Add click event listeners to filter buttons
-           filterButtons.forEach(button => {
-               button.addEventListener('click', () => {
-                   // Remove active class from all buttons
-                   filterButtons.forEach(btn => btn.classList.remove('active'));
-                   // Add active class to clicked button
-                   button.classList.add('active');
-                   // Filter books
-                   filterBooks();
-               });
-           });
-
-           // Add input event listener to search input if it exists
-           if (searchInput) {
-               searchInput.addEventListener('input', filterBooks);
-           }
-
-           // Close search results when clicking outside
-           document.addEventListener('click', (e) => {
-               if (searchResults && !searchInput?.contains(e.target) && !searchResults.contains(e.target)) {
-                   searchResults.style.display = 'none';
-               }
-           });
-
-           // Initial filter
-           filterBooks();
-       });
-   </script>
+        // Initial filter
+        filterBooks();
+    });
+</script>
 </body>
-</html> 
+</html>

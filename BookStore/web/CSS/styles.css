@@ -1,0 +1,227 @@
+/* Hero Section Styles */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    height: 500px;
+    margin: auto;
+}
+
+.slides {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slides.active {
+    display: block;
+    opacity: 1;
+}
+
+.slides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    width: 80%;
+    max-width: 800px;
+}
+
+.slide-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.slide-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* Navigation Arrows */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.3s;
+}
+
+.prev:hover, .next:hover {
+    background: rgba(0,0,0,0.8);
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+/* Dots Navigation */
+.dots-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dot.active {
+    background: white;
+}
+
+/* Categories Section */
+.categories-section {
+    padding: 4rem 0;
+    background: #f8f9fa;
+}
+
+.category-card {
+    background: white;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.category-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #007bff;
+}
+
+/* Featured Books Section */
+.new-books-section {
+    padding: 4rem 0;
+}
+
+.book-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+.book-image-container {
+    position: relative;
+    height: 300px;
+}
+
+.book-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.book-card:hover .book-overlay {
+    opacity: 1;
+}
+
+.book-overlay .btn {
+    margin: 5px;
+    color: white;
+    border: 2px solid white;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.book-overlay .btn:hover {
+    background: white;
+    color: black;
+}
+
+.book-info {
+    padding: 1.5rem;
+}
+
+.book-info h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.book-author {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: #e9ecef;
+    border-radius: 15px;
+    font-size: 0.875rem;
+    color: #495057;
+}
+
+/* Section Titles */
+.section-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #343a40;
+}

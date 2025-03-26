@@ -25,7 +25,7 @@
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <!-- <div class="mt-3">
+                <div class="mt-3">
                     <p>Subscribe to our newsletter</p>
                     <form class="subscribe-form">
                         <div class="input-group">
@@ -33,11 +33,11 @@
                             <button class="btn btn-accent" type="submit">Subscribe</button>
                         </div>
                     </form>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="text-center mt-4">
-            <p>&copy; 2024 BookStore. All rights reserved.</p>
+            <p>&copy; 2025 eBookStore. All rights reserved.</p>
         </div>
     </div>
 </footer>

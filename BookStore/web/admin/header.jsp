@@ -10,7 +10,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -28,12 +28,12 @@
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp">
+                            <a class="nav-link" href="../index.jsp">
                                 <i class="fas fa-home"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="books.jsp">
+                            <a class="nav-link" href="../books.jsp">
                                 <i class="fas fa-book"></i> Books
                             </a>
                         </li>

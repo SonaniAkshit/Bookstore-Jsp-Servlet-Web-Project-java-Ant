@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +16,31 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/login.css">
+    <style>
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            z-index: 1000;
+        }
+        .home-button:hover {
+            color: #007bff;
+        }
+    </style>
 </head>
 <body class="login-page">
+    <a href="index.jsp" class="home-button" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
     <div class="login-container">
         <div class="login-form-container">
             <div class="login-form">
                 <div class="text-center mb-4">
-                    <a href="index.html" class="login-logo">
+                    <a href="index.jsp" class="login-logo">
                         <i class="fas fa-book-reader"></i>
                         <span>E-Books</span>
                     </a>
@@ -56,7 +75,7 @@
                     <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
                     
                     <p class="text-center mt-4">
-                        Don't have an account? <a href="signup.html" class="signup-link">Sign up</a>
+                        Don't have an account? <a href="signup.jsp" class="signup-link">Sign up</a>
                     </p>
                 </form>
             </div>
@@ -84,4 +103,4 @@
         }
     </script>
 </body>
-</html> 
+</html>

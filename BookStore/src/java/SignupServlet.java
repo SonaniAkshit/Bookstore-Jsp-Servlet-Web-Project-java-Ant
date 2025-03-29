@@ -37,7 +37,7 @@ public class SignupServlet extends HttpServlet {
 
             // Check if email already exists in any of the user tables
             String checkQuery = "SELECT email FROM user WHERE email = ? UNION "
-                              + "SELECT email FROM author WHERE email = ? UNION "
+                              + "SELECT email FROM publisher WHERE email = ? UNION "
                               + "SELECT email FROM admin WHERE email = ?";
 
             PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
@@ -70,8 +70,8 @@ public class SignupServlet extends HttpServlet {
                 String insertQuery = null;
                 if ("user".equalsIgnoreCase(role)) {
                     insertQuery = "INSERT INTO user (name, email, contact, gender, password, role, last_login, last_logout) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)";
-                } else if ("author".equalsIgnoreCase(role)) {
-                    insertQuery = "INSERT INTO author (name, email, contact, gender, password, role, last_login, last_logout) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)";
+                } else if ("publisher".equalsIgnoreCase(role)) {
+                    insertQuery = "INSERT INTO publisher (name, email, contact, gender, password, role, last_login, last_logout) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)";
                 } else if ("admin".equalsIgnoreCase(role)) {
                     insertQuery = "INSERT INTO admin (name, email, contact, gender, password, role, last_login, last_logout) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)";
                 }

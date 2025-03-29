@@ -20,6 +20,10 @@
         <servlet-name>AdminLogoutServlet</servlet-name>
         <servlet-class>AdminLogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PublisherLoginServlet</servlet-name>
+        <servlet-class>PublisherLoginServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>AdminLogoutServlet</servlet-name>
         <url-pattern>/AdminLogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublisherLoginServlet</servlet-name>
+        <url-pattern>/PublisherLoginServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

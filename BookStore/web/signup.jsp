@@ -90,7 +90,7 @@
                             <select class="form-select" id="role" name="role">
                                 <option value="">Select Role</option>
                                 <option value="User">User</option>
-                                <option value="author">Author</option>
+                                <option value="publisher">Publisher</option>
                                 <option value="admin">Admin</option>
                             </select>
                             <label for="role">User Role</label>

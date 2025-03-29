@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - E-Books Digital Library</title>
+    <!-- SweetAlert2 CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/book-reader.svg">
     <!-- Google Fonts -->
@@ -33,33 +36,6 @@
     </style>
 </head>
 <body class="signup-page">
-    <%
-        String messageType = (String) session.getAttribute("messageType");
-        String messageTitle = (String) session.getAttribute("messageTitle");
-        String messageText = (String) session.getAttribute("messageText");
-        
-        if (messageType != null && messageTitle != null && messageText != null) {
-    %>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                icon: '<%= messageType %>',
-                title: '<%= messageTitle %>',
-                text: '<%= messageText %>'
-            }).then((result) => {
-                if ('<%= messageType %>' === 'success') {
-                    window.location.href = 'login.jsp';
-                }
-            });
-        });
-    </script>
-    <%
-            session.removeAttribute("messageType");
-            session.removeAttribute("messageTitle");
-            session.removeAttribute("messageText");
-        }
-    %>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <a href="index.jsp" class="home-button" title="Back to Home">
         <i class="fas fa-arrow-left"></i>
     </a>
@@ -74,7 +50,8 @@
                 </div>
                 <h2 class="text-center mb-3">Create Account</h2>
                 
-                <form class="row g-2" action="SignupServlet" method="post" onsubmit="return validateForm()">
+                <form class="row g-2" action="SignupServlet" method="post">
+                    <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
                     <div class="col-6">
                         <div class="form-floating">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
@@ -105,10 +82,6 @@
                                     <input class="form-check-input" type="radio" name="gender" id="female" value="female">
                                     <label class="form-check-label" for="female">Female</label>
                                 </div>
-                                <!-- <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" id="other" value="other">
-                                    <label class="form-check-label" for="other">Other</label>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -116,9 +89,9 @@
                         <div class="form-floating">
                             <select class="form-select" id="role" name="role">
                                 <option value="">Select Role</option>
-                                <option value="reader">Reader</option>
+                                <option value="User">User</option>
                                 <option value="author">Author</option>
-                                <option value="publisher">Publisher</option>
+                                <option value="admin">Admin</option>
                             </select>
                             <label for="role">User Role</label>
                         </div>
@@ -159,70 +132,6 @@
     
     <!-- Form Validation and Password Toggle Scripts -->
     <script>
-        function validateForm() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const contact = document.getElementById('contact').value.trim();
-            const gender = document.querySelector('input[name="gender"]:checked');
-            const role = document.getElementById('role').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            // Name validation
-            if (name === '') {
-                showError('Please enter your full name');
-                return false;
-            }
-
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showError('Please enter a valid email address');
-                return false;
-            }
-
-            // Contact validation
-            const contactRegex = /^\d{10}$/;
-            if (!contactRegex.test(contact)) {
-                showError('Please enter a valid 10-digit contact number');
-                return false;
-            }
-
-            // Gender validation
-            if (!gender) {
-                showError('Please select your gender');
-                return false;
-            }
-
-            // Role validation
-            if (role === '') {
-                showError('Please select your role');
-                return false;
-            }
-
-            // Password validation
-            if (password.length < 6) {
-                showError('Password must be at least 6 characters long');
-                return false;
-            }
-
-            // Confirm password validation
-            if (password !== confirmPassword) {
-                showError('Passwords do not match');
-                return false;
-            }
-
-            return true;
-        }
-
-        function showError(message) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Validation Error',
-                text: message
-            });
-        }
-
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
             const icon = input.nextElementSibling.querySelector('i');

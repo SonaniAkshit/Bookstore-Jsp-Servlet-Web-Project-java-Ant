@@ -1,125 +1,124 @@
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/SignupServlet")
 public class SignupServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    // Database connection details (move to a config file for better security)
+    // Database connection details
     private static final String DB_URL = "jdbc:mysql://localhost:3306/bookstore";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_PASSWORD = "";  // Update with your actual password
 
-    // Database connection details (move to a config file for better security)
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        
-        // Input validation
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Fetch form data
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String contact = request.getParameter("contact");
         String gender = request.getParameter("gender");
-        String userRole = request.getParameter("role");
+        String role = request.getParameter("role");
         String password = request.getParameter("password");
-        
-        // Check for null values
-        if (name == null || email == null || contact == null || gender == null || userRole == null || password == null) {
-            session.setAttribute("messageType", "error");
-            session.setAttribute("messageTitle", "Error!");
-            session.setAttribute("messageText", "All fields are required.");
-            response.sendRedirect("signup.jsp");
-            return;
-        }
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
 
         try {
-            // Connect to the database
+            // Load JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            conn.setAutoCommit(false); // Enable transaction management
 
-            // Check if the email already exists
-            String checkEmailQuery = "SELECT email FROM users WHERE email = ?";
-            pstmt = conn.prepareStatement(checkEmailQuery);
-            pstmt.setString(1, email);
-            rs = pstmt.executeQuery();
+            // Create connection
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-            if (rs.next()) {
-                session.setAttribute("messageType", "warning");
-                session.setAttribute("messageTitle", "Warning!");
-                session.setAttribute("messageText", "Email already exists!");
-                response.sendRedirect("signup.jsp");
-                return;
-            }
+            // Check if email already exists in any of the user tables
+            String checkQuery = "SELECT email FROM user WHERE email = ? UNION "
+                              + "SELECT email FROM author WHERE email = ? UNION "
+                              + "SELECT email FROM admin WHERE email = ?";
 
-            // Insert new user
-            String insertQuery = "INSERT INTO users (name, email, contact, gender, user_role, password, activation_status) VALUES (?, ?, ?, ?, ?, ?, ?)";            
-            pstmt = conn.prepareStatement(insertQuery);
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            pstmt.setString(3, contact);
-            pstmt.setString(4, gender);
-            pstmt.setString(5, userRole);
-            pstmt.setString(6, password);
-            pstmt.setString(7, "active");
+            PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
+            checkStmt.setString(1, email);
+            checkStmt.setString(2, email);
+            checkStmt.setString(3, email);
 
-            int result = pstmt.executeUpdate();
-
-            if (result > 0) {
-                conn.commit();
-                session.setAttribute("messageType", "success");
-                session.setAttribute("messageTitle", "Success!");
-                session.setAttribute("messageText", "Registration successful! Please login to continue.");
-                response.sendRedirect("login.jsp");
+            ResultSet resultSet = checkStmt.executeQuery();
+            if (resultSet.next()) {
+                // Email already exists; generate SweetAlert2 error message
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().println("<!DOCTYPE html>");
+                response.getWriter().println("<html lang='en'>");
+                response.getWriter().println("<head>");
+                response.getWriter().println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+                response.getWriter().println("</head>");
+                response.getWriter().println("<body>");
+                response.getWriter().println("<script>");
+                response.getWriter().println("Swal.fire({");
+                response.getWriter().println("  icon: 'error',");
+                response.getWriter().println("  title: 'Email Already Registered',");
+                response.getWriter().println("  text: 'Please use a different email.',");
+                response.getWriter().println("  confirmButtonText: 'OK'");
+                response.getWriter().println("}).then(() => { window.location.href = 'signup.jsp'; });");
+                response.getWriter().println("</script>");
+                response.getWriter().println("</body>");
+                response.getWriter().println("</html>");
             } else {
-                conn.rollback();
-                session.setAttribute("messageType", "error");
-                session.setAttribute("messageTitle", "Error!");
-                session.setAttribute("messageText", "Registration failed. Please try again.");
-                response.sendRedirect("signup.jsp");
+                // Insert user data based on the selected role
+                String insertQuery = null;
+                if ("user".equalsIgnoreCase(role)) {
+                    insertQuery = "INSERT INTO user (name, email, contact, gender, password, role, last_login, last_logout) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)";
+                } else if ("author".equalsIgnoreCase(role)) {
+                    insertQuery = "INSERT INTO author (name, email, contact, gender, password, role, last_login, last_logout) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)";
+                } else if ("admin".equalsIgnoreCase(role)) {
+                    insertQuery = "INSERT INTO admin (name, email, contact, gender, password, role, last_login, last_logout) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL)";
+                }
+
+                if (insertQuery != null) {
+                    PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
+                    insertStmt.setString(1, name);
+                    insertStmt.setString(2, email);
+                    insertStmt.setString(3, contact);
+                    insertStmt.setString(4, gender);
+                    insertStmt.setString(5, password);
+                    insertStmt.setString(6, role);
+
+                    int rowsInserted = insertStmt.executeUpdate();
+                    insertStmt.close();
+
+                    // Registration successful, show SweetAlert2 success message
+                    if (rowsInserted > 0) {
+                        response.setContentType("text/html;charset=UTF-8");
+                        response.getWriter().println("<!DOCTYPE html>");
+                        response.getWriter().println("<html lang='en'>");
+                        response.getWriter().println("<head>");
+                        response.getWriter().println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+                        response.getWriter().println("</head>");
+                        response.getWriter().println("<body>");
+                        response.getWriter().println("<script>");
+                        response.getWriter().println("Swal.fire({");
+                        response.getWriter().println("  icon: 'success',");
+                        response.getWriter().println("  title: 'Account Created Successfully!',");
+                        response.getWriter().println("  text: 'You can now log in to your account.',");
+                        response.getWriter().println("  confirmButtonText: 'Go to Login'");
+                        response.getWriter().println("}).then(() => { window.location.href = 'login.jsp'; });");
+                        response.getWriter().println("</script>");
+                        response.getWriter().println("</body>");
+                        response.getWriter().println("</html>");
+                    } else {
+                        // Registration failed; show error message
+                        response.getWriter().println("<script>alert('Failed to create account. Please try again.'); window.location = 'signup.jsp';</script>");
+                    }
+                }
             }
 
-        } catch (ClassNotFoundException e) {
-            session.setAttribute("messageType", "error");
-            session.setAttribute("messageTitle", "Error!");
-            session.setAttribute("messageText", "Database driver not found. Please contact administrator.");
-            response.sendRedirect("signup.jsp");
-        } catch (SQLException e) {
-            try {
-                if (conn != null) conn.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-            session.setAttribute("messageType", "error");
-            session.setAttribute("messageTitle", "Error!");
-            session.setAttribute("messageText", "Database error occurred. Please try again later.");
-            response.sendRedirect("signup.jsp");
-        } finally {
-            // Close resources in reverse order
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().println("<script>alert('An unexpected error occurred. Please try again later.'); window.location = 'signup.jsp';</script>");
         }
     }
-
-
 }

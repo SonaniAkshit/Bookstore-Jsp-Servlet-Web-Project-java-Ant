@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    // Check if user is logged in
+    String userName = (String) session.getAttribute("userName");
+    String userEmail = (String) session.getAttribute("userEmail");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,9 +68,17 @@
                         <a href="#cart" class="btn cart-button me-2">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
-                        <a href="login.jsp" class="btn login-button">
-                            <i class="fas fa-user"></i>
-                        </a>
+                        <% if (userName == null || userEmail == null)  { %>
+
+                            <a href="login.jsp" class="btn login-button">
+                                <i class="fas fa-user"></i>
+                            </a>
+
+                        <% } else { %>
+                            <a href="profile.jsp" class="btn login-button">
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                        <% } %>
                     </div>
                 </div>
             </div>

@@ -5,17 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - E-Books Digital Library</title>
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/book-reader.svg">
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/login.css">
+    
     <style>
         .home-button {
             position: fixed;
@@ -36,6 +42,7 @@
     <a href="index.jsp" class="home-button" title="Back to Home">
         <i class="fas fa-arrow-left"></i>
     </a>
+    
     <div class="login-container">
         <div class="login-form-container">
             <div class="login-form">
@@ -45,31 +52,54 @@
                         <span>E-Books</span>
                     </a>
                 </div>
+                
                 <h1>Sign In</h1>
                 <p class="text-muted mb-4">Please login to your account</p>
                 
-                <form>
+                <form action="LoginServlet" method="POST">
+                    <% 
+                        if (request.getAttribute("error") != null) { 
+                    %>
+                        <div class="alert alert-danger" role="alert">
+                            <%= request.getAttribute("error") %>
+                        </div>
+                    <% } %>
+
+                    <% 
+                        if (session.getAttribute("message") != null) { 
+                    %>
+                        <div class="alert alert-success" role="alert">
+                            <%= session.getAttribute("message") %>
+                            <% session.removeAttribute("message"); %>
+                        </div>
+                    <% } %>
+                    
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+                        <input type="email" class="form-control" id="emailInput" name="email" placeholder="name@example.com" required>
                         <label for="emailInput">Email address</label>
                     </div>
                     
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+                        <input type="password" class="form-control" id="passwordInput" name="password" placeholder="Password" required>
                         <label for="passwordInput">Password</label>
                         <button type="button" class="password-toggle" onclick="togglePassword()">
                             <i class="far fa-eye"></i>
                         </button>
                     </div>
                     
+                    <!-- New Role Selection Dropdown -->
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="roleSelect" name="role" required>
+                            <option value="" selected disabled>Select Role</option>
+                            <option value="user">User</option>
+                            <option value="author">Author</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <label for="roleSelect">User Role</label>
+                    </div>
+                    
                     <div class="d-flex justify-content-between mb-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">
-                                Remember me
-                            </label>
-                        </div>
-                        <a href="#" class="forgot-password">Forgot Password?</a>
+                        <a href="forgot-password.jsp" class="forgot-password">Forgot Password?</a>
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
@@ -85,7 +115,10 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JS -->
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Password Toggle JS -->
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('passwordInput');

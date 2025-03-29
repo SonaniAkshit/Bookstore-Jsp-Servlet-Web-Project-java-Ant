@@ -17,7 +17,7 @@ public class LoginServlet extends HttpServlet {
     // Database connection details
     private static final String DB_URL = "jdbc:mysql://localhost:3306/bookstore";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = ""; // Update with your actual password
+    private static final String DB_PASSWORD = "";  // Update with actual database password
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,42 +25,36 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String selectedRole = request.getParameter("role"); // Role from login form
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
 
-            // Query to check login credentials and fetch role
-            String loginQuery = "SELECT name, 'user' AS role FROM user WHERE email = ? AND password = ? AND ? = 'user' "
-                    + "UNION ALL "
-                    + "SELECT name, 'author' AS role FROM author WHERE email = ? AND password = ? AND ? = 'author' "
-                    + "UNION ALL "
-                    + "SELECT name, 'admin' AS role FROM admin WHERE email = ? AND password = ? AND ? = 'admin'";
+            // SQL query to verify login credentials from the 'user' table
+            String loginQuery = "SELECT name FROM user WHERE email = ? AND password = ?";
 
             try (PreparedStatement stmt = connection.prepareStatement(loginQuery)) {
                 stmt.setString(1, email);
                 stmt.setString(2, password);
-                stmt.setString(3, selectedRole);
-                stmt.setString(4, email);
-                stmt.setString(5, password);
-                stmt.setString(6, selectedRole);
-                stmt.setString(7, email);
-                stmt.setString(8, password);
-                stmt.setString(9, selectedRole);
 
                 ResultSet resultSet = stmt.executeQuery();
 
                 if (resultSet.next()) {
-                    // Retrieve user details and login success
+                    // Login success - retrieve user details
                     String name = resultSet.getString("name");
-                    String role = resultSet.getString("role");
 
-                    // Store user info in session
+                    // Set session attributes
                     HttpSession session = request.getSession();
                     session.setAttribute("userName", name);
-                    session.setAttribute("userRole", role);
                     session.setAttribute("userEmail", email);
+                    session.setAttribute("userRole", "user");  // Fixed user role
 
-                    // Generate HTML response with SweetAlert2 login success message and redirection
+                    // Update last_login and status to 'active' in the user table
+                    String updateQuery = "UPDATE user SET last_login = NOW(), status = 'active' WHERE email = ?";
+                    try (PreparedStatement updateStmt = connection.prepareStatement(updateQuery)) {
+                        updateStmt.setString(1, email);
+                        updateStmt.executeUpdate();
+                    }
+
+                    // Display login success message and redirect to the user profile page
                     response.setContentType("text/html;charset=UTF-8");
                     response.getWriter().println("<!DOCTYPE html>");
                     response.getWriter().println("<html lang='en'>");
@@ -80,29 +74,15 @@ public class LoginServlet extends HttpServlet {
                     response.getWriter().println("  timer: 3000,");  // Auto-close after 3 seconds
                     response.getWriter().println("  showConfirmButton: false");
                     response.getWriter().println("}).then(() => {");
-
-                    // Redirect based on role after SweetAlert
-                    switch (role) {
-                        case "user":
-                            response.getWriter().println("  window.location.href = 'profile.jsp';");
-                            break;
-                        case "author":
-                            response.getWriter().println("  window.location.href = 'author/author-profile.jsp';");
-                            break;
-                        case "admin":
-                            response.getWriter().println("  window.location.href = 'admin/admin-profile.jsp';");
-                            break;
-                    }
-
+                    response.getWriter().println("  window.location.href = 'profile.jsp';");  // Redirect to user profile
                     response.getWriter().println("});");
                     response.getWriter().println("</script>");
-
                     response.getWriter().println("</body>");
                     response.getWriter().println("</html>");
 
                 } else {
-                    // Incorrect login or role mismatch
-                    request.setAttribute("error", "Invalid email, password, or role combination!");
+                    // Invalid login attempt - display error and return to login page
+                    request.setAttribute("error", "Invalid email or password!");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
             }

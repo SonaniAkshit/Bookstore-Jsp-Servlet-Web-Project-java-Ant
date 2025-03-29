@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    // Check if user is logged in
+    // Check if user is logged in with valid session attributes
     String userName = (String) session.getAttribute("userName");
+    String userRole = (String) session.getAttribute("userRole");
     String userEmail = (String) session.getAttribute("userEmail");
-    if (userName == null || userEmail == null) {
+
+    if (userName == null || !"user".equals(userRole) || userEmail == null) {
         response.sendRedirect("login.jsp");
         return;
     }
@@ -41,7 +43,7 @@
             background: white;
             border-radius: 8px;
             padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
         }
 
@@ -90,7 +92,7 @@
                         <h3>Account Info</h3>
                         <p><strong>Name:</strong> <%= userName %></p>
                         <p><strong>Email:</strong> <%= userEmail %></p>
-                        <p><strong>Role:</strong> <%= session.getAttribute("userRole") %></p>
+                        <p><strong>Role:</strong> <%= userRole %></p>
                         <form action="LogoutServlet" method="post">
                             <button type="submit" class="btn btn-logout w-100">Logout</button>
                         </form>

@@ -9,37 +9,37 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/AdminLogoutServlet")
+public class AdminLogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Database connection details
     private static final String DB_URL = "jdbc:mysql://localhost:3306/bookstore";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = ""; // Update with your actual MySQL password
+    private static final String DB_PASSWORD = "";  // Update with actual MySQL password
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);  // Get the existing session if it exists
+        HttpSession session = request.getSession(false);  // Get existing session, if any
         if (session != null) {
-            String userEmail = (String) session.getAttribute("userEmail");
+            String adminEmail = (String) session.getAttribute("adminEmail");
 
             try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
 
-                // Update last_logout with current timestamp and set status to 'inactive' in the user table
-                String updateQuery = "UPDATE user SET last_logout = NOW(), status = 'inactive' WHERE email = ?";
+                // Update last_logout with current timestamp and set status to 'inactive' in the admin table
+                String updateQuery = "UPDATE admin SET last_logout = NOW(), status = 'inactive' WHERE email = ?";
                 try (PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
-                    stmt.setString(1, userEmail);
-                    stmt.executeUpdate();  // Update the user's last_logout and set status to 'inactive'
+                    stmt.setString(1, adminEmail);
+                    stmt.executeUpdate();  // Update the admin's last_logout and set status to 'inactive'
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            session.invalidate();  // End the session after updating the user table
+            session.invalidate();  // End the session after updating the admin table
         }
 
         // Set content type to HTML and write a response with SweetAlert2
@@ -59,11 +59,11 @@ public class LogoutServlet extends HttpServlet {
         response.getWriter().println("Swal.fire({");
         response.getWriter().println("  icon: 'success',");
         response.getWriter().println("  title: 'Logged Out',");
-        response.getWriter().println("  text: 'You have successfully logged out!',");
+        response.getWriter().println("  text: 'You have successfully logged out, Admin!',");
         response.getWriter().println("  timer: 3000,");  // Auto-close after 3 seconds
         response.getWriter().println("  showConfirmButton: false");
         response.getWriter().println("}).then(() => {");
-        response.getWriter().println("  window.location.href = 'login.jsp';");  // Redirect to login page after SweetAlert
+        response.getWriter().println("  window.location.href = 'admin/login.jsp';");  // Redirect to admin login page
         response.getWriter().println("});");
         response.getWriter().println("</script>");
 

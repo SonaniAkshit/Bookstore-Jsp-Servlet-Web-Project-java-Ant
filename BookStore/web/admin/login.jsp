@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - E-Books Digital Library</title>
+    <title>Admin Login - E-Books Digital Library</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/svgs/solid/book-reader.svg">
@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="CSS/style.css">
-    <link rel="stylesheet" href="CSS/login.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/login.css">
     
     <style>
         .home-button {
@@ -39,7 +39,7 @@
     </style>
 </head>
 <body class="login-page">
-    <a href="index.jsp" class="home-button" title="Back to Home">
+    <a href="../index.jsp" class="home-button" title="Back to Home">
         <i class="fas fa-arrow-left"></i>
     </a>
     
@@ -47,16 +47,16 @@
         <div class="login-form-container">
             <div class="login-form">
                 <div class="text-center mb-4">
-                    <a href="index.jsp" class="login-logo">
+                    <a href="../index.jsp" class="login-logo">
                         <i class="fas fa-book-reader"></i>
-                        <span>E-Books</span>
+                        <span>E-Books Admin</span>
                     </a>
                 </div>
                 
-                <h1>Sign In</h1>
-                <p class="text-muted mb-4">Please login to your account</p>
+                <h1>Admin Login</h1>
+                <p class="text-muted mb-4">Please login to access admin dashboard</p>
                 
-                <form action="LoginServlet" method="POST">
+                <form action="../AdminLoginServlet" method="POST">
                     <% 
                         if (request.getAttribute("error") != null) { 
                     %>
@@ -76,7 +76,7 @@
                     
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="emailInput" name="email" placeholder="name@example.com" required>
-                        <label for="emailInput">Email address</label>
+                        <label for="emailInput">Admin Email</label>
                     </div>
                     
                     <div class="form-floating mb-3">
@@ -87,25 +87,9 @@
                         </button>
                     </div>
                     
-                    <!-- New Role Selection Dropdown -->
-                    <!-- <div class="form-floating mb-3">
-                        <select class="form-select" id="roleSelect" name="role" required>
-                            <option value="" selected disabled>Select Role</option>
-                            <option value="user">User</option>
-                            <option value="author">Author</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <label for="roleSelect">User Role</label>
-                    </div> -->
-                    
-                    <div class="d-flex justify-content-between mb-4">
-                        <a href="forgot-password.jsp" class="forgot-password">Forgot Password?</a>
-                    </div>
-                    
                     <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
-                    
                     <p class="text-center mt-4">
-                        Don't have an account? <a href="signup.jsp" class="signup-link">Sign up</a>
+                        Don't have an account? <a href="../signup.jsp" class="signup-link">Sign up</a>
                     </p>
                 </form>
             </div>

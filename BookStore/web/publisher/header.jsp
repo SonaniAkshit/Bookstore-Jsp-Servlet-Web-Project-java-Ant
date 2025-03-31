@@ -36,6 +36,9 @@
                 <a class="nav-link" href="manage-books.jsp">
                     <i class="fas fa-book"></i> Manage Books
                 </a>
+                <a class="nav-link" href="manage-categories.jsp">
+                    <i class="fas fa-tags"></i> Manage Categories
+                </a>
                 <a class="nav-link" href="publisher-profile.jsp">
                     <i class="fas fa-user-circle"></i> Profile
                 </a>

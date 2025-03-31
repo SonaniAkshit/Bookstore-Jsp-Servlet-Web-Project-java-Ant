@@ -28,6 +28,14 @@
         <servlet-name>PublisherLogoutServlet</servlet-name>
         <servlet-class>PublisherLogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddBookServlet</servlet-name>
+        <servlet-class>AddBookServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <servlet-class>AddCategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
@@ -51,6 +59,14 @@
     <servlet-mapping>
         <servlet-name>PublisherLogoutServlet</servlet-name>
         <url-pattern>/PublisherLogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBookServlet</servlet-name>
+        <url-pattern>/AddBookServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <url-pattern>/AddCategoryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

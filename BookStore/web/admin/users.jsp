@@ -31,28 +31,27 @@
                         <th>Status</th>
                         <th>Last Login</th>
                         <th>Last Logout</th>
-                        <th>Actions</th>
+                        <!-- <th>Actions</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        // Database Connection and Data Fetching
                         Connection con = null;
                         Statement stmt = null;
                         ResultSet rs = null;
 
                         try {
                             Class.forName("com.mysql.cj.jdbc.Driver"); // Load MySQL driver
-                            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BookStore", "root", "");
+                            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
                             stmt = con.createStatement();
 
-                            // SQL query to fetch users from admin, user, and author tables with all fields
+                            // Corrected SQL query fetching from all tables
                             String sql = "SELECT id, name, email, contact, gender, role, status, last_login, last_logout FROM "
-                                       + "(SELECT id, name, email, contact, gender, 'Admin' AS role, status, last_login, last_logout FROM admin "
+                                       + "(SELECT id, name, email, contact, gender, role, status, last_login, last_logout FROM admin "
                                        + " UNION ALL "
-                                       + "SELECT id, name, email, contact, gender, 'User' AS role, status, last_login, last_logout FROM user "
+                                       + "SELECT id, name, email, contact, gender, role, status, last_login, last_logout FROM user "
                                        + " UNION ALL "
-                                       + "SELECT id, name, email, contact, gender, 'Author' AS role, status, last_login, last_logout FROM author) AS combined_users";
+                                       + "SELECT id, name, email, contact, gender, role, status, last_login, last_logout FROM publisher) AS combined_users";
 
                             rs = stmt.executeQuery(sql);
 
@@ -76,7 +75,7 @@
                                     <td><%= gender != null ? gender : "N/A" %></td>
                                     <td><%= role %></td>
                                     <td>
-                                        <% if ("active".equals(status)) { %>
+                                        <% if (status != null && status.equalsIgnoreCase("Active")) { %>
                                             <i class="fas fa-circle text-success"></i> Active
                                         <% } else { %>
                                             <i class="fas fa-circle text-danger"></i> Inactive
@@ -84,15 +83,16 @@
                                     </td>
                                     <td><%= lastLogin != null ? lastLogin : "Never logged in" %></td>
                                     <td><%= lastLogout != null ? lastLogout : "Never logged out" %></td>
-                                    <td>
+                                    <!-- <td>
                                         <button class="btn btn-sm btn-primary">Edit</button>
                                         <button class="btn btn-sm btn-danger">Delete</button>
-                                    </td>
+                                    </td> -->
                                 </tr>
                     <%
                             } 
                         } catch (Exception e) {
-                            e.printStackTrace(); // Handle exception
+                            out.println("<p style='color:red;'>Error fetching data: " + e.getMessage() + "</p>");
+                            e.printStackTrace();
                         } finally {
                             try {
                                 if (rs != null) rs.close();

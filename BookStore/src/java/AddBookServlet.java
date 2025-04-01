@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.Paths;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +14,8 @@ import java.sql.*;
 
 @MultipartConfig
 public class AddBookServlet extends HttpServlet {
+    private static final String UPLOAD_DIRECTORY = "D:/Bookstore-Jsp-Servlet-Web-Project-java-Ant/BookStore/web/images/books"; // Set the correct folder path
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -29,15 +33,15 @@ public class AddBookServlet extends HttpServlet {
             Part filePart = request.getPart("bookImage");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-            // Define upload directory
-            String uploadDir = getServletContext().getRealPath("/") + "images/books/";
-            File uploadFolder = new File(uploadDir);
+            // Ensure upload directory exists
+            File uploadFolder = new File(UPLOAD_DIRECTORY);
             if (!uploadFolder.exists()) {
                 uploadFolder.mkdirs(); // Create the directory if it doesn't exist
             }
 
-            String uploadPath = uploadDir + fileName;
-            filePart.write(uploadPath);
+            // Save the uploaded file
+            String uploadPath = UPLOAD_DIRECTORY + File.separator + fileName;
+            Files.copy(filePart.getInputStream(), Paths.get(uploadPath), StandardCopyOption.REPLACE_EXISTING);
 
             // Get Form Data
             String name = request.getParameter("bookName");
@@ -55,7 +59,7 @@ public class AddBookServlet extends HttpServlet {
             String sql = "INSERT INTO books (image, name, author, price, stock, description, publisher_email, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(sql);
 
-            ps.setString(1, fileName);
+            ps.setString(1, "images/books/" + fileName); // Store relative path in database
             ps.setString(2, name);
             ps.setString(3, author);
             ps.setDouble(4, price);

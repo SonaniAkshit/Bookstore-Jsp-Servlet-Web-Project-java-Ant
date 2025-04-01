@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ page import="java.sql.*" %>
 <script>
     document.querySelector('a[href="index.jsp"]').classList.add('active');
 </script>
@@ -15,15 +16,34 @@
 
         <!-- Stats Cards -->
         <div class="row g-4 mb-4">
+            <%
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                    
+                    PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) AS total_books FROM books");
+                    ResultSet rs = ps.executeQuery();
+                    
+                    int totalBooks = 0;
+                    if (rs.next()) {
+                        totalBooks = rs.getInt("total_books");
+                    }
+                    conn.close();
+            %>
             <div class="col-md-3">
                 <div class="stats-card">
                     <div class="icon bg-primary text-white">
                         <i class="fas fa-book"></i>
                     </div>
-                    <h3>150</h3>
+                    <h3><%= totalBooks %></h3>
                     <p class="text-muted mb-0">Total Books</p>
                 </div>
             </div>
+            <%
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
             <div class="col-md-3">
                 <div class="stats-card">
                     <div class="icon bg-success text-white">
@@ -39,7 +59,7 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <h3>289</h3>
-                    <p class="text-muted mb-0">Active Users</p>
+                    <p class="text-muted mb-0">Users</p>
                 </div>
             </div>
             <div class="col-md-3">
@@ -49,48 +69,6 @@
                     </div>
                     <h3>$12,456</h3>
                     <p class="text-muted mb-0">Total Revenue</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Charts -->
-        <div class="row mb-4">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Sales Overview</h5>
-                        <canvas id="salesChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Recent Activities</h5>
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">New order received</h6>
-                                    <small>3 mins ago</small>
-                                </div>
-                                <p class="mb-1">Order #12345 - $99.99</p>
-                            </div>
-                            <div class="list-group-item">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">New user registered</h6>
-                                    <small>1 hour ago</small>
-                                </div>
-                                <p class="mb-1">John Doe joined the platform</p>
-                            </div>
-                            <div class="list-group-item">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">Book stock updated</h6>
-                                    <small>2 hours ago</small>
-                                </div>
-                                <p class="mb-1">Added 50 copies of "The Great Gatsby"</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -8,14 +8,28 @@
             <div class="col-md-12">
                 <h1 class="mt-4">Manage Books</h1>
                 <div class="card mt-4">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4>Book List</h4>
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
                                 <i class="fas fa-plus"></i> Add Book
                             </button>
                         </div>
+                    </div> -->
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4>Book List</h4>
+                            <div class="input-group" style="width: 100%;">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search by Book Name or Author" aria-describedby="basic-addon1">
+                            </div>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
+                                <i class="fas fa-plus"></i> Add Book
+                            </button>
+                        </div>
                     </div>
+                    
+                    
                     <div class="card-body">
                         <table id="booksTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
@@ -45,7 +59,7 @@
                                 %>
                                 <tr>
                                     <td><%= rs.getInt("id") %></td>
-                                    <td><img src="images/books/<%= rs.getString("image") %>" width="50" height="50"></td>
+                                    <td><img src="../<%= rs.getString("image") %>" width="50" height="50"></td>
                                     <td><%= rs.getString("name") %></td>
                                     <td><%= rs.getString("author") %></td>
                                     <td><%= rs.getString("publisher_email") %></td>
@@ -245,6 +259,23 @@ document.addEventListener("DOMContentLoaded", function() {
                     window.location.href = "../DeleteBookServlet?id=" + bookId;
                 }
             });
+        });
+    });
+    // Search Functionality
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", function() {
+        const searchQuery = searchInput.value.toLowerCase();
+        const rows = document.querySelectorAll("#booksTable tbody tr");
+
+        rows.forEach(function(row) {
+            const bookName = row.cells[2].textContent.toLowerCase();
+            const author = row.cells[3].textContent.toLowerCase();
+
+            if (bookName.includes(searchQuery) || author.includes(searchQuery)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
         });
     });
 });

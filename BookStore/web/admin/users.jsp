@@ -11,15 +11,22 @@
             <i class="fas fa-bars"></i>
         </button>
         <h2 class="mb-0">User Management</h2>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-            <i class="fas fa-plus"></i> Add New User
-        </button>
+    </div>
+
+    <!-- Search Box -->
+    <div class="mb-4">
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by Name, Email, or Role" onkeyup="searchUsers()">
+        </div>
     </div>
 
     <!-- Users Table -->
     <div class="card">
         <div class="card-body">
-            <table class="table admin-table">
+            <table class="table admin-table" id="usersTable">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -31,7 +38,6 @@
                         <th>Status</th>
                         <th>Last Login</th>
                         <th>Last Logout</th>
-                        <!-- <th>Actions</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +51,7 @@
                             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
                             stmt = con.createStatement();
 
-                            // Corrected SQL query fetching from all tables
+                            // SQL query to fetch users
                             String sql = "SELECT id, name, email, contact, gender, role, status, last_login, last_logout FROM "
                                        + "(SELECT id, name, email, contact, gender, role, status, last_login, last_logout FROM admin "
                                        + " UNION ALL "
@@ -83,10 +89,6 @@
                                     </td>
                                     <td><%= lastLogin != null ? lastLogin : "Never logged in" %></td>
                                     <td><%= lastLogout != null ? lastLogout : "Never logged out" %></td>
-                                    <!-- <td>
-                                        <button class="btn btn-sm btn-primary">Edit</button>
-                                        <button class="btn btn-sm btn-danger">Delete</button>
-                                    </td> -->
                                 </tr>
                     <%
                             } 
@@ -117,6 +119,39 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 <script src="js/admin-script.js"></script>
 <script src="js/user-management.js"></script>
+
+<script>
+// Function to filter the users table based on the search query
+function searchUsers() {
+    let input = document.getElementById("searchInput");
+    let filter = input.value.toLowerCase();
+    let table = document.getElementById("usersTable");
+    let tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows and hide those that don't match the search query
+    for (let i = 1; i < tr.length; i++) { // Start at 1 to skip the header row
+        let td = tr[i].getElementsByTagName("td");
+        let match = false;
+        
+        // Loop through all columns of the row
+        for (let j = 0; j < td.length; j++) {
+            if (td[j]) {
+                let textValue = td[j].textContent || td[j].innerText;
+                if (textValue.toLowerCase().indexOf(filter) > -1) {
+                    match = true;
+                }
+            }
+        }
+
+        // Show or hide row based on whether it matches the search term
+        if (match) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+</script>
 
 </body>
 </html>

@@ -109,11 +109,3 @@ A dynamic web-based bookstore application built using JSP, Servlets, and MySQL. 
 ## 📝 Contributing
 
 This project is under active development. Contributions, issues, and feature requests are welcome!
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-⭐ Star this repository if you find it helpful!

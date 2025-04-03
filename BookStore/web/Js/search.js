@@ -189,3 +189,36 @@ document.addEventListener('DOMContentLoaded', function() {
     showSlides(slideIndex);
     startSlideshow();
 });
+
+
+// Initialize category filter functionality
+function initializeCategoryFilter() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const bookCards = document.querySelectorAll('.book-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            const selectedCategory = button.getAttribute('data-category').toLowerCase();
+
+            bookCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category').toLowerCase();
+                if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
+// Add category filter initialization to DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSearch();
+    initializeCategoryFilter();
+});

@@ -100,7 +100,7 @@
                                 <th>Image</th>
                                 <th>Book Name</th>
                                 <th>Author</th>
-                                <th>Publisher</th>
+                                <!-- <th>Publisher</th> -->
                                 <th>Price</th>
                                 <th>Category</th>
                                 <th>Stock</th>
@@ -123,7 +123,7 @@
                                 <td><img src="../<%= rs.getString("image") %>" width="50" height="50"></td>
                                 <td><%= rs.getString("name") %></td>
                                 <td><%= rs.getString("author") %></td>
-                                <td><%= rs.getString("publisher_email") %></td>
+                                <!-- <td><%= rs.getString("publisher_email") %></td> -->
                                 <td>$<%= rs.getDouble("price") %></td>
                                 <td><%= rs.getString("category") %></td>
                                 <td><%= rs.getInt("stock") %></td>

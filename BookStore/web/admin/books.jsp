@@ -34,6 +34,7 @@
                         <th>Cover</th>
                         <th>Title</th>
                         <th>Author</th>
+                        <th>Publisher</th>
                         <th>Category</th>
                         <th>Price</th>
                         <th>Stock</th>
@@ -58,8 +59,9 @@
                             </td>
                             <td><%= rs.getString("name") %></td>
                             <td><%= rs.getString("author") %></td>
+                            <td><%= rs.getString("publisher_email") %></td>
                             <td><%= rs.getString("category") %></td>
-                            <td>$<%= rs.getDouble("price") %></td>
+                            <td>Rs.<%= rs.getDouble("price") %></td>
                             <td><%= rs.getInt("stock") %></td>
                             <td><%= rs.getString("description") %></td>
                         </tr>

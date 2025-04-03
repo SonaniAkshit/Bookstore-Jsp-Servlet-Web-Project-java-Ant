@@ -325,9 +325,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Category Search Section */
 .category-search-section {
-    padding: 120px 0 40px;
+    padding: 20px 0 10px;
     background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 100%);
-    min-height: 300px;
+    min-height: 200px;
     position: relative;
     display: block !important; /* Force display */
 }
@@ -336,9 +336,8 @@ h1, h2, h3, h4, h5, h6 {
     background: #ffffff;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    padding: 30px;
+    /* padding: 10px; */
     width: 100%;
-    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -350,7 +349,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .category-search-section .search-input {
     width: 100%;
-    padding: 15px 50px 15px 25px;
+    padding: 10px 10px 10px 10px;
     border: 2px solid var(--bg-light);
     border-radius: 30px;
     font-size: 1.1rem;

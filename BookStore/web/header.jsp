@@ -48,7 +48,7 @@
                             <a class="nav-link" href="index.jsp#Featuredbooks">Explore Now</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp#categories">Categories</a>
+                            <a class="nav-link" href="categories.jsp">Categories</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.jsp">About</a>

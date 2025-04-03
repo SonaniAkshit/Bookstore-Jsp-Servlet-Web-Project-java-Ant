@@ -19,7 +19,7 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4>Book List</h4>
-                            <div class="input-group" style="width: 100%;">
+                            <div class="input-group" style="width: 70%;">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                 <input type="text" id="searchInput" class="form-control" placeholder="Search by Book Name or Author" aria-describedby="basic-addon1">
                             </div>
@@ -38,7 +38,7 @@
                                     <th>Image</th>
                                     <th>Book Name</th>
                                     <th>Author</th>
-                                    <th>Publisher</th>
+                                    <!-- <th>Publisher</th> -->
                                     <th>Price</th>
                                     <th>Category</th>
                                     <th>Stock</th>
@@ -62,8 +62,8 @@
                                     <td><img src="../<%= rs.getString("image") %>" width="50" height="50"></td>
                                     <td><%= rs.getString("name") %></td>
                                     <td><%= rs.getString("author") %></td>
-                                    <td><%= rs.getString("publisher_email") %></td>
-                                    <td>$<%= rs.getDouble("price") %></td>
+                                    <!-- <td><%= rs.getString("publisher_email") %></td> -->
+                                    <td>Rs.<%= rs.getDouble("price") %></td>
                                     <td><%= rs.getString("category") %></td>
                                     <td><%= rs.getInt("stock") %></td>
                                     <td><%= rs.getString("description") %></td>

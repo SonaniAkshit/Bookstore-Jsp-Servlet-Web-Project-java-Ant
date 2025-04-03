@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="java.sql.*" %>
 <!-- Include Header -->
 <jsp:include page="header.jsp" />
 
@@ -57,117 +57,84 @@
         </div>
     </div>
 </section>
+<!-- Categories Section -->
 <section id="categories" class="categories-section">
     <div class="container">
         <h2 class="section-title">Popular Categories</h2>
         <p class="text-center text-muted mb-5">Find your favorite genre</p>
         <div class="row">
+            <%
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT * FROM category LIMIT 4"); // Fetch only 4 categories
+
+                    while (rs.next()) {
+            %>
             <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.jsp#thriller" style="text-decoration: none; color: inherit;">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-mask"></i>
-                    </div>
-                    <h3>Thriller</h3>
-                    <!-- <p>850+ Books</p> -->
-                </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.jsp#horror" style="text-decoration: none; color: inherit;">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-ghost"></i>
-                    </div>
-                    <h3>Horror</h3>
-                    <!-- <p>600+ Books</p> -->
-                </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.jsp#mystery" style="text-decoration: none; color: inherit;">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-magnifying-glass"></i>
-                    </div>
-                    <h3>Mystery</h3>
-                    <!-- <p>750+ Books</p> -->
-                </div>
-            </a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.jsp#fantasy" style="text-decoration: none; color: inherit;">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-dragon"></i>
-                    </div>
-                    <h3>Fantasy</h3>
-                    <!-- <p>900+ Books</p> -->
-                </div>
-            </a>
-            </div>
+                <a href="categories.jsp" style="text-decoration: none; color: inherit;">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-book"></i> <!-- You can customize icons -->
                         </div>
+                        <h3><%= rs.getString("name") %></h3>
                     </div>
+                </a>
+            </div>
+            <%
+                    }
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
+        </div>
+    </div>
 </section>
 
+<!-- Featured Books Section -->
 <section id="Featuredbooks" class="new-books-section">
     <div class="container">
         <h2 class="section-title">Featured Books</h2>
         <div class="row">
+            <%
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                    PreparedStatement ps = conn.prepareStatement("SELECT * FROM books LIMIT 4"); // Fetch only 4 books
+                    ResultSet rs = ps.executeQuery();
+
+                    while (rs.next()) {
+            %>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="book-card">
                     <div class="book-image-container">
-                        <img src="images/hp.jpg" alt="The Silent Patient">
+                        <img src="<%= rs.getString("image") %>" alt="<%= rs.getString("name") %>">
                         <div class="book-overlay">
                             <button class="btn quick-view">Quick View</button>
                             <button class="btn add-to-cart">Add to Cart</button>
                         </div>
                     </div>
                     <div class="book-info">
-                        <h3>The Silent Patient</h3>
-                        <p class="book-author">Alex Michaelides</p>
-                        <div class="price">$19.99</div>
-                        <div class="category-tag">Thriller</div>
+                        <h3><%= rs.getString("name") %></h3>
+                        <p class="book-author"><%= rs.getString("author") %></p>
+                        <div class="price">$<%= rs.getDouble("price") %></div>
+                        <div class="category-tag"><%= rs.getString("category") %></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="book-card">
-                    <div class="book-image-container">
-                        <img src="images/ml.jpg" alt="The Midnight Library">
-                        <div class="book-overlay">
-                            <button class="btn quick-view">Quick View</button>
-                            <button class="btn add-to-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="book-info">
-                        <h3>The Midnight Library</h3>
-                        <p class="book-author">Matt Haig</p>
-                        <div class="price">$21.99</div>
-                        <div class="category-tag">Fantasy</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="book-card">
-                    <div class="book-image-container">
-                        <img src="images/sdp.jpeg" alt="Project Hail Mary">
-                        <div class="book-overlay">
-                            <button class="btn quick-view">Quick View</button>
-                            <button class="btn add-to-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="book-info">
-                        <h3>Project Hail Mary</h3>
-                        <p class="book-author">Andy Weir</p>
-                        <div class="price">$24.99</div>
-                        <div class="category-tag">Sci-Fi</div>
-                    </div>
-                </div>
-            </div>
+            <%
+                    }
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
         </div>
     </div>
 </section>
+
 <!-- 
 <section class="subscribe-section">
     <div class="container">

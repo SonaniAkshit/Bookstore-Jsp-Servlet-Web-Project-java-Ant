@@ -2,187 +2,110 @@
 
 ## 🚧 Project Status: Under Development 🚧
 
-A comprehensive web-based bookstore application built using JSP, Servlets, and MySQL. This project aims to provide a robust platform for managing and selling books online with both user and administrative interfaces.
+# 📚 BookStore Web Application
 
-## Features
+A dynamic web-based bookstore application built using JSP, Servlets, and MySQL. This project implements a comprehensive online bookstore system with multiple user roles and features.
 
-### Admin Dashboard (Implemented ✅)
+## 🌟 Features
 
-- **Book Management**
-  - Add, edit, and delete books
-  - Manage book inventory and stock levels
-  - Upload and manage book covers
-  - Track comprehensive book details (title, author, ISBN, price)
-  - Organize books by categories
+### 👥 User Roles
 
-- **User Management**
-  - View and manage user accounts
-  - Monitor user activities and purchase history
-  - Handle user roles and permissions
+#### 📖 Customer
+- Browse and search books by category
+- View detailed book information
+- Add books to shopping cart
+- Manage cart items (update quantity, remove items)
+- User authentication (signup, login, logout)
 
-- **Order Management**
-  - Process and track customer orders
-  - Update order status
-  - View order history and details
+#### 📚 Publisher
+- Manage book inventory
+- Add new books
+- Edit existing book details
+- Remove books from catalog
+- Manage book categories
 
-- **Category Management**
-  - Create and manage book categories
-  - Organize books by genres and types
-  - Easy category navigation
+#### 👨‍💼 Admin
+- User management
+- Publisher management
+- System-wide category management
+- Monitor user activities
 
-### User Interface (Under Development 🚧)
+### 🛠️ Technical Features
 
-- **User Authentication**
-  - User registration and login
-  - Password recovery system
-  - Profile management
+- **Authentication System**: Secure login and registration
+- **Session Management**: Efficient user session handling
+- **Database Integration**: MySQL for data persistence
+- **Responsive Design**: Bootstrap-based UI
+- **Dynamic Content**: AJAX for seamless interactions
+- **Security**: Input validation and SQL injection prevention
 
-- **Book Browsing**
-  - Browse books by category
-  - Advanced search functionality
-  - Detailed book information pages
-  - Book previews and samples
+## 🚀 Technologies Used
 
-- **Shopping Features**
-  - Shopping cart functionality
-  - Wishlist management
-  - Secure checkout process
-  - Multiple payment options
+- **Frontend**:
+  - JSP (JavaServer Pages)
+  - HTML5
+  - CSS3
+  - JavaScript
+  - Bootstrap 5
+  - Font Awesome
+  - SweetAlert2
 
-- **User Engagement**
-  - Book reviews and ratings
-  - Reading lists
-  - Personalized recommendations
-  - Email notifications
+- **Backend**:
+  - Java Servlets
+  - JDBC
+  - MySQL Database
 
-## Technology Stack
+- **Build Tool**:
+  - Apache Ant
 
-### Backend
-- Java Servlets
-- JSP (JavaServer Pages)
-- Apache Ant (Build Tool)
-- MySQL Database
+## 🛠️ Installation
 
-### Frontend
-- HTML5/CSS3
-- Bootstrap 5.3.2
-- JavaScript/jQuery
-- DataTables for dynamic tables
-- SweetAlert2 for notifications
-- Font Awesome Icons
-
-## Project Structure
-
-```
-BookStore/
-├── src/
-│   └── java/
-│       ├── com/bookstore/
-│       │   ├── controller/    # Servlet controllers
-│       │   ├── dao/           # Data Access Objects
-│       │   ├── model/         # Entity classes
-│       │   ├── service/       # Business logic
-│       │   └── util/          # Utility classes
-│       └── resources/         # Configuration files
-├── web/
-│   ├── admin/                 # Admin dashboard JSPs
-│   │   ├── books.jsp          # Book management
-│   │   ├── users.jsp          # User management
-│   │   ├── orders.jsp         # Order management
-│   │   ├── categories.jsp     # Category management
-│   │   ├── dashboard.jsp      # Admin home
-│   │   └── includes/          # Admin page components
-│   ├── WEB-INF/
-│   │   ├── lib/              # Java libraries
-│   │   └── web.xml           # Web configuration
-│   ├── user/                  # User-side JSPs
-│   │   ├── index.jsp         # Homepage
-│   │   ├── login.jsp         # User login
-│   │   ├── register.jsp      # User registration
-│   │   ├── about.jsp         # About page
-│   │   ├── contact.jsp       # Contact page
-│   │   ├── profile.jsp       # User profile
-│   │   ├── book-details.jsp  # Book information
-│   │   ├── cart.jsp          # Shopping cart
-│   │   ├── checkout.jsp      # Order checkout
-│   │   ├── wishlist.jsp      # User wishlist
-│   │   └── includes/         # Reusable components
-│   ├── assets/
-│   │   ├── css/             # Stylesheets
-│   │   ├── js/              # JavaScript files
-│   │   ├── images/          # Image assets
-│   │   └── fonts/           # Custom fonts
-│   ├── META-INF/
-│   │   └── context.xml      # Database configuration
-│   └── error/               # Error pages
-└── build/                   # Compiled files
-```
-
-## Setup Instructions
-
-1. **Prerequisites**
-   - JDK 8 or higher
-   - Apache Tomcat 8.5 or higher
-   - MySQL 5.7 or higher
+1. **Prerequisites**:
+   - Java Development Kit (JDK)
+   - Apache Tomcat Server
+   - MySQL Server
    - Apache Ant
 
-2. **Database Setup**
-   - Create a new MySQL database
-   - Import the provided SQL schema
-   - Configure database connection in `context.xml`
+2. **Database Setup**:
+   - Create a new database named `bookstore`
+   - Import the SQL schema from `Database(SQL)/bookstore.sql`
 
-3. **Project Setup**
+3. **Configuration**:
+   - Update database connection settings in the application
+   - Configure Tomcat server settings
+
+4. **Build and Deploy**:
    ```bash
-   # Clone the repository
-   git clone [repository-url]
-   cd BookStore
-
-   # Build the project using Ant
+   ant clean
    ant build
-
-   # Deploy to Tomcat
    ant deploy
    ```
 
-4. **Configuration**
-   - Update database credentials in `web/META-INF/context.xml`
-   - Configure email settings for notifications (if applicable)
-   - Set up environment-specific parameters
+## 🔄 Project Status
 
-## Development Roadmap
+### ✅ Completed Features
+- User authentication system
+- Book management system
+- Shopping cart functionality
+- Category management
+- Publisher management
+- Admin dashboard
 
-### Phase 1 (Completed)
-- ✅ Basic project structure
-- ✅ Admin dashboard implementation
-- ✅ Book management system
-- ✅ Category management
+### 🚧 Under Development
+- Payment integration
+- Order management system
+- User reviews and ratings
+- Advanced search filters
+- Email notifications
+- Mobile responsive optimization
 
-### Phase 2 (In Progress)
-- 🚧 User authentication system
-- 🚧 Shopping cart implementation
-- 🚧 Book search and filtering
-- 🚧 User reviews and ratings
+### 📋 Planned Features
+- Wishlist functionality
+- Book recommendations
+- Social sharing
+- PDF preview for books
+- Multiple language support
 
-### Phase 3 (Planned)
-- 📅 Payment gateway integration
-- 📅 Order tracking system
-- 📅 Email notification system
-- 📅 Mobile responsive design
+## 📝 Contributing
 
-## Contributing
-
-This project is currently under active development. Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the repository or contact the development team.
+This project is under active development. Contributions, issues, and feature requests are welcome!

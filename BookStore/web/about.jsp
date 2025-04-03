@@ -39,7 +39,7 @@
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="mission-card">
                         <div class="icon-box">
-                            <i class="fas fa-bullseye"></i>
+                            <img src="https://cdn-icons-png.flaticon.com/512/929/929468.png" width="50" alt="Mission">
                         </div>
                         <h3>Our Mission</h3>
                         <p>To make quality literature accessible to everyone through innovative digital solutions.</p>
@@ -48,7 +48,7 @@
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="mission-card">
                         <div class="icon-box">
-                            <i class="fas fa-eye"></i>
+                            <img src="https://cdn-icons-png.flaticon.com/512/1022/1022397.png" width="50" alt="Vision">
                         </div>
                         <h3>Our Vision</h3>
                         <p>To become the world's most trusted and comprehensive digital library platform.</p>
@@ -57,7 +57,7 @@
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="mission-card">
                         <div class="icon-box">
-                            <i class="fas fa-heart"></i>
+                            <img src="https://cdn-icons-png.flaticon.com/512/929/929422.png" width="50" alt="Values">
                         </div>
                         <h3>Our Values</h3>
                         <p>Innovation, accessibility, integrity, and passion for literature guide everything we do.</p>

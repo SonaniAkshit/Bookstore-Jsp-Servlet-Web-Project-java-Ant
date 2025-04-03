@@ -74,13 +74,14 @@
                             <div class="book-image-container">
                                 <img src="<%= bookRs.getString("image") %>" alt="<%= bookRs.getString("name") %>">
                                 <div class="book-overlay">
-                                    <button class="btn quick-view">Quick View</button>
-                                    <button class="btn add-to-cart">Add to Cart</button>
+                                    <a href="book-detail.jsp?id=<%= bookRs.getInt("id") %>" class="btn quick-view">Quick View</a>
+                                    <!-- <button class="btn add-to-cart">Add to Cart</button> -->
                                 </div>
                             </div>
                             <div class="book-info">
                                 <h3><%= bookRs.getString("name") %></h3>
-                                <p class="book-author"><%= bookRs.getString("author") %></p>
+                                <p class="book-author"><%= bookRs.getString("author") %>(Author)</p>
+                                <p class="book-author"><%= bookRs.getString("publisher_email") %>(Publisher)</p>
                                 <div class="price">Rs. <%= bookRs.getDouble("price") %></div>
                                 <div class="category-tag"><%= bookRs.getString("category") %></div>
                             </div> 

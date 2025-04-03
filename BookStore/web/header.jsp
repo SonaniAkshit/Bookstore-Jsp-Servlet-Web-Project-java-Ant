@@ -65,7 +65,7 @@
                             </div>
                             <div class="search-results" id="searchResults"></div>
                         </div>
-                        <a href="#cart" class="btn cart-button me-2">
+                        <a href="cart.jsp" class="btn cart-button me-2">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                         <% if (userName == null || userEmail == null)  { %>

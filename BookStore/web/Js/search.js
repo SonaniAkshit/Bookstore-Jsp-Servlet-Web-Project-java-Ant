@@ -54,13 +54,13 @@ function initializeSearch() {
                     const imgElement = card.querySelector('img');
                     const imgSrc = imgElement ? imgElement.src : '';
                     // Extract just the filename from the path
-                    const imgPath = imgSrc.split('/').pop();
+                    const imgPath = imgSrc;
                     
                     return {
                         title: card.querySelector('h3')?.textContent || '',
                         author: card.querySelector('.book-author')?.textContent || '',
                         price: card.querySelector('.price')?.textContent || '',
-                        image: 'images/' + imgPath,
+                        image: imgPath,
                         category: card.querySelector('.category-tag')?.textContent || ''
                     };
                 } catch (error) {

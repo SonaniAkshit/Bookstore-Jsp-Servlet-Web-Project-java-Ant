@@ -112,14 +112,14 @@
                     <div class="book-image-container">
                         <img src="<%= rs.getString("image") %>" alt="<%= rs.getString("name") %>">
                         <div class="book-overlay">
-                            <button class="btn quick-view">Quick View</button>
-                            <button class="btn add-to-cart">Add to Cart</button>
+                            <a class="btn quick-view" href="categories.jsp">View Books</a>
+                            <!-- <button class="btn add-to-cart">Add to Cart</button> -->
                         </div>
                     </div>
                     <div class="book-info">
                         <h3><%= rs.getString("name") %></h3>
                         <p class="book-author"><%= rs.getString("author") %></p>
-                        <div class="price">$<%= rs.getDouble("price") %></div>
+                        <div class="price">Rs.<%= rs.getDouble("price") %></div>
                         <div class="category-tag"><%= rs.getString("category") %></div>
                     </div>
                 </div>

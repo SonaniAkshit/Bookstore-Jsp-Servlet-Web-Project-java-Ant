@@ -56,6 +56,14 @@
         <servlet-name>AddToCartServlet</servlet-name>
         <servlet-class>AddToCartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateCartServlet</servlet-name>
+        <servlet-class>UpdateCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveFromCartServlet</servlet-name>
+        <servlet-class>RemoveFromCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
@@ -107,6 +115,14 @@
     <servlet-mapping>
         <servlet-name>AddToCartServlet</servlet-name>
         <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartServlet</servlet-name>
+        <url-pattern>/UpdateCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveFromCartServlet</servlet-name>
+        <url-pattern>/RemoveFromCartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

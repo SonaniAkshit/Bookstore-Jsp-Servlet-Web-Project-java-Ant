@@ -1,230 +1,272 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, java.util.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    // Check if user is logged in with valid session attributes
-    String userName = (String) session.getAttribute("userName");
-    String userRole = (String) session.getAttribute("userRole");
+    // Ensure user is logged in
     String userEmail = (String) session.getAttribute("userEmail");
-
-    if (userName == null || !"user".equals(userRole) || userEmail == null) {
+    if (userEmail == null) {
         response.sendRedirect("login.jsp");
         return;
     }
+
+    List<Map<String, String>> cartItems = new ArrayList<>();
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    
+    try {
+        // Database Connection
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+        
+        // Fetch cart items for the logged-in user
+        String sql = "SELECT id, bookname, author, price, image, quantity FROM cart WHERE user_email = ?";
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, userEmail);
+        rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+            Map<String, String> item = new HashMap<>();
+            item.put("id", rs.getString("id"));
+            item.put("bookname", rs.getString("bookname"));
+            item.put("author", rs.getString("author"));
+            item.put("price", rs.getString("price"));
+            item.put("image", rs.getString("image"));
+            item.put("quantity", rs.getString("quantity"));
+            cartItems.add(item);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try { if (rs != null) rs.close(); } catch (SQLException ignored) {}
+        try { if (stmt != null) stmt.close(); } catch (SQLException ignored) {}
+        try { if (conn != null) conn.close(); } catch (SQLException ignored) {}
+    }
 %>
-<%@ page import="java.sql.*" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Shopping Cart - BookStore</title>
-    <link rel="stylesheet" href="CSS/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Font Awesome -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Shopping Cart</title>
     <style>
-        .cart-container {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .cart-table {
-            width: 100%;
+            margin: 20px auto;
+            width: 80%;
             border-collapse: collapse;
-            margin-bottom: 2rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .cart-table th, .cart-table td {
-            padding: 1rem;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
         }
         .cart-table th {
             background-color: #f8f9fa;
             font-weight: 600;
+            color: #333;
         }
-        .cart-item-image {
-            width: 100px;
-            height: 150px;
+        .cart-table img {
+            border-radius: 3px;
             object-fit: cover;
         }
         .quantity-control {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
         }
         .quantity-btn {
-            background: #007bff;
-            color: white;
+            background: #eee;
             border: none;
-            padding: 0.25rem 0.5rem;
-            cursor: pointer;
+            width: 25px;
+            height: 25px;
             border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
         }
         .quantity-btn:hover {
-            background: #0056b3;
+            background: #ddd;
         }
         .quantity-input {
             width: 50px;
             text-align: center;
-            padding: 0.25rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px;
         }
-        .remove-item {
-            color: #dc3545;
-            cursor: pointer;
-        }
-        .remove-item:hover {
-            color: #c82333;
-        }
-        .cart-summary {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-        }
-        .cart-summary h3 {
-            margin-top: 0;
-            margin-bottom: 1rem;
-        }
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        .checkout-btn {
-            background: #28a745;
-            color: white;
+        .remove-btn, .update-btn {
+            padding: 8px 12px;
             border: none;
-            padding: 1rem 2rem;
-            width: 100%;
-            margin-top: 1rem;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .remove-btn {
+            background-color: #dc3545;
+            color: white;
+            margin-right: 5px;
+        }
+        .update-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+        .update-btn:hover {
+            background-color: #218838;
+        }
+        .checkout-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
         .checkout-btn:hover {
-            background: #218838;
+            background-color: #0056b3;
         }
-        .empty-cart {
-            text-align: center;
-            padding: 3rem;
+        .total-section {
+            margin: 20px auto;
+            width: 80%;
+            text-align: right;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
         }
-        .empty-cart i {
-            font-size: 4rem;
-            color: #6c757d;
-            margin-bottom: 1rem;
+        .total-section span {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <%@include file="header.jsp" %>
+    <jsp:include page="header.jsp" />
+    <br><br>
+
+    <h2>Your Shopping Cart</h2>
     
-    <div class="cart-container">
-        <h2>Shopping Cart</h2>
+    <% if (cartItems.isEmpty()) { %>
+        <div class="empty-cart">
+            <p>Your cart is empty.</p>
+        </div>
+    <% } else { %>
         <table class="cart-table">
             <thead>
                 <tr>
-                    <th>Book</th>
+                    <th>Image</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-            
             <tbody>
-                <%
-                    try {
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
-                        PreparedStatement ps = conn.prepareStatement("SELECT * FROM cart WHERE user_email = ?");
-                        ps.setString(1, userEmail);
-                        ResultSet rs = ps.executeQuery();
-
-                        while (rs.next()) {
+                <% 
+                double total = 0;
+                for (Map<String, String> item : cartItems) { 
+                    double price = Double.parseDouble(item.get("price"));
+                    int quantity = Integer.parseInt(item.get("quantity"));
+                    total += price * quantity;
                 %>
-                <tr>
-                    <td>
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <img src="images/book1.jpg" alt="Book Title" class="cart-item-image">
-                            <div>
-                                <h4 style="margin: 0;">The Great Gatsby</h4>
-                                <p style="margin: 0.5rem 0; color: #666;">F. Scott Fitzgerald</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>$9.99</td>
-                    <td>
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <input type="number" class="quantity-input" value="1" min="1">
-                            <button class="quantity-btn">+</button>
-                            <input type="submit" class="update-btn" value="Update" style="background: #28a745; color: white; border: none; padding: 0.25rem 0.5rem; cursor: pointer; border-radius: 4px;">
-                        </div>
-                    </td>
-                    <td>$9.99</td>
-                    <td>
-                        <i class="fas fa-trash remove-item"></i>
-                    </td>
-                </tr>
-                <%
-                        }
-                        conn.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                %>
+                    <tr>
+                        <td><img src="<%= item.get("image") %>" width="80" height="100" alt="Book Image"></td>
+                        <td><%= item.get("bookname") %></td>
+                        <td><%= item.get("author") %></td>
+                        <td>Rs.<%= String.format("%.2f", price) %></td>
+                        <td>
+                            <form action="UpdateCartServlet" method="post" class="quantity-control">
+                                <input type="hidden" name="cartItemId" value="<%= item.get("id") %>">
+                                <button type="button" class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
+                                <input type="number" name="quantity" value="<%= quantity %>" min="1" class="quantity-input" onchange="validateQuantity(this)">
+                                <button type="button" class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
+                                <button type="submit" class="update-btn"><i class="fas fa-edit"></i></button>
+                            
+                            </form>
+                        </td>
+                        <td>
+                            <form action="RemoveFromCartServlet" method="post" style="display: inline;">
+                                <input type="hidden" name="cartItemId" value="<%= item.get("id") %>">
+                                <button type="submit" class="action-btn remove-btn"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
-        
-        <div class="cart-summary">
-            <h3>Order Summary</h3>
-            <div class="summary-item">
-                <span>Subtotal:</span>
-                <span>$35.97</span>
-            </div>
-            <div class="summary-item">
-                <span>Shipping:</span>
-                <span>$5.00</span>
-            </div>
-            <div class="summary-item" style="font-weight: bold; margin-top: 1rem;">
-                <span>Total:</span>
-                <span>$40.97</span>
-            </div>
-            <form action="checkout" method="POST">
-                <input type="submit" class="checkout-btn" value="Proceed to Checkout">
-            </form>
+
+        <div class="total-section">
+            <span>Total: Rs.<%= String.format("%.2f", total) %></span>
         </div>
-    </div>
 
-    <%@include file="footer.jsp" %>
-</body>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const quantityControls = document.querySelectorAll('.quantity-control');
-    
-    quantityControls.forEach(control => {
-        const minusBtn = control.querySelector('.quantity-btn:first-child');
-        const plusBtn = control.querySelector('.quantity-btn:nth-child(3)');
-        const input = control.querySelector('.quantity-input');
-        const updateBtn = control.querySelector('.update-btn');
-        
-        minusBtn.addEventListener('click', () => {
-            const currentValue = parseInt(input.value);
-            if (currentValue > 1) {
-                input.value = currentValue - 1;
+        <form action="checkout.jsp" method="post">
+            <button type="submit" class="checkout-btn">Proceed to Checkout</button>
+        </form>
+
+        <script>
+            document.querySelectorAll(".remove-btn").forEach(function(button) {
+            button.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent immediate form submission
+
+                const form = this.closest("form"); // Get the form associated with this button
+                const cartItemId = form.querySelector("input[name='cartItemId']").value; // Get the cart item ID
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You won\'t be able to revert this!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, remove it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit the form after confirmation
+                    }
+                });
+            });
+        });
+
+            function updateQuantity(btn, change) {
+                const input = btn.parentElement.querySelector('input[type="number"]');
+                let value = parseInt(input.value) + change;
+                if (value < 1) value = 1;
+                input.value = value;
             }
-        });
-        
-        plusBtn.addEventListener('click', () => {
-            input.value = parseInt(input.value) + 1;
-        });
-        
-        input.addEventListener('change', () => {
-            if (parseInt(input.value) < 1) input.value = 1;
-        });
 
-        // updateBtn.addEventListener('click', () => {
-        //     // Here you can add the logic to send the updated quantity to the server
-        //     alert('Quantity updated!');
-        // });
-    });
-
-});
-</script>
+            function validateQuantity(input) {
+                if (input.value < 1) input.value = 1;
+            }
+        </script>
+    <% } %>
+    <br><br>
+    <jsp:include page="footer.jsp" />
+</body>
 </html>

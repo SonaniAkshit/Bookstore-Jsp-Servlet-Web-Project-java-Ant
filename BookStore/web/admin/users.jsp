@@ -80,13 +80,13 @@
                                     <td><%= contact %></td>
                                     <td><%= gender != null ? gender : "N/A" %></td>
                                     <td><%= role %></td>
-                                    <td>
+                                    <th>
                                         <% if (status != null && status.equalsIgnoreCase("Active")) { %>
-                                            <i class="fas fa-circle text-success"></i> Active
+                                            <i class="fas fa-circle text-success"></i>
                                         <% } else { %>
-                                            <i class="fas fa-circle text-danger"></i> Inactive
+                                            <i class="fas fa-circle text-danger"></i>
                                         <% } %>
-                                    </td>
+                                    </th>
                                     <td><%= lastLogin != null ? lastLogin : "Never logged in" %></td>
                                     <td><%= lastLogout != null ? lastLogout : "Never logged out" %></td>
                                 </tr>

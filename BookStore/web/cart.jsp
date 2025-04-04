@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*, java.util.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     // Ensure user is logged in
@@ -19,7 +20,7 @@
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
         
         // Fetch cart items for the logged-in user
-        String sql = "SELECT id, bookname, author, price, image, quantity FROM cart WHERE user_email = ?";
+        String sql = "SELECT id, bookname, author, price, image, quantity, created_at FROM cart WHERE user_email = ?";
         stmt = conn.prepareStatement(sql);
         stmt.setString(1, userEmail);
         rs = stmt.executeQuery();
@@ -32,7 +33,16 @@
             item.put("price", rs.getString("price"));
             item.put("image", rs.getString("image"));
             item.put("quantity", rs.getString("quantity"));
+            item.put("created_at", rs.getTimestamp("created_at").toString());
+
+            Timestamp timestamp = rs.getTimestamp("created_at");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy, hh:mm a");    
+            item.put("created_at", sdf.format(timestamp));
+            
             cartItems.add(item);
+
+            
+
         }
     } catch (Exception e) {
         e.printStackTrace();
@@ -185,6 +195,7 @@
                     <th>Author</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>Add Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -211,6 +222,7 @@
                             
                             </form>
                         </td>
+                        <td><%= item.get("created_at") %></td>
                         <td>
                             <form action="RemoveFromCartServlet" method="post" style="display: inline;">
                                 <input type="hidden" name="cartItemId" value="<%= item.get("id") %>">

@@ -49,6 +49,13 @@
                     totalAdmins = rsAdmins.getInt("total_admins");
                 }
 
+                PreparedStatement psCart = conn.prepareStatement("SELECT COUNT(*) AS total_cart FROM cart");
+                ResultSet rsCart = psCart.executeQuery();
+                int totalCart = 0;
+                if (rsCart.next()) {
+                    totalCart = rsCart.getInt("total_cart");
+                }
+
                 conn.close();
         %>
 
@@ -96,23 +103,23 @@
             </div>
         </div>
 
-        <%
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        %>
-
         <!-- New Orders Card -->
         <div class="col-md-3">
             <div class="stats-card">
                 <div class="icon bg-success text-white">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <h3>45</h3>
-                <p class="text-muted mb-0">New Orders</p>
+                <h3><%= totalCart %></h3>
+                <p class="text-muted mb-0">Cart</p>
             </div>
         </div>
     </div>
+
+    <%
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    %>
 
     <!-- Recent Orders Table -->
     <div class="card">

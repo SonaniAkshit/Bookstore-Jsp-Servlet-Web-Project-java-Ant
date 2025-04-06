@@ -42,6 +42,12 @@
                 <a class="nav-link" href="users.jsp">
                     <i class="fas fa-users"></i> Users
                 </a>
+                <a class="nav-link" href="subscriber.jsp">
+                    <i class="fas fa-envelope"></i> Subscribers
+                </a>
+                <a class="nav-link" href="contact.jsp">
+                    <i class="fas fa-message"></i> Contact Messages
+                </a>
                 <a class="nav-link" href="admin-profile.jsp">
                     <i class="fas fa-user-circle"></i> Profile
                 </a>

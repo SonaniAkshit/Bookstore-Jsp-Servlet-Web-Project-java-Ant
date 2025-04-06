@@ -1,26 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ include file="header.jsp" %>
+
+<%
+    int totalBooks = 0;
+    int addedToday = 0;
+
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+        Statement stmt = conn.createStatement();
+
+        ResultSet rs1 = stmt.executeQuery("SELECT COUNT(*) FROM books");
+        if (rs1.next()) totalBooks = rs1.getInt(1);
+
+        ResultSet rs2 = stmt.executeQuery("SELECT COUNT(*) FROM books WHERE DATE(created_at) = CURDATE()");
+        if (rs2.next()) addedToday = rs2.getInt(1);
+
+        conn.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
+
 <script>
     document.querySelector('a[href="books.jsp"]').classList.add('active');
 </script>
 
-<!-- Main Content -->
 <div class="admin-main">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <button id="sidebar-toggle" class="btn btn-primary d-md-none">
-            <i class="fas fa-bars"></i>
-        </button>
-        <h2 class="mb-0">Book Management</h2>
+        <button id="sidebar-toggle" class="btn btn-primary d-md-none"><i class="fas fa-bars"></i></button>
+        <h2 class="mb-0"> <i class="fas fa-book"></i> Book Management</h2>
     </div>
 
-    <!-- Search Box with Search Icon -->
-    <div class="mb-4">
-        <div class="input-group">
-            <span class="input-group-text">
-                <i class="fas fa-search"></i> <!-- Search Icon -->
-            </span>
-            <input type="text" id="searchInput" class="form-control" placeholder="Search by Title, Author, or Category" onkeyup="searchBooks()">
+    <!-- Book Statistics -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="stats-card">
+                <div class="icon bg-primary text-white"><i class="fas fa-book"></i></div>
+                <h3><%= totalBooks %></h3>
+                <p class="text-muted mb-0">Total Books</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="stats-card">
+                <div class="icon bg-success text-white"><i class="fas fa-calendar-plus"></i></div>
+                <h3><%= addedToday %></h3>
+                <p class="text-muted mb-0">Books Added Today</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Search Box -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="input-group">
+                <span class="input-group-text bg-primary text-white">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by Title, Author, or Category" onkeyup="searchBooks()">
+            </div>
         </div>
     </div>
 
@@ -37,34 +76,28 @@
                         <th>Publisher</th>
                         <th>Category</th>
                         <th>Price</th>
-                        <th>Stock</th>
                         <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
                         try {
-                            Class.forName("com.mysql.cj.jdbc.Driver");
                             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
-                            
-                            PreparedStatement ps = conn.prepareStatement("SELECT * FROM books");
-                            ResultSet rs = ps.executeQuery();
-                            
+                            Statement stmt = conn.createStatement();
+                            ResultSet rs = stmt.executeQuery("SELECT * FROM books");
+
                             while (rs.next()) {
                     %>
-                        <tr>
-                            <td><%= rs.getInt("id") %></td>
-                            <td>
-                                <img src="../<%= rs.getString("image") %>" alt="Book Cover" style="width: 50px; height: 70px; object-fit: cover;">
-                            </td>
-                            <td><%= rs.getString("name") %></td>
-                            <td><%= rs.getString("author") %></td>
-                            <td><%= rs.getString("publisher_email") %></td>
-                            <td><%= rs.getString("category") %></td>
-                            <td>Rs.<%= rs.getDouble("price") %></td>
-                            <td><%= rs.getInt("stock") %></td>
-                            <td><%= rs.getString("description") %></td>
-                        </tr>
+                    <tr>
+                        <td><%= rs.getInt("id") %></td>
+                        <td><img src="../<%= rs.getString("image") %>" alt="Cover" style="width: 50px; height: 70px; object-fit: cover;"></td>
+                        <td><%= rs.getString("name") %></td>
+                        <td><%= rs.getString("author") %></td>
+                        <td><%= rs.getString("publisher_email") %></td>
+                        <td><%= rs.getString("category") %></td>
+                        <td>Rs.<%= rs.getDouble("price") %></td>
+                        <td><%= rs.getString("description") %></td>
+                    </tr>
                     <%
                             }
                             conn.close();
@@ -78,40 +111,25 @@
     </div>
 </div>
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-<script src="js/admin-script.js"></script>
-
 <script>
-// Function to filter the books table based on the search query
 function searchBooks() {
     let input = document.getElementById("searchInput");
     let filter = input.value.toLowerCase();
     let table = document.getElementById("booksTable");
     let tr = table.getElementsByTagName("tr");
 
-    // Loop through all table rows and hide those that don't match the search query
-    for (let i = 1; i < tr.length; i++) { // Start at 1 to skip the header row
+    for (let i = 1; i < tr.length; i++) {
         let td = tr[i].getElementsByTagName("td");
         let match = false;
-        
-        // Loop through all columns of the row
         for (let j = 0; j < td.length; j++) {
-            if (td[j]) {
-                let textValue = td[j].textContent || td[j].innerText;
-                if (textValue.toLowerCase().indexOf(filter) > -1) {
-                    match = true;
-                }
+            if (td[j] && (td[j].textContent || td[j].innerText).toLowerCase().indexOf(filter) > -1) {
+                match = true;
+                break;
             }
         }
-
-        // Show or hide row based on whether it matches the search term
-        if (match) {
-            tr[i].style.display = "";
-        } else {
-            tr[i].style.display = "none";
-        }
+        tr[i].style.display = match ? "" : "none";
     }
 }
 </script>

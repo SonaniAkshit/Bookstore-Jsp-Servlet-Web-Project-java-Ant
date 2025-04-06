@@ -205,7 +205,7 @@
 
         <div class="order-summary">
             <h2>Order Summary</h2>
-            <p>________________________________________________</p>
+            <hr>
             <% for (Map<String, String> item : cartItems) { 
                 double price = Double.parseDouble(item.get("price"));
                 int quantity = Integer.parseInt(item.get("quantity"));

@@ -27,12 +27,12 @@
                 </div>
                 <div class="mt-3">
                     <p>Subscribe to our newsletter</p>
-                    <form class="subscribe-form">
+                    <form class="subscribe-form" action="SubscribeServlet" method="post">
                         <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Enter your email">
+                            <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
                             <button class="btn btn-accent" type="submit">Subscribe</button>
                         </div>
-                    </form>
+                    </form>                    
                 </div>
             </div>
         </div>

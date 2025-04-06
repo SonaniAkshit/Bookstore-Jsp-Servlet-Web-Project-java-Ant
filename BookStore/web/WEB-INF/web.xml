@@ -64,6 +64,22 @@
         <servlet-name>RemoveFromCartServlet</servlet-name>
         <servlet-class>RemoveFromCartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubscribeServlet</servlet-name>
+        <servlet-class>SubscribeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ContactServlet</servlet-name>
+        <servlet-class>ContactServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendNewsletterServlet</servlet-name>
+        <servlet-class>SendNewsletterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteSubscriberServlet</servlet-name>
+        <servlet-class>DeleteSubscriberServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
@@ -123,6 +139,22 @@
     <servlet-mapping>
         <servlet-name>RemoveFromCartServlet</servlet-name>
         <url-pattern>/RemoveFromCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubscribeServlet</servlet-name>
+        <url-pattern>/SubscribeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactServlet</servlet-name>
+        <url-pattern>/ContactServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendNewsletterServlet</servlet-name>
+        <url-pattern>/SendNewsletterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteSubscriberServlet</servlet-name>
+        <url-pattern>/DeleteSubscriberServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

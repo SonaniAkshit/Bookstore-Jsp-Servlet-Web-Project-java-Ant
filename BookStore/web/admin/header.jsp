@@ -27,8 +27,9 @@
         <div class="p-3">
             <a class="navbar-brand d-flex align-items-center mb-4" href="index.jsp">
                <center>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="fas fa-book-reader me-2 text-warning"></i>
-                <span class="brand-text fs-4 fw-bold text-white">E-Books Admin</span>
+                <span class="brand-text fs-4 fw-bold text-white">E-Books  </span>
                 </center>
             </a>
             <nav>
@@ -49,6 +50,9 @@
                 </a>
                 <a href="contact.jsp" class="nav-link">
                     <i class="fas fa-message"></i> Contact
+                </a>
+                <a href="admin-profile.jsp" class="nav-link">
+                    <i class="fas fa-user"></i> Profile
                 </a>
             </nav>
             <div class="mt-auto p-3">

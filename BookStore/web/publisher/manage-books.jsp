@@ -31,7 +31,7 @@
                     
                     
                     <div class="card-body">
-                        <table id="booksTable" class="table table-striped table-bordered" style="width:100%">
+                        <table id="booksTable" class="publisher-table-container" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>ID</th>

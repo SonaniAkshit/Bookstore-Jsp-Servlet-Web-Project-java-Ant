@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="categoriesTable" class="table table-striped table-bordered">
+                        <table id="categoriesTable" class="table publisher-table-container">
                             <thead>
                                 <tr>
                                     <th>ID</th>

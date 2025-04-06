@@ -10,7 +10,7 @@
         <button id="sidebar-toggle" class="btn btn-primary d-md-none">
             <i class="fas fa-bars"></i>
         </button>
-        <h2 class="mb-0">Dashboard Overview</h2>
+        <h2 class="mb-0"><i class="fas fa-home"></i> Admin Dashboard</h2>
         <div class="toast-container position-fixed top-0 end-0 p-3"></div>
     </div>
 

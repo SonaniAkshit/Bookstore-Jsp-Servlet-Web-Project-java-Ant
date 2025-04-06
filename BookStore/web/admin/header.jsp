@@ -16,40 +16,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - BookStore</title>
+    <title>Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="css/admin-dashboard.css" rel="stylesheet">
     <link href="css/admin-style.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Sidebar -->
     <div class="admin-sidebar">
-        <div class="d-flex flex-column h-100">
-            <div class="p-3 text-center">
-                <h4 class="text-light">Welcome, <%= adminName %>!</h4>  <!-- Display admin name -->
-            </div>
-            <nav class="nav flex-column mt-3">
-                <a class="nav-link" href="index.jsp">
+        <div class="p-3">
+            <a class="navbar-brand d-flex align-items-center mb-4" href="index.jsp">
+               <center>
+                <i class="fas fa-book-reader me-2 text-warning"></i>
+                <span class="brand-text fs-4 fw-bold text-white">E-Books Admin</span>
+                </center>
+            </a>
+            <nav>
+                <a href="index.jsp" class="nav-link">
                     <i class="fas fa-home"></i> Dashboard
                 </a>
-                <a class="nav-link" href="books.jsp">
+                <a href="books.jsp" class="nav-link">
                     <i class="fas fa-book"></i> Books
                 </a>
-                <a class="nav-link" href="orders.jsp">
+                <a href="orders.jsp" class="nav-link">
                     <i class="fas fa-shopping-cart"></i> Orders
                 </a>
-                <a class="nav-link" href="users.jsp">
+                <a href="users.jsp" class="nav-link">
                     <i class="fas fa-users"></i> Users
                 </a>
-                <a class="nav-link" href="subscriber.jsp">
+                <a href="subscriber.jsp" class="nav-link">
                     <i class="fas fa-envelope"></i> Subscribers
                 </a>
-                <a class="nav-link" href="contact.jsp">
-                    <i class="fas fa-message"></i> Contact Messages
-                </a>
-                <a class="nav-link" href="admin-profile.jsp">
-                    <i class="fas fa-user-circle"></i> Profile
+                <a href="contact.jsp" class="nav-link">
+                    <i class="fas fa-message"></i> Contact
                 </a>
             </nav>
             <div class="mt-auto p-3">

@@ -164,3 +164,20 @@
         margin-bottom: 1rem;
     }
 }
+
+.navbar-brand {
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-2px);
+}
+
+.navbar-brand .fa-book-reader {
+    font-size: 1.5rem;
+}
+
+.navbar-brand .brand-text {
+    letter-spacing: 0.5px;
+}

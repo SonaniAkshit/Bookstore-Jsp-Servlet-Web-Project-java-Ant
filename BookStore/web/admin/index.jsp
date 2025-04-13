@@ -56,6 +56,13 @@
                     totalCart = rsCart.getInt("total_cart");
                 }
 
+                PreparedStatement psorders = conn.prepareStatement("SELECT COUNT(*) AS total_orders FROM orders");
+                ResultSet rsorders = psorders.executeQuery();
+                int totalorders = 0;
+                if (rsorders.next()) {
+                    totalorders = rsorders.getInt("total_orders");
+                }
+
                 conn.close();
         %>
 
@@ -103,7 +110,7 @@
             </div>
         </div>
 
-        <!-- New Orders Card -->
+        <!-- New cart Card -->
         <div class="col-md-3">
             <div class="stats-card">
                 <div class="icon bg-success text-white">
@@ -113,6 +120,18 @@
                 <p class="text-muted mb-0">Cart</p>
             </div>
         </div>
+
+        <!-- Order Card -->
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="icon bg-primary text-white">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h3><%= totalorders %></h3>
+                <p class="text-muted mb-0">Orders</p>
+            </div>
+        </div>
+
     </div>
 
     <%
@@ -133,30 +152,36 @@
                         <th>Books</th>
                         <th>Total</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                        try {
+                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                            Statement stmt = conn.createStatement();
+                            ResultSet rs = stmt.executeQuery("SELECT * FROM orders WHERE DATE(ordered_at) = CURDATE()");
+
+                            while (rs.next()) {
+                                int orderId = rs.getInt("id");
+                    %>
                     <tr>
-                        <td>#12345</td>
-                        <td>John Doe</td>
-                        <td>The Great Gatsby, 1984</td>
-                        <td>$45.98</td>
-                        <td><span class="badge bg-success">Delivered</span></td>
+                        <td><%= orderId %></td>
+                        <td><%= rs.getString("customer_name") %></td>
+                        <td><%= rs.getString("books") %></td>
+                        <td>Rs.<%= rs.getInt("total") %></td>
                         <td>
-                            <button class="btn btn-sm btn-primary">View</button>
+                            <% String status = rs.getString("status"); %>
+                            <span class="badge bg-<%= status.equals("delivered") ? "success" : status.equals("cancelled") ? "danger" : "warning" %>">
+                                <%= status.equals("pending") ? "Processing" : status.substring(0, 1).toUpperCase() + status.substring(1) %>
+                            </span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>#12344</td>
-                        <td>Jane Smith</td>
-                        <td>To Kill a Mockingbird</td>
-                        <td>$15.99</td>
-                        <td><span class="badge bg-warning">Processing</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">View</button>
-                        </td>
-                    </tr>
+                    <%      }
+                            conn.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    %>
                 </tbody>
             </table>
         </div>

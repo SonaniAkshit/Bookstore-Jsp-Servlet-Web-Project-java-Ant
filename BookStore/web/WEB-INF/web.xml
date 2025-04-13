@@ -96,6 +96,10 @@
         <servlet-name>SendOrderConfirmationServlet</servlet-name>
         <servlet-class>SendOrderConfirmationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteContactMessageServlet</servlet-name>
+        <servlet-class>DeleteContactMessageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
@@ -187,6 +191,10 @@
     <servlet-mapping>
         <servlet-name>SendOrderConfirmationServlet</servlet-name>
         <url-pattern>/SendOrderConfirmationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteContactMessageServlet</servlet-name>
+        <url-pattern>/DeleteContactMessageServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

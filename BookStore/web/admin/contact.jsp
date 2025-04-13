@@ -106,9 +106,10 @@
                                 <i class="fas fa-reply"></i>
                             </button>
 
-                            <button class="btn btn-sm btn-danger">
+                            <button class="btn btn-sm btn-danger" onclick="confirmDelete(<%= rs.getInt("id") %>)">
                                 <i class="fas fa-trash"></i>
                             </button>
+                            
                         </td>
                     </tr>
                     <%
@@ -216,4 +217,22 @@ function viewMessage(message) {
         }, false)
     })
 })()
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This message will be permanently deleted!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '../DeleteContactMessageServlet?id=' + id;
+            }
+        });
+    }
 </script>

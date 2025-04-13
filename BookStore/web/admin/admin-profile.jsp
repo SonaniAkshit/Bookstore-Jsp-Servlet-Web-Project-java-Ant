@@ -89,22 +89,6 @@
                         <label for="adminContact" class="form-label">Contact</label>
                         <input type="text" class="form-control" id="adminContact" value="<%= contact %>" readonly>
                     </div>
-                    <div class="mb-3">
-                        <label for="adminGender" class="form-label">Gender</label>
-                        <input type="text" class="form-control" id="adminGender" value="<%= gender %>" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="adminLastLogin" class="form-label">Last Login</label>
-                        <input type="text" class="form-control" id="adminLastLogin" value="<%= lastLogin %>" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="adminLastLogout" class="form-label">Last Logout</label>
-                        <input type="text" class="form-control" id="adminLastLogout" value="<%= lastLogout %>" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="adminStatus" class="form-label">Status</label>
-                        <input type="text" class="form-control" id="adminStatus" value="<%= status %>" readonly>
-                    </div>
                 </form>
             </div>
         </div>

@@ -43,39 +43,24 @@ public class AddToCartServlet extends HttpServlet {
         String publisherEmail = request.getParameter("publisherEmail");
         String price = request.getParameter("price");
         String image = request.getParameter("image");
-        int quantity = 1;
+
+        int quantityToAdd = 1;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
 
-            // ✅ Check stock before proceeding
+            // ✅ Fetch current stock
             PreparedStatement stockStmt = conn.prepareStatement("SELECT stock FROM books WHERE id = ?");
             stockStmt.setString(1, bookId);
             var stockRs = stockStmt.executeQuery();
-            int stock = 0;
+
+            int currentStock = 0;
             if (stockRs.next()) {
-                stock = stockRs.getInt("stock");
+                currentStock = stockRs.getInt("stock");
             }
 
-            if (stock <= 0) {
-                conn.close();
-                out.println("<html><head>");
-                out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
-                out.println("</head><body>");
-                out.println("<script>");
-                out.println("Swal.fire({");
-                out.println("  title: 'Out of Stock!',");
-                out.println("  text: 'Sorry, this book is currently not available.',");
-                out.println("  icon: 'error',");
-                out.println("  confirmButtonText: 'OK'");
-                out.println("}).then(() => { window.location.href='book-detail.jsp?id=" + bookId + "'; });");
-                out.println("</script>");
-                out.println("</body></html>");
-                return;
-            }
-
-            // ✅ Check if item already exists in cart
+            // ✅ Check if book is already in cart
             PreparedStatement checkStmt = conn.prepareStatement("SELECT quantity FROM cart WHERE id = ? AND user_email = ?");
             checkStmt.setString(1, bookId);
             checkStmt.setString(2, userEmail);
@@ -83,27 +68,74 @@ public class AddToCartServlet extends HttpServlet {
 
             if (rs.next()) {
                 int currentQuantity = rs.getInt("quantity");
-                quantity += currentQuantity;
-                PreparedStatement updateStmt = conn.prepareStatement("UPDATE cart SET quantity = ? WHERE id = ? AND user_email = ?");
-                updateStmt.setInt(1, quantity);
-                updateStmt.setString(2, bookId);
-                updateStmt.setString(3, userEmail);
-                updateStmt.executeUpdate();
+
+                if (currentStock <= 0) {
+                    conn.close();
+                    out.println("<html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>");
+                    out.println("<script>");
+                    out.println("Swal.fire({");
+                    out.println("  title: 'Out of Stock!',");
+                    out.println("  text: 'This book is currently not available.',");
+                    out.println("  icon: 'error'");
+                    out.println("}).then(() => { window.location.href='book-detail.jsp?id=" + bookId + "'; });");
+                    out.println("</script></body></html>");
+                    return;
+                }
+
+                // ✅ Update cart quantity
+                int newQuantity = currentQuantity + quantityToAdd;
+                if (newQuantity > currentStock) {
+                    newQuantity = currentStock;
+                }
+
+                PreparedStatement updateCartStmt = conn.prepareStatement("UPDATE cart SET quantity = ? WHERE id = ? AND user_email = ?");
+                updateCartStmt.setInt(1, newQuantity);
+                updateCartStmt.setString(2, bookId);
+                updateCartStmt.setString(3, userEmail);
+                updateCartStmt.executeUpdate();
+
+                // ✅ Update stock
+                PreparedStatement updateStockStmt = conn.prepareStatement("UPDATE books SET stock = ? WHERE id = ?");
+                updateStockStmt.setInt(1, currentStock - (newQuantity - currentQuantity));
+                updateStockStmt.setString(2, bookId);
+                updateStockStmt.executeUpdate();
+
             } else {
-                PreparedStatement stmt = conn.prepareStatement("INSERT INTO cart (id, bookname, author, publisher_email, price, image, quantity, user_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                stmt.setString(1, bookId);
-                stmt.setString(2, bookName);
-                stmt.setString(3, author);
-                stmt.setString(4, publisherEmail);
-                stmt.setString(5, price);
-                stmt.setString(6, image);
-                stmt.setInt(7, quantity);
-                stmt.setString(8, userEmail);
-                stmt.executeUpdate();
+                if (currentStock < quantityToAdd) {
+                    conn.close();
+                    out.println("<html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>");
+                    out.println("<script>");
+                    out.println("Swal.fire({");
+                    out.println("  title: 'Insufficient Stock!',");
+                    out.println("  text: 'Only " + currentStock + " item(s) available.',");
+                    out.println("  icon: 'warning'");
+                    out.println("}).then(() => { window.location.href='book-detail.jsp?id=" + bookId + "'; });");
+                    out.println("</script></body></html>");
+                    return;
+                }
+
+                // ✅ Insert into cart
+                PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO cart (id, bookname, author, publisher_email, price, image, quantity, user_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                insertStmt.setString(1, bookId);
+                insertStmt.setString(2, bookName);
+                insertStmt.setString(3, author);
+                insertStmt.setString(4, publisherEmail);
+                insertStmt.setString(5, price);
+                insertStmt.setString(6, image);
+                insertStmt.setInt(7, quantityToAdd);
+                insertStmt.setString(8, userEmail);
+                insertStmt.executeUpdate();
+
+                // ✅ Update stock
+                PreparedStatement updateStockStmt = conn.prepareStatement("UPDATE books SET stock = stock - ? WHERE id = ?");
+                updateStockStmt.setInt(1, quantityToAdd);
+                updateStockStmt.setString(2, bookId);
+                updateStockStmt.executeUpdate();
             }
+
             conn.close();
 
-            // ✅ Show success alert with auto-redirect
+            // ✅ Success SweetAlert
             out.println("<html><head>");
             out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
             out.println("</head><body>");
@@ -123,18 +155,14 @@ public class AddToCartServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            out.println("<html><head>");
-            out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
-            out.println("</head><body>");
+            out.println("<html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script></head><body>");
             out.println("<script>");
             out.println("Swal.fire({");
             out.println("  title: 'Error!',");
             out.println("  text: 'Something went wrong. Please try again.',");
-            out.println("  icon: 'error',");
-            out.println("  confirmButtonText: 'OK'");
+            out.println("  icon: 'error'");
             out.println("});");
-            out.println("</script>");
-            out.println("</body></html>");
+            out.println("</script></body></html>");
         }
     }
 }

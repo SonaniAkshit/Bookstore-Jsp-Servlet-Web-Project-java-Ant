@@ -216,7 +216,7 @@
                             <form action="UpdateCartServlet" method="post" class="quantity-control">
                                 <input type="hidden" name="cartItemId" value="<%= item.get("id") %>">
                                 <button type="button" class="quantity-btn" onclick="updateQuantity(this, -1)">-</button>
-                                <input type="number" name="quantity" value="<%= quantity %>" min="1" class="quantity-input" onchange="validateQuantity(this)">
+                                <input type="number" name="quantity" value="<%= quantity %>" min="1" max="10" class="quantity-input" onchange="validateQuantity(this)">
                                 <button type="button" class="quantity-btn" onclick="updateQuantity(this, 1)">+</button>
                                 <button type="submit" class="update-btn"><i class="fas fa-edit"></i></button>
                             

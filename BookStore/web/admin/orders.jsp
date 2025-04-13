@@ -1,4 +1,33 @@
 <%@ include file="header.jsp" %>
+<%@ page import="java.sql.*, java.util.*" %>
+<%
+    int totalorder = 0;
+    int Completed = 0;
+    int Pending = 0;
+    int Cancelled = 0;
+
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+        Statement stmt = conn.createStatement();
+
+        ResultSet rs1 = stmt.executeQuery("SELECT COUNT(*) FROM orders");
+        if (rs1.next()) totalorder = rs1.getInt(1);
+
+        ResultSet rs2 = stmt.executeQuery("SELECT COUNT(*) FROM orders WHERE status='delivered' ");
+        if (rs2.next()) Completed = rs2.getInt(1);
+
+        ResultSet rs3 = stmt.executeQuery("SELECT COUNT(*) FROM orders  WHERE status='pending' ");
+        if (rs3.next()) Pending = rs3.getInt(1);
+
+        ResultSet rs4 = stmt.executeQuery("SELECT COUNT(*) FROM orders WHERE status='cancelled' ");
+        if (rs4.next()) Cancelled = rs4.getInt(1);
+
+        conn.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
+
 <script>
     document.querySelector('a[href="orders.jsp"]').classList.add('active');
 </script>
@@ -27,7 +56,7 @@
                     <div class="icon bg-primary text-white">
                         <i class="fas fa-shopping-bag"></i>
                     </div>
-                    <h3>156</h3>
+                    <h3><%= totalorder %></h3>
                     <p class="text-muted mb-0">Total Orders</p>
                 </div>
             </div>
@@ -36,7 +65,7 @@
                     <div class="icon bg-success text-white">
                         <i class="fas fa-check-circle"></i>
                     </div>
-                    <h3>124</h3>
+                    <h3><%= Completed %></h3>
                     <p class="text-muted mb-0">Completed</p>
                 </div>
             </div>
@@ -45,7 +74,7 @@
                     <div class="icon bg-warning text-white">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <h3>22</h3>
+                    <h3><%= Pending %></h3>
                     <p class="text-muted mb-0">Pending</p>
                 </div>
             </div>
@@ -54,7 +83,7 @@
                     <div class="icon bg-danger text-white">
                         <i class="fas fa-times-circle"></i>
                     </div>
-                    <h3>10</h3>
+                    <h3><%= Cancelled %></h3>
                     <p class="text-muted mb-0">Cancelled</p>
                 </div>
             </div>
@@ -76,12 +105,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <%
+                            try {
+                                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                                Statement stmt = conn.createStatement();
+                                ResultSet rs = stmt.executeQuery("SELECT * FROM orders");
+
+                                while (rs.next()) {
+                                    String orderedat = rs.getString("ordered_at");
+                        %>
                         <tr>
-                            <td>#12345</td>
-                            <td>John Doe</td>
-                            <td>2023-08-15</td>
-                            <td>The Great Gatsby, 1984</td>
-                            <td>$45.98</td>
+                            <td>#<%=  rs.getInt("id") %></td>
+                            <td><%=  rs.getString("customer_name") %></td>
+                            <td><%= orderedat %></td>
+                            <td><%=  rs.getString("books") %></td>
+                            <td><%=  rs.getInt("total") %></td>
                             <td><span class="badge bg-success">Delivered</span></td>
                             <td>
                                 <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">
@@ -92,6 +130,13 @@
                                 </button>
                             </td>
                         </tr>
+                        <%
+                                }
+                                conn.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        %>
                         <tr>
                             <td>#12344</td>
                             <td>Jane Smith</td>
@@ -196,7 +241,7 @@
                         <div class="mb-3">
                             <label class="form-label">Order Status</label>
                             <select class="form-select" required>
-                                <option value="processing">Processing</option>
+                                <option value="pending">Pending</option>
                                 <option value="delivered">Delivered</option>
                                 <option value="cancelled">Cancelled</option>
                             </select>

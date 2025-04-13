@@ -99,7 +99,7 @@ USE bookstore;
 ```
 - Import the SQL file from:
 ```SQL
-Database(SQL)/bookstore.sql
+Database(SQL)/bookstore (4).sql
 ```
 ### 4. Build & Deploy
 ``` java

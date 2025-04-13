@@ -1,111 +1,138 @@
-# BookStore Web Application
-
-## 🚧 Project Status: Under Development 🚧
-
 # 📚 BookStore Web Application
 
-A dynamic web-based bookstore application built using JSP, Servlets, and MySQL. This project implements a comprehensive online bookstore system with multiple user roles and features.
+A fully functional and modern digital bookstore built using **Java Servlets**, **JSP**, and **MySQL**. This platform provides a seamless experience for customers, publishers, and administrators to manage, browse, and purchase e-books online.
 
-## 🌟 Features
+![Project Banner](web/images/banner.png)
 
-### 👥 User Roles
+---
 
-#### 📖 Customer
-- Browse and search books by category
-- View detailed book information
-- Add books to shopping cart
-- Manage cart items (update quantity, remove items)
-- User authentication (signup, login, logout)
+## 🚀 Live Demo
 
-#### 📚 Publisher
-- Manage book inventory
-- Add new books
-- Edit existing book details
-- Remove books from catalog
-- Manage book categories
+> 🔗 *Coming Soon*
 
-#### 👨‍💼 Admin
-- User management
-- Publisher management
-- System-wide category management
-- Monitor user activities
+---
 
-### 🛠️ Technical Features
+## 🌟 Key Features
 
-- **Authentication System**: Secure login and registration
-- **Session Management**: Efficient user session handling
-- **Database Integration**: MySQL for data persistence
-- **Responsive Design**: Bootstrap-based UI
-- **Dynamic Content**: AJAX for seamless interactions
-- **Security**: Input validation and SQL injection prevention
+### 👤 **Customer**
+- 🔍 Browse and search books by title, author, or category
+- 🛒 Add to cart, update quantity, and remove items
+- 📄 View book details with cover image, price, and author
+- 🔐 User registration, login, and logout
+- 📦 View order history and profile details
 
-## 🚀 Technologies Used
+### 📝 **Publisher**
+- 📚 Upload and manage books with images and metadata
+- ✏️ Edit book details (price, description, category)
+- 🗃️ Manage personal dashboard and sales stats
+- 🗂️ Add and manage book categories
 
-- **Frontend**:
-  - JSP (JavaServer Pages)
-  - HTML5
-  - CSS3
-  - JavaScript
-  - Bootstrap 5
-  - Font Awesome
-  - SweetAlert2
+### 🛠️ **Admin**
+- 👥 Manage users and publishers
+- 📘 Full book and category control
+- 📈 Monitor sales and analytics
+- ✅ Approve or remove publishers
+- ⚙️ Configure system-wide settings
 
-- **Backend**:
-  - Java Servlets
-  - JDBC
-  - MySQL Database
+---
 
-- **Build Tool**:
-  - Apache Ant
+## 🛠️ Tech Stack
 
-## 🛠️ Installation
+| Layer     | Technologies                          |
+|-----------|----------------------------------------|
+| Frontend  | HTML5, CSS3, JavaScript, Bootstrap 5   |
+| Backend   | Java Servlets, JSP, JDBC               |
+| Database  | MySQL                                  |
+| Build     | Apache Ant                             |
+| Styling   | Font Awesome, SweetAlert2              |
+| Email     | JavaMail API                           |
 
-1. **Prerequisites**:
-   - Java Development Kit (JDK)
-   - Apache Tomcat Server
-   - MySQL Server
-   - Apache Ant
+---
 
-2. **Database Setup**:
-   - Create a new database named `bookstore`
-   - Import the SQL schema from `Database(SQL)/bookstore.sql`
+## 📁 Project Structure
 
-3. **Configuration**:
-   - Update database connection settings in the application
-   - Configure Tomcat server settings
-
-4. **Build and Deploy**:
-   ```bash
-   ant clean
-   ant build
-   ant deploy
-   ```
-
-## 🔄 Project Status
-
-### ✅ Completed Features
+```bash
+   BookStore/
+   ├── src/                        # Java source files (servlets)
+   ├── web/                        # Web content (JSP, CSS, JS, images)
+   │   ├── images/                 # Book covers & assets
+   │   ├── css/                    # Custom styles
+   │   └── js/                     # Custom JS files
+   ├── build.xml                   # Apache Ant build file
+   ├── Database(SQL)/              # SQL schema and sample data
+   └── README.md                   # Project documentation
+```
+---
+## 💾 Database Overview
+MySQL database named bookstore with tables:
+- users – Customer and publisher accounts
+- books – Book listings
+- categories – Book categories
+- orders – Customer orders
+- cart – Shopping cart items
+- publishers – Publisher profiles
+- ubscribers – Newsletter emails
+- contact_messages – User inquiries
+---
+## 💡 How It Works
+- All books and categories are dynamically fetched from the database.
+- Real-time search functionality filters books as the user types.
+- SweetAlert2 provides beautiful and responsive alerts.
+- Servlet-based routing handles authentication, cart, orders, and admin functions.
+---
+## 🧪 Setup Instructions
+### 1. Prerequisites
+- JDK 8 or above
+- Apache Tomcat 9.x
+- MySQL 8.x
+- Apache Ant
+### 2. Clone & Setup
+```bash
+git clone https://github.com/SonaniAkshit/Bookstore-JspServlet.git
+cd Bookstore-JspServlet
+```
+### 3. Database Configuration
+- Create the database:
+```SQL
+CREATE DATABASE bookstore;
+USE bookstore;
+```
+- Import the SQL file from:
+```SQL
+Database(SQL)/bookstore.sql
+```
+### 4. Build & Deploy
+``` java
+ant clean
+ant build
+ant deploy
+```
+### 5. Run the App
+- Start Apache Tomcat
+- Visit: http://localhost:8080/BookStore/
+---
+## ✅ Completed Features
 - User authentication system
-- Book management system
 - Shopping cart functionality
-- Category management
-- Publisher management
+- Book upload and management
 - Admin dashboard
+- Newsletter & contact management
+- SweetAlert2 notifications
+- Search + category filtering
+---
+## 🎯 Planned Enhancements
+- ✅ Payment gateway integration (in progress)
+- ✅ Email order confirmations
+- ✅ PDF previews for books
+- 🧠 Book recommendations
+- 🌍 Multi-language support
+- 🤝 Social media sharing
+---
 
-### 🚧 Under Development
-- Payment integration
-- Order management system
-- User reviews and ratings
-- Advanced search filters
-- Email notifications
-- Mobile responsive optimization
+## 🙌 Contributing
+- Pull requests and feedback are welcome! Whether it's fixing bugs, improving UI, or adding features — your help is appreciated.
 
-### 📋 Planned Features
-- Wishlist functionality
-- Book recommendations
-- Social sharing
-- PDF preview for books
-- Multiple language support
-
-## 📝 Contributing
-
-This project is under active development. Contributions, issues, and feature requests are welcome!
+## 📧 Contact
+- 👤 Developer: Akshit Sonani
+- 📬 Email: sonaniakshit777@gmail.com
+- 🌐 GitHub: github.com/SonaniAkshit

@@ -17,10 +17,10 @@ public class AddToCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        
+
         HttpSession session = request.getSession();
         String userEmail = (String) session.getAttribute("userEmail");
-        
+
         if (userEmail == null) {
             out.println("<html><head>");
             out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
@@ -48,8 +48,34 @@ public class AddToCartServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
-            
-            // Check if item already exists in cart
+
+            // ✅ Check stock before proceeding
+            PreparedStatement stockStmt = conn.prepareStatement("SELECT stock FROM books WHERE id = ?");
+            stockStmt.setString(1, bookId);
+            var stockRs = stockStmt.executeQuery();
+            int stock = 0;
+            if (stockRs.next()) {
+                stock = stockRs.getInt("stock");
+            }
+
+            if (stock <= 0) {
+                conn.close();
+                out.println("<html><head>");
+                out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+                out.println("</head><body>");
+                out.println("<script>");
+                out.println("Swal.fire({");
+                out.println("  title: 'Out of Stock!',");
+                out.println("  text: 'Sorry, this book is currently not available.',");
+                out.println("  icon: 'error',");
+                out.println("  confirmButtonText: 'OK'");
+                out.println("}).then(() => { window.location.href='book-detail.jsp?id=" + bookId + "'; });");
+                out.println("</script>");
+                out.println("</body></html>");
+                return;
+            }
+
+            // ✅ Check if item already exists in cart
             PreparedStatement checkStmt = conn.prepareStatement("SELECT quantity FROM cart WHERE id = ? AND user_email = ?");
             checkStmt.setString(1, bookId);
             checkStmt.setString(2, userEmail);
@@ -76,19 +102,25 @@ public class AddToCartServlet extends HttpServlet {
                 stmt.executeUpdate();
             }
             conn.close();
-            
+
+            // ✅ Show success alert with auto-redirect
             out.println("<html><head>");
             out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
             out.println("</head><body>");
             out.println("<script>");
             out.println("Swal.fire({");
             out.println("  title: 'Added to Cart!',");
-            out.println("  text: 'Your book has been added successfully.',");
+            out.println("  text: '" + bookName + " has been added to your cart.',");
+            out.println("  imageUrl: '" + image + "',");
+            out.println("  imageWidth: 100,");
+            out.println("  imageHeight: 100,");
             out.println("  icon: 'success',");
-            out.println("  confirmButtonText: 'OK'");
+            out.println("  timer: 3000,");
+            out.println("  timerProgressBar: true");
             out.println("}).then(() => { window.location.href='cart.jsp'; });");
             out.println("</script>");
             out.println("</body></html>");
+
         } catch (Exception e) {
             e.printStackTrace();
             out.println("<html><head>");

@@ -9,7 +9,7 @@
     }
 
     String title = "", author = "", category = "", image = "images/default-book.jpg", description = "", publisher = "";
-    int pages = 0;
+    int pages = 0, stock = 0;
     double price = 0.0;
     java.sql.Date publishdate = null;
 
@@ -27,19 +27,20 @@
             image = rs.getString("image");
             description = rs.getString("description");
             price = rs.getDouble("price");
+            stock = rs.getInt("stock");
             publisher = rs.getString("publisher_email");
-            publishdate = rs.getDate("created_at"); // Fetch Date
+            publishdate = rs.getDate("created_at");
         }
         conn.close();
     } catch (Exception e) {
         e.printStackTrace();
     }
 
-    // Format Date
     String formattedDate = (publishdate != null) ? new java.text.SimpleDateFormat("dd MMM yyyy").format(publishdate) : "N/A";
 %>
 
 <jsp:include page="header.jsp" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 <main class="book-detail-page">
     <section class="book-detail-content">
@@ -69,7 +70,17 @@
                             <p><%= description %></p>
                         </div>
 
-                        <!-- Purchase Buttons (Buy Now & Add to Cart) -->
+                        <% if(stock > 0) { %>
+                            <span class="stock-status">
+                                <i class="bi bi-check-circle-fill me-2"></i>In Stock (<%= stock %> available)
+                            </span>
+                        <% } else { %>
+                            <span class="stock-status bg-danger text-white">
+                                <i class="bi bi-x-circle-fill me-2"></i>Out of Stock
+                            </span>
+                        <% } %>
+
+                        <!-- Purchase Buttons -->
                         <div class="purchase-options">
                             <form action="AddToCartServlet" method="POST">
                                 <input type="hidden" name="bookId" value="<%= bookId %>">
@@ -82,9 +93,7 @@
                                     <i class="fas fa-shopping-cart"></i> Add to Cart
                                 </button>
                             </form>
-                            
                             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                            
                             <!-- <button class="btn buy-now-btn">Buy Now</button> -->
                         </div>
                     </div>
@@ -99,6 +108,7 @@
     <span class="close" onclick="closeImageModal()">&times;</span>
     <img class="modal-content" id="fullImage">
 </div>
+
 <!-- JavaScript for Fullscreen Image -->
 <script>
 document.getElementById("bookImage").addEventListener("click", function() {
@@ -124,7 +134,6 @@ window.onclick = function(event) {
 
 <!-- CSS for Fullscreen Modal -->
 <style>
-/* Modal Background */
 .modal {
     display: none;
     position: fixed;
@@ -136,14 +145,12 @@ window.onclick = function(event) {
     background-color: rgba(0, 0, 0, 0.9);
 }
 
-/* Fullscreen Image */
-/* Medium-Sized Image */
 .modal-content {
     display: block;
-    width: 40%;  /* Set medium width */
-    max-width: 500px;  /* Restrict maximum width */
+    width: 40%;
+    max-width: 500px;
     height: auto;
-    max-height: 70vh; /* Limit height for responsiveness */
+    max-height: 70vh;
     margin: auto;
     position: absolute;
     top: 50%;
@@ -151,8 +158,6 @@ window.onclick = function(event) {
     transform: translate(-50%, -50%);
 }
 
-
-/* Close Button */
 .close {
     position: absolute;
     top: 15px;
@@ -162,6 +167,55 @@ window.onclick = function(event) {
     font-weight: bold;
     cursor: pointer;
 }
+.stock-status {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 25px;
+    width: 40%;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background-color: #e6f4ea; /* Light green for in-stock */
+    color: #2e7d32;            /* Dark green text */
+    margin-top: 15px;
+}
+
+.stock-status.bg-danger {
+    background-color: #dc3545 !important;  /* Bootstrap red */
+    color: #fff !important;
+}
+
+.stock-status i {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.buy-now-btn {
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.buy-now-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+.buy-now-btn i {
+    font-size: 18px;
+}
+
+
 </style>
 
 <jsp:include page="footer.jsp" />

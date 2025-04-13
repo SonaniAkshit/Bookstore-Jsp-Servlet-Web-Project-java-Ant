@@ -1,110 +1,83 @@
-# 📚 BookStore Web Application
+# 📚 E-Books Digital Library
 
-A dynamic web-based bookstore application built using JSP, Servlets, and MySQL. This project implements a comprehensive online bookstore system with multiple user roles and features.
+A modern digital bookstore platform built with Java Servlets, JSP, and MySQL. This web application provides a seamless experience for readers, publishers, and administrators to manage and purchase digital books.
 
-## 🌟 Features
+![Project Banner](web/images/banner.png)
 
-### 👥 User Roles
+## ✨ Features
 
-#### 📖 Customer
-- Browse and search books by category
-- View detailed book information
-- Add books to shopping cart
-- Manage cart items (update quantity, remove items)
-- User authentication (signup, login, logout)
+### 👤 User Features
+- Browse books by categories
+- Advanced search functionality
+- Detailed book information pages
+- User registration and authentication
+- Shopping cart management
+- Secure checkout process
+- Order history tracking
+- User profile management
 
-#### 📚 Publisher
-- Manage book inventory
-- Add new books
-- Edit existing book details
-- Remove books from catalog
-- Manage book categories
+### 📖 Publisher Features
+- Publisher dashboard
+- Book management system
+- Upload and edit book details
+- Sales tracking
+- Category management
+- Profile management
 
-#### 👨‍💼 Admin
-- User management
-- Publisher management
-- System-wide category management
-- Monitor user activities
+### 👑 Admin Features
+- Complete user management
+- Book inventory control
+- Category management
+- Order management
+- Publisher approval system
+- Sales analytics
+- System settings
 
-### 🛠️ Technical Features
+## 🛠️ Technology Stack
 
-- **Authentication System**: Secure login and registration
-- **Session Management**: Efficient user session handling
-- **Database Integration**: MySQL for data persistence
-- **Responsive Design**: Bootstrap-based UI
-- **Dynamic Content**: AJAX for seamless interactions
-- **Security**: Input validation and SQL injection prevention
+### Backend
+- Java Servlets
+- JSP (JavaServer Pages)
+- MySQL Database
+- Apache Tomcat Server
+- Apache Ant Build System
 
-## 🚀 Technologies Used
+### Frontend
+- HTML5 & CSS3
+- JavaScript
+- Bootstrap 5
+- Font Awesome Icons
+- Custom responsive design
 
-- **Frontend**:
-  - JSP (JavaServer Pages)
-  - HTML5
-  - CSS3
-  - JavaScript
-  - Bootstrap 5
-  - Font Awesome
-  - SweetAlert2
+### Libraries & Tools
+- JDBC for database connectivity
+- JavaMail API for email notifications
+- Custom session management
+- File upload handling
+- Data validation and sanitization
 
-- **Backend**:
-  - Java Servlets
-  - JDBC
-  - MySQL Database
+## 📦 Database Structure
 
-- **Build Tool**:
-  - Apache Ant
+The project uses MySQL with the following main tables:
+- Users
+- Books
+- Categories
+- Orders
+- Publishers
+- Cart
+- Subscribers
+- Contact
 
-## 🛠️ Installation
+## 🚀 Installation & Setup
 
-1. **Prerequisites**:
-   - Java Development Kit (JDK)
-   - Apache Tomcat Server
-   - MySQL Server
+1. **Prerequisites**
+   - JDK 8 or higher
+   - Apache Tomcat 9.x
+   - MySQL 8.x
    - Apache Ant
 
-2. **Database Setup**:
-   - Create a new database named `bookstore`
-   - Import the SQL schema from `Database(SQL)/bookstore.sql`
-
-3. **Configuration**:
-   - Update database connection settings in the application
-   - Configure Tomcat server settings
-
-4. **Build and Deploy**:
-   ```bash
-   ant clean
-   ant build
-   ant deploy
+2. **Database Setup**
+   ```sql
+   CREATE DATABASE bookstore;
+   USE bookstore;
    ```
-
-## 🔄 Project Status
-
-### ✅ Completed Features
-- User authentication system
-- Book management system
-- Shopping cart functionality
-- Category management
-- Publisher management
-- Admin dashboard
-
-### 🚧 Under Development
-- Payment integration
-- Order management system
-- User reviews and ratings
-- Advanced search filters
-- Email notifications
-- Mobile responsive optimization
-
-### 📋 Planned Features
-- Wishlist functionality
-- Book recommendations
-- Social sharing
-- PDF preview for books
-- Multiple language support
-
-## 📝 Contributing
-
-This project is under active development. Contributions, issues, and feature requests are welcome!
----
-
-⭐ Star this repository if you find it helpful!

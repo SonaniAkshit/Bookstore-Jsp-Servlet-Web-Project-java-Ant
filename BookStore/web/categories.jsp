@@ -151,5 +151,52 @@
             }
         });
     </script>
+
+    
+<style>
+    .book-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .book-card {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 10px;
+        height: 100%;
+        background: #fff;
+        transition: transform 0.3s;
+    }
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .book-image-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    .book-image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .book-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0,0,0,0.5);
+        opacity: 0;
+        transition: 0.3s ease;
+    }
+    .book-image-container:hover .book-overlay {
+        opacity: 1;
+    }
+</style>
+
 </body>
 </html>

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, java.util.*" %>
 <%
     // Check if user is logged in with valid session attributes
     String userName = (String) session.getAttribute("userName");
@@ -101,25 +102,36 @@
 
                 <div class="col-md-8">
                     <div class="profile-section">
-                        <h3>Recent Orders</h3>
+                        <h3>Your Orders</h3>
+
+                        <%
+                            try {
+                                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                                Statement stmt = conn.createStatement();
+                                ResultSet rs = stmt.executeQuery("SELECT * FROM orders WHERE email = '" + userEmail + "'");
+
+                                while (rs.next()) {
+                                    int orderId = rs.getInt("id");
+                        %>
+
                         <div class="order-item">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h5 class="mb-1">Order #12345</h5>
-                                    <p class="mb-0 text-muted">2 items • Total: $49.99</p>
+                                    <h5 class="mb-1">Order #<%=rs.getInt("id")%></h5>
+                                    <p class="mb-0 text-muted"><%= rs.getString("books") %> • Total: Rs.<%= rs.getString("total") %></p>
                                 </div>
-                                <span class="badge bg-success">Delivered</span>
+                                <% String status = rs.getString("status"); %>
+                                <span class="badge bg-<%= status.equals("delivered") ? "success" : status.equals("cancelled") ? "danger" : "warning" %>">
+                                    <%= status.equals("pending") ? "Processing" : status.substring(0, 1).toUpperCase() + status.substring(1) %>
+                                </span>
                             </div>
                         </div>
-                        <div class="order-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h5 class="mb-1">Order #12344</h5>
-                                    <p class="mb-0 text-muted">1 item • Total: $29.99</p>
-                                </div>
-                                <span class="badge bg-warning">Processing</span>
-                            </div>
-                        </div>
+                        <%      }
+                                conn.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        %>
                     </div>
                 </div>
             </div>

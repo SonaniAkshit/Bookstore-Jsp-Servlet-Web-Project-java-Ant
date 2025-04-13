@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <img src="images/about-hero.jpg" alt="About Us Hero Image" class="img-fluid rounded-4 shadow-lg">
+                    <img src="images/about.jpeg" alt="About Us Hero Image" class="img-fluid rounded-4 shadow-lg">
                 </div>
             </div>
         </div>
@@ -74,53 +74,37 @@
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-card">
-                        <img src="images/team1.jpg" alt="Team Member" class="team-img">
+                        <img src="images/profile (1).avif" alt="Team Member" class="team-img">
                         <div class="team-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>CEO & Founder</p>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="team-card">
-                        <img src="images/team2.jpg" alt="Team Member" class="team-img">
-                        <div class="team-info">
-                            <h4>Michael Chen</h4>
-                            <p>Head of Technology</p>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="team-card">
-                        <img src="images/team3.jpg" alt="Team Member" class="team-img">
-                        <div class="team-info">
-                            <h4>Emily Rodriguez</h4>
-                            <p>Content Director</p>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
+                            <h4>Hardik Mekhiya</h4>
+                            <p>CEO</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="team-card">
-                        <img src="images/team4.jpg" alt="Team Member" class="team-img">
+                        <img src="images/profile (1).jpg" alt="Team Member" class="team-img">
                         <div class="team-info">
-                            <h4>David Kim</h4>
-                            <p>UX Designer</p>
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
+                            <h4>Sunny Thakor</h4>
+                            <p>CEO</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <img src="images/profile.avif" alt="Team Member" class="team-img">
+                        <div class="team-info">
+                            <h4>Hemla Rathod</h4>
+                            <p>Co-Founder</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <img src="images/profile (2).jpg" alt="Team Member" class="team-img">
+                        <div class="team-info">
+                            <h4>Akshit Sonani</h4>
+                            <p>Head of Technology</p>
                         </div>
                     </div>
                 </div>
@@ -166,7 +150,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <img src="images/achievements.jpg" alt="Our Achievements" class="img-fluid rounded-4 shadow-lg">
+                    <img src="images/book.jpg" alt="Our Achievements" class="img-fluid rounded-4 shadow-lg">
                 </div>
             </div>
         </div>

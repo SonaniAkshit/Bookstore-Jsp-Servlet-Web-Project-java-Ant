@@ -57,42 +57,6 @@
         </div>
     </div>
 </section>
-<!-- Categories Section -->
-<section id="categories" class="categories-section">
-    <div class="container">
-        <h2 class="section-title">Popular Categories</h2>
-        <p class="text-center text-muted mb-5">Find your favorite genre</p>
-        <div class="row">
-            <%
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM category LIMIT 4"); // Fetch only 4 categories
-
-                    while (rs.next()) {
-            %>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <a href="categories.jsp" style="text-decoration: none; color: inherit;">
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-book"></i> <!-- You can customize icons -->
-                        </div>
-                        <h3><%= rs.getString("name") %></h3>
-                    </div>
-                </a>
-            </div>
-            <%
-                    }
-                    conn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            %>
-        </div>
-    </div>
-</section>
-
 <!-- Featured Books Section -->
 <section id="Featuredbooks" class="new-books-section">
     <div class="container">
@@ -102,7 +66,7 @@
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
-                    PreparedStatement ps = conn.prepareStatement("SELECT * FROM books LIMIT 4"); // Fetch only 4 books
+                    PreparedStatement ps = conn.prepareStatement("SELECT * FROM books LIMIT 20"); // Fetch only 4 books
                     ResultSet rs = ps.executeQuery();
 
                     while (rs.next()) {

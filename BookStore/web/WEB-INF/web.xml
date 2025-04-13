@@ -80,6 +80,14 @@
         <servlet-name>DeleteSubscriberServlet</servlet-name>
         <servlet-class>DeleteSubscriberServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReplyContactMessageServlet</servlet-name>
+        <servlet-class>ReplyContactMessageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessOrderServlet</servlet-name>
+        <servlet-class>ProcessOrderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
@@ -155,6 +163,14 @@
     <servlet-mapping>
         <servlet-name>DeleteSubscriberServlet</servlet-name>
         <url-pattern>/DeleteSubscriberServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReplyContactMessageServlet</servlet-name>
+        <url-pattern>/ReplyContactMessageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessOrderServlet</servlet-name>
+        <url-pattern>/ProcessOrderServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

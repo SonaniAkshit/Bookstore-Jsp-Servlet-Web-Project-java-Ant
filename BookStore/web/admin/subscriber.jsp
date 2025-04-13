@@ -50,6 +50,11 @@
         </div>
     </div>
 
+    <button class="btn btn-success" onclick="composeToAll()">
+        <i class="fas fa-bullhorn me-1"></i> Compose to All
+    </button>
+
+    <br><br>
     <!-- Email Compose Modal -->
     <div class="modal fade" id="composeModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -113,9 +118,9 @@
                         <td><i class="fas fa-calendar me-1"></i><%= subscribedAt %></td>
                         <td><span class="badge bg-success">Active</span></td>
                         <td>
-                            <button class="btn btn-sm btn-primary me-1" onclick="composeTo('<%= email %>')">
+                            <!-- <button class="btn btn-sm btn-primary me-1" onclick="composeTo('<%= email %>')">
                                 <i class="fas fa-envelope"></i>
-                            </button>
+                            </button> -->
                             <button class="btn btn-sm btn-danger" onclick="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'You want to delete this subscriber?',

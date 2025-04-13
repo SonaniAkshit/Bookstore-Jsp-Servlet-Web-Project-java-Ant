@@ -191,20 +191,15 @@
                     <h5 class="modal-title">Update Order Status</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+                <form id="updateStatusForm">
                 <div class="modal-body">
-                    <form id="updateStatusForm">
                         <div class="mb-3">
                             <label class="form-label">Order Status</label>
                             <select class="form-select" required>
                                 <option value="processing">Processing</option>
-                                <option value="shipped">Shipped</option>
                                 <option value="delivered">Delivered</option>
                                 <option value="cancelled">Cancelled</option>
                             </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Status Notes</label>
-                            <textarea class="form-control" rows="3" placeholder="Add any notes about the status update"></textarea>
                         </div>
                     </form>
                 </div>
@@ -212,6 +207,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" form="updateStatusForm" class="btn btn-primary">Update Status</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>

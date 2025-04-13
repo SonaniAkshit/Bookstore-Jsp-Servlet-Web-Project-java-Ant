@@ -1,89 +1,97 @@
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import java.io.IOException;
-import java.util.Properties;
+import jakarta.servlet.annotation.*;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
+@WebServlet("/SendNewsletterServlet")
 public class SendNewsletterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String recipients = request.getParameter("recipients");
         String subject = request.getParameter("subject");
-        String message = request.getParameter("message");
+        String messageText = request.getParameter("message");
 
-        final String fromEmail = "sonaniakshit777@gmail.com";
-        final String password = "oost nblh rcet vyjt"; // Gmail App Password
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        String from = "sonaniakshit777@gmail.com";
+        String password = "oost nblh rcet vyjt";  // App password
 
         response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
 
         try {
+            // Setup mail server
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
             Session session = Session.getInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(fromEmail, password);
+                    return new PasswordAuthentication(from, password);
                 }
             });
 
-            Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(fromEmail, "E-Books")); // Show E-Books as sender name
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-            msg.setSubject(subject);
-            msg.setText(message);
+            // Determine if it's for all or one recipient
+            List<String> emails = new ArrayList<>();
+            if (recipients.contains(",")) {
+                // bulk - get all from DB to ensure freshness
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT email FROM subscriber");
+                while (rs.next()) {
+                    emails.add(rs.getString("email"));
+                }
+                conn.close();
+            } else {
+                // single
+                emails.add(recipients.trim());
+            }
 
-            Transport.send(msg);
+            // Send email to each subscriber
+            for (String to : emails) {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(from, "E-Books"));
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                message.setSubject(subject);
+                message.setContent(messageText, "text/html");
+                Transport.send(message);
+            }
 
-            response.getWriter().println(getAlertHTML(
-                "Newsletter Sent from <b>E-Books</b>!",
-                "Your newsletter has been successfully delivered to subscribers.",
-                "success",
-                "admin/subscriber.jsp"
-            ));
+            // Show success alert
+            out.println("<html><head>");
+            out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+            out.println("</head><body>");
+            out.println("<script>");
+            out.println("Swal.fire({");
+            out.println("  icon: 'success',");
+            out.println("  title: 'Newsletter Sent!',");
+            out.println("  text: 'Your message has been delivered to all subscribers.',");
+            out.println("  confirmButtonText: 'OK'");
+            out.println("}).then(() => {");
+            out.println("  window.location.href = 'admin/subscriber.jsp';");
+            out.println("});");
+            out.println("</script>");
+            out.println("</body></html>");
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println(getAlertHTML(
-                "Failed to Send Newsletter",
-                "We couldn’t send the newsletter. Please try again.<br><br><code>" +
-                escapeHTML(e.getMessage()) + "</code>",
-                "error",
-                "admin/subscriber.jsp"
-            ));
+            out.println("<html><head>");
+            out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+            out.println("</head><body>");
+            out.println("<script>");
+            out.println("Swal.fire({");
+            out.println("  icon: 'error',");
+            out.println("  title: 'Failed to Send!',");
+            out.println("  html: 'Something went wrong while sending the newsletter.<br><br><code>" + e.getMessage().replace("'", "\\'") + "</code>',");
+            out.println("  confirmButtonText: 'Try Again'");
+            out.println("}).then(() => {");
+            out.println("  window.location.href = 'admin/subscriber.jsp';");
+            out.println("});");
+            out.println("</script>");
+            out.println("</body></html>");
         }
-    }
-
-    private String getAlertHTML(String title, String msg, String icon, String redirectTo) {
-        return """
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Newsletter Status - E-Books</title>
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            </head>
-            <body>
-                <script>
-                    Swal.fire({
-                        icon: '%s',
-                        title: '%s',
-                        html: '%s',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = '%s';
-                    });
-                </script>
-            </body>
-            </html>
-        """.formatted(icon, title, msg, redirectTo);
-    }
-
-    private String escapeHTML(String text) {
-        return text == null ? "" : text.replace("&", "&amp;")
-                                       .replace("<", "&lt;")
-                                       .replace(">", "&gt;")
-                                       .replace("\"", "&quot;")
-                                       .replace("'", "&#39;");
     }
 }

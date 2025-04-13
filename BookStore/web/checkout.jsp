@@ -199,6 +199,23 @@
                     <div class="error" id="zipCodeError"></div>
                 </div>
 
+                <% for (Map<String, String> item : cartItems) { 
+                    double price = Double.parseDouble(item.get("price"));
+                    int quantity = Integer.parseInt(item.get("quantity"));
+                %>
+
+                <div class="form-group">
+                    <label for="zipCode">Books</label>
+                    <input type="text" name="bookname" value="<%= item.get("bookname") %>" required>
+                </div>
+
+                <% } %>
+
+                <div class="form-group">
+                    <label for="zipCode">Total</label>
+                    <input type="text" name="total" value="<%= String.format("%.2f", total) %>" required>
+                </div>
+
                 <button type="submit" class="place-order-btn">Place Order</button>
             </form>
         </div>

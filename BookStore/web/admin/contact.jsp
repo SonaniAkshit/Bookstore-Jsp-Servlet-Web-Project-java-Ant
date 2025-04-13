@@ -1,5 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, java.util.*" %>
 <%@ include file="header.jsp" %>
+
+<%
+    int totalSubscribers = 0;
+    int newToday = 0;
+
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+        Statement stmt = conn.createStatement();
+
+        ResultSet rs1 = stmt.executeQuery("SELECT COUNT(*) FROM contact_messages");
+        if (rs1.next()) totalSubscribers = rs1.getInt(1);
+
+        ResultSet rs2 = stmt.executeQuery("SELECT COUNT(*) FROM contact_messages WHERE DATE(submitted_at) = CURDATE()");
+        if (rs2.next()) newToday = rs2.getInt(1);
+
+        conn.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
 <script>
     document.querySelector('a[href="contact.jsp"]').classList.add('active');
 </script>
@@ -12,51 +33,27 @@
         </button>
         <h2 class="mb-0">Contact Messages</h2>
         <div class="btn-group">
-            <button class="btn btn-outline-primary" onclick="window.location.reload()">
-                <i class="fas fa-sync-alt"></i> Refresh
-            </button>
-            <button class="btn btn-outline-success">
-                <i class="fas fa-file-excel"></i> Export
-            </button>
         </div>
     </div>
 
-    <!-- Contact Statistics -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-3">
+       <!-- Subscriber Statistics -->
+       <div class="row g-4 mb-4">
+        <div class="col-md-6">
             <div class="stats-card">
                 <div class="icon bg-primary text-white">
                     <i class="fas fa-envelope"></i>
                 </div>
-                <h3>45</h3>
-                <p class="text-muted mb-0">Total Messages</p>
+                <h3><%= totalSubscribers %></h3>
+                <p class="text-muted mb-0">Total Subscribers</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stats-card">
-                <div class="icon bg-success text-white">
-                    <i class="fas fa-reply"></i>
-                </div>
-                <h3>32</h3>
-                <p class="text-muted mb-0">Replied</p>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stats-card">
-                <div class="icon bg-warning text-white">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <h3>13</h3>
-                <p class="text-muted mb-0">Pending</p>
-            </div>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <div class="stats-card">
                 <div class="icon bg-info text-white">
                     <i class="fas fa-calendar"></i>
                 </div>
-                <h3>8</h3>
-                <p class="text-muted mb-0">Today's Messages</p>
+                <h3><%= newToday %></h3>
+                <p class="text-muted mb-0">New Today</p>
             </div>
         </div>
     </div>
@@ -77,35 +74,50 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                        try {
+                            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+                            Statement stmt = conn.createStatement();
+                            ResultSet rs = stmt.executeQuery("SELECT * FROM contact_messages");
+
+                            while (rs.next()) {
+                                String submittedAt = rs.getString("submitted_at");
+                    %>
                     <tr>
-                        <td>#1</td>
+                        <td>#<%= rs.getInt("id") %></td>
                         <td>
                             <i class="fas fa-user me-1"></i>
-                            John Doe
+                            <%= rs.getString("name") %>
                         </td>
                         <td>
                             <i class="fas fa-envelope me-1"></i>
-                            john@example.com
+                            <%= rs.getString("email") %>
                         </td>
-                        <td>Issue with Book</td>
+                        <td><%= rs.getString("subject") %></td>
                         <td>
-                            <button class="btn btn-sm btn-link" onclick="viewMessage('Hello, I have a problem with the book I downloaded.')">
-                                View Message
-                            </button>
+                            <%= rs.getString("message") %>
                         </td>
                         <td>
                             <i class="fas fa-calendar me-1"></i>
-                            2025-04-06
+                            <%= submittedAt %>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-primary me-1" onclick="composeTo('john@example.com', 'Re: Issue with Book')">
+                            <button class="btn btn-sm btn-primary me-1" onclick="composeTo('<%= rs.getString("email") %>', 'Re: <%= rs.getString("subject") %>')">
                                 <i class="fas fa-reply"></i>
                             </button>
+
                             <button class="btn btn-sm btn-danger">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
                     </tr>
+                    <%
+                            }
+                            conn.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    %>
                 </tbody>
             </table>
         </div>
@@ -123,7 +135,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" novalidate>
+                <form action="../ReplyContactMessageServlet" class="needs-validation" method="post" novalidate>
                     <div class="mb-3">
                         <label for="recipients" class="form-label">
                             <i class="fas fa-user me-1"></i>To:

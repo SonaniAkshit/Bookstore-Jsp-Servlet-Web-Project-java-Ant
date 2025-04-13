@@ -1,83 +1,91 @@
-# 📚 E-Books Store
+# 📚 BookStore Web Application
 
-A modern digital bookstore platform built with Java Servlets, JSP, and MySQL. This web application provides a seamless experience for readers, publishers, and administrators to manage and purchase digital books.
+A fully functional and modern digital bookstore built using **Java Servlets**, **JSP**, and **MySQL**. This platform provides a seamless experience for customers, publishers, and administrators to manage, browse, and purchase e-books online.
 
 ![Project Banner](web/images/banner.png)
 
-## ✨ Features
+---
 
-### 👤 User Features
-- Browse books by categories
-- Advanced search functionality
-- Detailed book information pages
-- User registration and authentication
-- Shopping cart management
-- Secure checkout process
-- Order history tracking
-- User profile management
+## 🚀 Live Demo
 
-### 📖 Publisher Features
-- Publisher dashboard
-- Book management system
-- Upload and edit book details
-- Sales tracking
-- Category management
-- Profile management
+> 🔗 *Coming Soon*
 
-### 👑 Admin Features
-- Complete user management
-- Book inventory control
-- Category management
-- Order management
-- Publisher approval system
-- Sales analytics
-- System settings
+---
 
-## 🛠️ Technology Stack
+## 🌟 Key Features
 
-### Backend
-- Java Servlets
-- JSP (JavaServer Pages)
-- MySQL Database
-- Apache Tomcat Server
-- Apache Ant Build System
+### 👤 **Customer**
+- 🔍 Browse and search books by title, author, or category
+- 🛒 Add to cart, update quantity, and remove items
+- 📄 View book details with cover image, price, and author
+- 🔐 User registration, login, and logout
+- 📦 View order history and profile details
 
-### Frontend
-- HTML5 & CSS3
-- JavaScript
-- Bootstrap 5
-- Font Awesome Icons
-- Custom responsive design
+### 📝 **Publisher**
+- 📚 Upload and manage books with images and metadata
+- ✏️ Edit book details (price, description, category)
+- 🗃️ Manage personal dashboard and sales stats
+- 🗂️ Add and manage book categories
 
-### Libraries & Tools
-- JDBC for database connectivity
-- JavaMail API for email notifications
-- Custom session management
-- File upload handling
-- Data validation and sanitization
+### 🛠️ **Admin**
+- 👥 Manage users and publishers
+- 📘 Full book and category control
+- 📈 Monitor sales and analytics
+- ✅ Approve or remove publishers
+- ⚙️ Configure system-wide settings
 
-## 📦 Database Structure
+---
 
-The project uses MySQL with the following main tables:
-- Users
-- Books
-- Categories
-- Orders
-- Publishers
-- Cart
-- Subscribers
-- Contact
+## 🛠️ Tech Stack
 
-## 🚀 Installation & Setup
+| Layer     | Technologies                          |
+|-----------|----------------------------------------|
+| Frontend  | HTML5, CSS3, JavaScript, Bootstrap 5   |
+| Backend   | Java Servlets, JSP, JDBC               |
+| Database  | MySQL                                  |
+| Build     | Apache Ant                             |
+| Styling   | Font Awesome, SweetAlert2              |
+| Email     | JavaMail API                           |
 
-1. **Prerequisites**
-   - JDK 8 or higher
-   - Apache Tomcat 9.x
-   - MySQL 8.x
-   - Apache Ant
+---
 
-2. **Database Setup**
-   ```sql
-   CREATE DATABASE bookstore;
-   USE bookstore;
-   ```
+## 📁 Project Structure
+
+```bash
+   BookStore/
+   ├── src/                        # Java source files (servlets)
+   ├── web/                        # Web content (JSP, CSS, JS, images)
+   │   ├── images/                 # Book covers & assets
+   │   ├── css/                    # Custom styles
+   │   └── js/                     # Custom JS files
+   ├── build.xml                   # Apache Ant build file
+   ├── Database(SQL)/              # SQL schema and sample data
+   └── README.md                   # Project documentation
+```
+---
+## 💾 Database Overview
+MySQL database named bookstore with tables:
+- users – Customer and publisher accounts
+- books – Book listings
+- categories – Book categories
+- orders – Customer orders
+- cart – Shopping cart items
+- publishers – Publisher profiles
+- ubscribers – Newsletter emails
+- contact_messages – User inquiries
+---
+## 💡 How It Works
+- All books and categories are dynamically fetched from the database.
+- Real-time search functionality filters books as the user types.
+- SweetAlert2 provides beautiful and responsive alerts.
+- Servlet-based routing handles authentication, cart, orders, and admin functions.
+---
+## 🧪 Setup Instructions
+### 1. Prerequisites
+- JDK 8 or above
+- Apache Tomcat 9.x
+- MySQL 8.x
+- Apache Ant
+---
+
+

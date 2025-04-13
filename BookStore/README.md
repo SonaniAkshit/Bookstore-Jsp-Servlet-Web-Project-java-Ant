@@ -86,6 +86,56 @@ MySQL database named bookstore with tables:
 - Apache Tomcat 9.x
 - MySQL 8.x
 - Apache Ant
+### 2. Clone & Setup
+```bash
+git clone https://github.com/SonaniAkshit/Bookstore-JspServlet.git
+cd Bookstore-JspServlet
+```
+### 3. Database Configuration
+- Create the database:
+```SQL
+CREATE DATABASE bookstore;
+USE bookstore;
+```
+- Import the SQL file from:
+```SQL
+Database(SQL)/bookstore.sql
+```
+### 4. Build & Deploy
+``` java
+ant clean
+ant build
+ant deploy
+```
+### 5. Run the App
+- Start Apache Tomcat
+- Visit: http://localhost:8080/BookStore/
 ---
+## ✅ Completed Features
+- User authentication system
+- Shopping cart functionality
+- Book upload and management
+- Admin dashboard
+- Newsletter & contact management
+- SweetAlert2 notifications
+- Search + category filtering
+---
+## 🎯 Planned Enhancements
+- ✅ Payment gateway integration (in progress)
+- ✅ Email order confirmations
+- ✅ PDF previews for books
+- 🧠 Book recommendations
+- 🌍 Multi-language support
+- 🤝 Social media sharing
+---
+
+## 🙌 Contributing
+- Pull requests and feedback are welcome! Whether it's fixing bugs, improving UI, or adding features — your help is appreciated.
+
+## 📧 Contact
+- 👤 Developer: Akshit Sonani
+- 📬 Email: sonaniakshit777@gmail.com
+- 🌐 GitHub: github.com/SonaniAkshit
+
 
 

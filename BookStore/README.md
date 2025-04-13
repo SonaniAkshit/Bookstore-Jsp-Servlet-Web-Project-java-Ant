@@ -1,4 +1,4 @@
-# 📚 E-Books Digital Library
+# 📚 E-Books Store
 
 A modern digital bookstore platform built with Java Servlets, JSP, and MySQL. This web application provides a seamless experience for readers, publishers, and administrators to manage and purchase digital books.
 

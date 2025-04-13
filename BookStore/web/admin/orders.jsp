@@ -40,12 +40,12 @@
             </button>
             <h2 class="mb-0">Order Management</h2>
             <div class="btn-group">
-                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+                <!-- <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
                     <i class="fas fa-filter"></i> Filter
                 </button>
                 <button class="btn btn-outline-success">
                     <i class="fas fa-file-excel"></i> Export
-                </button>
+                </button> -->
             </div>
         </div>
 
@@ -115,19 +115,30 @@
                                     String orderedat = rs.getString("ordered_at");
                         %>
                         <tr>
-                            <td>#<%=  rs.getInt("id") %></td>
+                            <td><%=  rs.getInt("id") %></td>
                             <td><%=  rs.getString("customer_name") %></td>
                             <td><%= orderedat %></td>
                             <td><%=  rs.getString("books") %></td>
-                            <td><%=  rs.getInt("total") %></td>
-                            <td><span class="badge bg-success">Delivered</span></td>
+                            <td>Rs.<%=  rs.getInt("total") %></td>
+
+                            <% if ("delivered".equals(rs.getString("status"))) { %>
+                                <td><span class="badge bg-success">Delivered</span></td>
+                            <% } else if("cancelled".equals(rs.getString("status"))) { %>
+                                <td><span class="badge bg-danger">Cancelled</span></td>
+                            <% } else {%>
+                                <td><span class="badge bg-warning">Processing</span></td>
+                            <% } %>
                             <td>
-                                <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">
+                                <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#<%=  rs.getInt("id") %>">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                                <button class="btn btn-sm btn-warning me-1"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#updateStatusModal"
+                                        onclick="setOrderId('<%= rs.getInt("id") %>')">
                                     <i class="fas fa-edit"></i>
                                 </button>
+
                             </td>
                         </tr>
                         <%
@@ -137,22 +148,6 @@
                                 e.printStackTrace();
                             }
                         %>
-                        <tr>
-                            <td>#12344</td>
-                            <td>Jane Smith</td>
-                            <td>2023-08-14</td>
-                            <td>To Kill a Mockingbird</td>
-                            <td>$15.99</td>
-                            <td><span class="badge bg-warning">Processing</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#orderDetailsModal">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn btn-sm btn-warning me-1" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -160,73 +155,77 @@
     </div>
 
     <!-- Order Details Modal -->
-    <div class="modal fade" id="orderDetailsModal" tabindex="-1">
+    <%
+    try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM orders");
+
+        while (rs.next()) {
+            String orderedat = rs.getString("ordered_at");
+%>
+    <div class="modal fade" id="<%=  rs.getInt("id") %>" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Order Details #12345</h5>
+                    <h5 class="modal-title">Order Details <%=  rs.getInt("id") %></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <h6>Customer Information</h6>
-                            <p><strong>Name:</strong> John Doe</p>
-                            <p><strong>Email:</strong> john@example.com</p>
-                            <p><strong>Phone:</strong> +1 234 567 890</p>
+                            <p><strong>Name:</strong> <%=  rs.getString("customer_name") %></p>
+                            <p><strong>Email:</strong> <%=  rs.getString("email") %></p>
+                            <p><strong>Phone:</strong> <%=  rs.getString("phone") %></p>
                         </div>
                         <div class="col-md-6">
                             <h6>Shipping Address</h6>
-                            <p>123 Main St<br>Apt 4B<br>New York, NY 10001<br>United States</p>
+                            <p><%=  rs.getString("address") %><br><%=  rs.getString("city") %><br><%=  rs.getString("state") %>,<%=  rs.getString("zipcode") %><br>India</p>
                         </div>
                     </div>
                     <h6>Order Items</h6>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Book</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
+                                <th>Books</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>The Great Gatsby</td>
-                                <td>1</td>
-                                <td>$25.99</td>
-                                <td>$25.99</td>
-                            </tr>
-                            <tr>
-                                <td>1984</td>
-                                <td>1</td>
-                                <td>$19.99</td>
-                                <td>$19.99</td>
+                                <td><%=  rs.getString("books") %></td>
+                                <td>Rs.<%=  rs.getString("total") %></td>
                             </tr>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
-                                <td>$45.98</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="text-end"><strong>Shipping:</strong></td>
-                                <td>$4.99</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="text-end"><strong>Total:</strong></td>
-                                <td><strong>$50.97</strong></td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Print Invoice</button>
+                    <form action="../SendOrderConfirmationServlet" method="post">
+                        <input type="hidden" name="orderId" id="orderIdInput" value="<%=  rs.getInt("id") %>">
+                        <input type="hidden" name="customerEmail" id="customerEmailInput" value="<%=  rs.getString("email") %>">
+                        <input type="hidden" name="customerName" id="customerNameInput" value="<%=  rs.getString("customer_name") %>">
+                        <input type="hidden" name="customerPhone" id="customerPhoneInput" value="<%=  rs.getString("phone") %>">
+                        <input type="hidden" name="customerAddress" id="customerAddressInput" value="<%=  rs.getString("address") %>">
+                        <input type="hidden" name="customerCity" id="customerCityInput" value="<%=  rs.getString("city") %>">
+                        <input type="hidden" name="customerState" id="customerStateInput" value="<%=  rs.getString("state") %>">
+                        <input type="hidden" name="customerZipcode" id="customerZipcodeInput" value="<%=  rs.getString("zipcode") %>">
+                        <input type="hidden" name="customerBooks" id="customerBooksInput" value="<%=  rs.getString("books") %>">
+                        <input type="hidden" name="customerTotal" id="customerTotalInput" value="<%=  rs.getString("total") %>">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info"><i class="fas fa-envelope"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <%
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    %>
 
     <!-- Update Status Modal -->
     <div class="modal fade" id="updateStatusModal" tabindex="-1">
@@ -236,23 +235,23 @@
                     <h5 class="modal-title">Update Order Status</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form id="updateStatusForm">
+                <form action="../UpdateOrderStatusServlet" method="post" id="updateStatusForm">
+                <input type="text" name="orderId" id="orderIdInput">
                 <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Order Status</label>
-                            <select class="form-select" required>
+                            <select name="status" class="form-select" required>
                                 <option value="pending">Pending</option>
                                 <option value="delivered">Delivered</option>
                                 <option value="cancelled">Cancelled</option>
                             </select>
                         </div>
-                    </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" form="updateStatusForm" class="btn btn-primary">Update Status</button>
+                        </div>
+                </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="updateStatusForm" class="btn btn-primary">Update Status</button>
-                </div>
-            </form>
             </div>
         </div>
     </div>
@@ -307,5 +306,12 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="js/admin-script.js"></script>
+
+    <script>
+        function setOrderId(id) {
+            document.getElementById("orderIdInput").value = id;
+        }
+    </script>
+    
 </body>
 </html>

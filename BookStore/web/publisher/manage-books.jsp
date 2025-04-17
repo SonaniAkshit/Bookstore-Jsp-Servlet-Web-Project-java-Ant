@@ -115,7 +115,7 @@
                 <form action="../AddBookServlet" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="bookImage" class="form-label">Book Image</label>
-                        <input type="file" class="form-control" name="bookImage" required>
+                        <input type="file" class="form-control" name="bookImage" accept="image/*" required>
                     </div>
                     <div class="mb-3">
                         <label for="bookName" class="form-label">Book Name</label>

@@ -60,7 +60,7 @@
         <h2 class="mb-0">Admin Profile</h2>
     </div>
 
-    <div class="row">
+    <!-- <div class="row"> -->
         <!-- Profile Image and Basic Info -->
         <div class="col-md-4">
             <div class="admin-profile">
@@ -68,11 +68,12 @@
                     <img src="https://i.pravatar.cc/150?img=12" alt="Admin Avatar" class="profile-avatar">
                     <h4 class="mt-3"><%= userName %></h4>
                     <p class="text-muted mb-0"><%= userEmail %></p>
+                    <p class="text-muted mb-0"><%= contact %></p>
                 </div>
             </div>
         </div>
 
-        <!-- Profile Information -->
+        <!-- Profile Information 
         <div class="col-md-8">
             <div class="admin-profile">
                 <h4 class="mb-4">Profile Info</h4>
@@ -91,9 +92,9 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
     </div>
-</div>
+<!-- </div> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

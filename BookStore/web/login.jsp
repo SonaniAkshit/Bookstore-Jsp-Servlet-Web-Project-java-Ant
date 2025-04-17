@@ -98,9 +98,9 @@
                         <label for="roleSelect">User Role</label>
                     </div> -->
                     
-                    <div class="d-flex justify-content-between mb-4">
+<!--                    <div class="d-flex justify-content-between mb-4">
                         <a href="forgot-password.jsp" class="forgot-password">Forgot Password?</a>
-                    </div>
+                    </div>-->
                     
                     <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
                     

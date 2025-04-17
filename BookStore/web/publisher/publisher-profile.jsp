@@ -23,13 +23,13 @@
                 </div>
             </div>
             
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-header">
                     <h4>Account Info !</h4>
                 </div>
                 <div class="card-body">
                     <form id="profileForm" class="publisher-form">
-                            <div class="mb-3">
+                           <div class="mb-3">
                                 <label for="publisherName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="publisherName" value="<%= publisherName %>" readonly>
                             </div>
@@ -37,7 +37,7 @@
                                 <label for="publisherEmail" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="publisherEmail" value="<%= publisherEmail %>" readonly>
                             </div>
-                            <!-- <div class="mb-3">
+                             <div class="mb-3">
                                 <label for="currentPassword" class="form-label">Current Password</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" id="currentPassword" required>
@@ -70,12 +70,12 @@
                                     </button>
                                 </div>
                                 <div class="invalid-feedback">Passwords do not match</div>
-                            </div> -->
-                            <!-- <button type="submit" class="btn btn-primary btn-lg w-100">Update Profile</button> -->
+                            </div> 
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Update Profile</button>
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

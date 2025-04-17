@@ -88,9 +88,9 @@
                     </div>
                     
                     <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
-                    <p class="text-center mt-4">
+<!--                    <p class="text-center mt-4">
                         Don't have an account? <a href="../signup.jsp" class="signup-link">Sign up</a>
-                    </p>
+                    </p>-->
                 </form>
             </div>
         </div>

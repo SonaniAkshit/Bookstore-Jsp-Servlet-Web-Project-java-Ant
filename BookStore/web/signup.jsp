@@ -56,18 +56,21 @@
                         <div class="form-floating">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
                             <label for="name">Full Name</label>
+                            <small class="text-danger" id="nameError"></small>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                             <label for="email">Email</label>
+                            <small class="text-danger" id="emailError"></small>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-floating">
                             <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact">
                             <label for="contact">Contact</label>
+                            <small class="text-danger" id="contactError"></small>
                         </div>
                     </div>
                     <div class="col-6">
@@ -82,6 +85,7 @@
                                     <input class="form-check-input" type="radio" name="gender" id="female" value="female">
                                     <label class="form-check-label" for="female">Female</label>
                                 </div>
+                                <small class="text-danger" id="genderError"></small>
                             </div>
                         </div>
                     </div>
@@ -91,9 +95,10 @@
                                 <option value="">Select Role</option>
                                 <option value="User">User</option>
                                 <option value="publisher">Publisher</option>
-                                <option value="admin">Admin</option>
+                                <!--<option value="admin">Admin</option>-->
                             </select>
                             <label for="role">User Role</label>
+                            <small class="text-danger" id="roleError"></small>
                         </div>
                     </div>
                     <div class="col-6">
@@ -103,6 +108,7 @@
                             <button type="button" class="password-toggle" onclick="togglePassword('password')">
                                 <i class="far fa-eye"></i>
                             </button>
+                            <small class="text-danger" id="passwordError"></small>
                         </div>
                     </div>
                     <div class="col-6">
@@ -112,6 +118,7 @@
                             <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
                                 <i class="far fa-eye"></i>
                             </button>
+                            <small class="text-danger" id="confirmPasswordError"></small>
                         </div>
                     </div>
                     <div class="col-12">
@@ -147,5 +154,80 @@
             }
         }
     </script>
+    <script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        let isValid = true;
+
+        // Get all values
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const contact = document.getElementById("contact").value.trim();
+        const gender = document.querySelector("input[name='gender']:checked");
+        const role = document.getElementById("role").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Clear old error messages
+        document.querySelectorAll("small.text-danger").forEach(el => el.textContent = "");
+
+        // Regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const contactRegex = /^[0-9]{10}$/;
+
+        // Validate fields
+        if (name === "") {
+            document.getElementById("nameError").textContent = "Full Name is required.";
+            isValid = false;
+        }
+
+        if (email === "") {
+            document.getElementById("emailError").textContent = "Email is required.";
+            isValid = false;
+        } else if (!emailRegex.test(email)) {
+            document.getElementById("emailError").textContent = "Enter a valid email.";
+            isValid = false;
+        }
+
+        if (contact === "") {
+            document.getElementById("contactError").textContent = "Contact number is required.";
+            isValid = false;
+        } else if (!contactRegex.test(contact)) {
+            document.getElementById("contactError").textContent = "Enter a 10-digit number.";
+            isValid = false;
+        }
+
+        if (!gender) {
+            document.getElementById("genderError").textContent = "Select your gender.";
+            isValid = false;
+        }
+
+        if (role === "") {
+            document.getElementById("roleError").textContent = "Please select a role.";
+            isValid = false;
+        }
+
+        if (password === "") {
+            document.getElementById("passwordError").textContent = "Password is required.";
+            isValid = false;
+        } else if (password.length < 6) {
+            document.getElementById("passwordError").textContent = "Minimum 6 characters required.";
+            isValid = false;
+        }
+
+        if (confirmPassword === "") {
+            document.getElementById("confirmPasswordError").textContent = "Please confirm password.";
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            document.getElementById("confirmPasswordError").textContent = "Passwords do not match.";
+            isValid = false;
+        }
+
+        // Prevent form if validation fails
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+</script>
+
 </body>
 </html>

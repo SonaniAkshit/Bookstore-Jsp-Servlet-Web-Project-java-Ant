@@ -45,10 +45,10 @@
                             <a class="nav-link" href="index.jsp#home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp#Featuredbooks">Explore Now</a>
+                            <a class="nav-link" href="index.jsp#Featuredbooks">Featured Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="categories.jsp">Categories</a>
+                            <a class="nav-link" href="categories.jsp">Explore Now</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.jsp">About</a>

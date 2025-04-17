@@ -4,6 +4,7 @@
 <%
     // Ensure user is logged in
     String userEmail = (String) session.getAttribute("userEmail");
+    String userName = (String) session.getAttribute("userName");
     if (userEmail == null) {
         response.sendRedirect("login.jsp");
         return;
@@ -160,7 +161,7 @@
             <form id="checkoutForm" action="ProcessOrderServlet" method="post" onsubmit="return validateForm()">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" required>
+                    <input type="text" id="fullName" name="fullName" value="<%= userName %>" readonly>
                     <div class="error" id="fullNameError"></div>
                 </div>
 

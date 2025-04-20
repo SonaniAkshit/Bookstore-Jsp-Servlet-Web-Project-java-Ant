@@ -1,5 +1,10 @@
 <%@ include file="header.jsp" %>
 <%@ page import="java.sql.*" %>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 <script>
     document.querySelector('a[href="index.jsp"]').classList.add('active');
 </script>

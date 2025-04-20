@@ -74,7 +74,7 @@
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-card">
-                        <img src="images/profile (1).avif" alt="Team Member" class="team-img">
+                        <img src="images/hardik.jpg" alt="Team Member" class="team-img">
                         <div class="team-info">
                             <h4>Hardik Mekhiya</h4>
                             <p>CEO</p>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="team-card">
-                        <img src="images/profile (1).jpg" alt="Team Member" class="team-img">
+                        <img src="images/sunny.jpg" alt="Team Member" class="team-img">
                         <div class="team-info">
                             <h4>Sunny Thakor</h4>
                             <p>CEO</p>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="team-card">
-                        <img src="images/profile.avif" alt="Team Member" class="team-img">
+                        <img src="images/hemal.jpg" alt="Team Member" class="team-img">
                         <div class="team-info">
                             <h4>Hemla Rathod</h4>
                             <p>Co-Founder</p>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-card">
-                        <img src="images/profile (2).jpg" alt="Team Member" class="team-img">
+                        <img src="images/akshit.jpg" alt="Team Member" class="team-img">
                         <div class="team-info">
                             <h4>Akshit Sonani</h4>
                             <p>Head of Technology</p>
@@ -120,31 +120,31 @@
                     <h2 class="section-title">Our Achievements</h2>
                     <div class="achievement-timeline">
                         <div class="timeline-item">
-                            <div class="year">2020</div>
+                            <div class="year">2023</div>
                             <div class="content">
                                 <h4>Platform Launch</h4>
                                 <p>Successfully launched our digital library platform with 10,000 titles.</p>
                             </div>
                         </div>
-                        <div class="timeline-item">
+                        <!-- <div class="timeline-item">
                             <div class="year">2021</div>
                             <div class="content">
-                                <h4>Mobile App Release</h4>
+                                <h4>WebSite Release</h4>
                                 <p>Launched our mobile application with offline reading capabilities.</p>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="timeline-item">
-                            <div class="year">2022</div>
+                            <div class="year">2024</div>
                             <div class="content">
                                 <h4>Global Expansion</h4>
                                 <p>Expanded our services to 50+ countries worldwide.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <div class="year">2023</div>
+                            <div class="year">2025</div>
                             <div class="content">
                                 <h4>Industry Recognition</h4>
-                                <p>Received "Best Digital Library Platform" award.</p>
+                                <p>Received "Best Digital BookStore Platform" award.</p>
                             </div>
                         </div>
                     </div>

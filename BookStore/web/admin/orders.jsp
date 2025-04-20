@@ -27,7 +27,23 @@
         e.printStackTrace();
     }
 %>
-
+<%
+    String alert = (String) session.getAttribute("alert");
+    if (alert != null) {
+%>
+    <script>
+        window.onload = () => {
+            Swal.fire({
+                // icon: 'success',
+                // title: 'Done!',
+                text: '<%= alert %>'
+            });
+        }
+    </script>
+<%
+        session.removeAttribute("alert");
+    }
+%>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('a[href="orders.jsp"]').classList.add('active');
@@ -185,12 +201,19 @@
                         <tr>
                             <th>Books</th>
                             <th>Total</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><%= rs.getString("books") %></td>
                             <td>Rs.<%= rs.getString("total") %></td>
+                            <td>
+                                <% String status = rs.getString("status"); %>
+                                <span class="badge bg-<%= status.equals("delivered") ? "success" : status.equals("cancelled") ? "danger" : "warning" %>">
+                                    <%= status.equals("pending") ? "Processing" : status.substring(0, 1).toUpperCase() + status.substring(1) %>
+                                </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -207,6 +230,7 @@
                     <input type="hidden" name="customerZipcode" value="<%= rs.getString("zipcode") %>">
                     <input type="hidden" name="customerBooks" value="<%= rs.getString("books") %>">
                     <input type="hidden" name="customerTotal" value="<%= rs.getString("total") %>">
+                    <input type="hidden" name="BookStatus" value="<%= rs.getString("status") %>">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-info"><i class="fas fa-envelope"></i></button>
                 </form>
@@ -237,8 +261,8 @@
                         <label class="form-label">Order Status</label>
                         <select name="status" class="form-select" required>
                             <option value="pending">Pending</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="delivered">Deliver</option>
+                            <!-- <option value="cancelled">Cancelled</option> -->
                         </select>
                     </div>
                 </div>
@@ -257,6 +281,8 @@
         document.getElementById("orderIdInput").value = id;
     }
 </script>
+<!-- Include SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

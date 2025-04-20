@@ -7,8 +7,8 @@ import java.util.Properties;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
-@WebServlet("/UpdateOrderStatusServlet")
-public class UpdateOrderStatusServlet extends HttpServlet {
+@WebServlet("/CancelOrderServlet")
+public class CancelOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -16,7 +16,7 @@ public class UpdateOrderStatusServlet extends HttpServlet {
         String newStatus = request.getParameter("status");
 
         Connection conn = null;
-        PreparedStatement getStmt = null;
+        PreparedStatement selectStmt = null;
         PreparedStatement updateStmt = null;
         ResultSet rs = null;
         HttpSession session = request.getSession();
@@ -25,13 +25,12 @@ public class UpdateOrderStatusServlet extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");
 
-            // 1. Get current status, email, and name
+            // 1. Get current order details
             String email = null, name = null, currentStatus = null;
-
-            String getSql = "SELECT email, customer_name, status FROM orders WHERE id = ?";
-            getStmt = conn.prepareStatement(getSql);
-            getStmt.setString(1, orderId);
-            rs = getStmt.executeQuery();
+            String getOrderSql = "SELECT email, customer_name, status FROM orders WHERE id = ?";
+            selectStmt = conn.prepareStatement(getOrderSql);
+            selectStmt.setString(1, orderId);
+            rs = selectStmt.executeQuery();
 
             if (rs.next()) {
                 email = rs.getString("email");
@@ -41,13 +40,14 @@ public class UpdateOrderStatusServlet extends HttpServlet {
 
             // 2. Prevent update if already cancelled or delivered
             if (currentStatus == null || (!currentStatus.equalsIgnoreCase("pending"))) {
-                session.setAttribute("alert", "Cannot update. Order is already " + currentStatus + ".");
+                session.setAttribute("alert", "Order cannot be updated as it is already " + currentStatus + ".");
             } else {
-                // 3. Update if it's still pending
+                // 3. Proceed with update if current status is pending
                 String updateSql = "UPDATE orders SET status = ? WHERE id = ?";
                 updateStmt = conn.prepareStatement(updateSql);
                 updateStmt.setString(1, newStatus);
                 updateStmt.setString(2, orderId);
+
                 int rowsUpdated = updateStmt.executeUpdate();
 
                 if (rowsUpdated > 0) {
@@ -65,12 +65,12 @@ public class UpdateOrderStatusServlet extends HttpServlet {
             session.setAttribute("alert", "Something went wrong!");
         } finally {
             try { if (rs != null) rs.close(); } catch (Exception ignored) {}
-            try { if (getStmt != null) getStmt.close(); } catch (Exception ignored) {}
+            try { if (selectStmt != null) selectStmt.close(); } catch (Exception ignored) {}
             try { if (updateStmt != null) updateStmt.close(); } catch (Exception ignored) {}
             try { if (conn != null) conn.close(); } catch (Exception ignored) {}
         }
 
-        response.sendRedirect("admin/orders.jsp");
+        response.sendRedirect("profile.jsp");
     }
 
     private void sendStatusUpdateEmail(String recipient, String name, String orderId, String status) {
@@ -93,8 +93,8 @@ public class UpdateOrderStatusServlet extends HttpServlet {
             Message message = new MimeMessage(mailSession);
             message.setFrom(new InternetAddress(senderEmail, "BookStore Admin"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Your Order Status Has Been Updated");
-            message.setText("Hello " + name + ",\n\nYour order (ID: " + orderId + ") status has been updated to: " + status.toUpperCase() + ".\n\nThank you for shopping with us!\n\n— BookStore Team");
+            message.setSubject("Order Cancelled - BookStore");
+            message.setText("Dear " + name + ",\n\nYour order (ID: " + orderId + ") has been cancelled.\n\nThank you for using BookStore!");
 
             Transport.send(message);
         } catch (Exception e) {

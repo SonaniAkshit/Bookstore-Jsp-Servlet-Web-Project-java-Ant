@@ -21,6 +21,7 @@ public class SendOrderConfirmationServlet extends HttpServlet {
         String zipcode = request.getParameter("customerZipcode");
         String books = request.getParameter("customerBooks");
         String total = request.getParameter("customerTotal");
+        String status = request.getParameter("BookStatus");
 
         // Mail configuration
         final String from = "sonaniakshit777@gmail.com";  // Your sender email
@@ -62,6 +63,7 @@ public class SendOrderConfirmationServlet extends HttpServlet {
 
             htmlContent += "</table>" +
                     "<p><strong>Total Amount:</strong> Rs." + total + "</p>" +
+                    "<p><strong>Order Status:</strong> " + status + "</p>" +
                     "<br><p>Thank you for shopping with us!</p>";
 
             message.setContent(htmlContent, "text/html");

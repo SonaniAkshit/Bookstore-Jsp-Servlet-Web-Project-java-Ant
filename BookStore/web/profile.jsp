@@ -11,6 +11,24 @@
         return;
     }
 %>
+<%
+    String alert = (String) session.getAttribute("alert");
+    if (alert != null) {
+%>
+    <script>
+        window.onload = () => {
+            Swal.fire({
+                // icon: 'success',
+                // title: 'Done!',
+                text: '<%= alert %>'
+            });
+        }
+    </script>
+<%
+        session.removeAttribute("alert");
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,6 +142,9 @@
                                 <span class="badge bg-<%= status.equals("delivered") ? "success" : status.equals("cancelled") ? "danger" : "warning" %>">
                                     <%= status.equals("pending") ? "Processing" : status.substring(0, 1).toUpperCase() + status.substring(1) %>
                                 </span>
+                                <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#updateStatusModal" onclick="setOrderId(<%= orderId %>)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
                             </div>
                         </div>
                         <%      }
@@ -136,7 +157,41 @@
                 </div>
             </div>
         </div>
+        <!-- Update Status Modal -->
+<div class="modal fade" id="updateStatusModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="CancelOrderServlet" method="post" id="updateStatusForm">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancel Your Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="orderId" id="orderIdInput">
+                    <div class="mb-3">
+                        <!-- <label class="form-label">Order Status</label> -->
+                        <select name="status" class="form-select" required>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> -->
+                    <button type="submit" class="btn btn-primary">Cancel Order</button>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
+    </div>
+    <script>
+        function setOrderId(id) {
+            document.getElementById('orderIdInput').value = id;
+        }
+    </script>
+    
+    <!-- Include SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <jsp:include page="footer.jsp" />
 

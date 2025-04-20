@@ -69,7 +69,7 @@
         <div class="col-md-4">
             <div class="admin-profile">
                 <div class="profile-header">
-                    <img src="https://i.pravatar.cc/150?img=12" alt="Admin Avatar" class="profile-avatar">
+                    <img src="../images/admin.png" alt="Admin Avatar" class="profile-avatar">
                     <h4 class="mt-3"><%= userName %></h4>
                     <p class="text-muted mb-0"><%= userEmail %></p>
                     <p class="text-muted mb-0"><%= contact %></p>

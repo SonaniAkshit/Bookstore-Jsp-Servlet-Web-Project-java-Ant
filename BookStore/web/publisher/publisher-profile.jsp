@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="profile-section">
             <div class="profile-header">
-                <img src="https://i.pravatar.cc/150?img=12" alt="Profile Image" class="profile-image">
+                <img src="../images/publisher.png" alt="Profile Image" class="profile-image">
                 <div class="profile-info">
                     <h2>${publisherName}</h2>
                     <p><i class="fas fa-envelope"></i> ${publisherEmail}</p>

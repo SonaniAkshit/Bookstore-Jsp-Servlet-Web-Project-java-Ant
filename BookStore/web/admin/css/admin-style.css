@@ -4,7 +4,7 @@
     --secondary-color: #283593;
     --accent-color: #3949ab;
     --success-color: #43a047;
-    --warning-color: #fdd835;
+    --warning-color: #f59e0b;
     --danger-color: #e53935;
     --light-bg: #f5f6fa;
     --dark-bg: #1a237e;
@@ -16,7 +16,8 @@
     --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
     --transition: all 0.3s ease;
 }
-
+/* #f59e0b 
+  #f59e0b-yellow*/
 /* Sidebar Styles */
 .admin-sidebar {
     background: linear-gradient(to bottom, var(--dark-bg), var(--secondary-color));

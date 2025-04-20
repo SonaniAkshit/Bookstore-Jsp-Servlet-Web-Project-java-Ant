@@ -122,9 +122,9 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Contact</th>
-                        <th>Gender</th>
-                        <th>Password</th>
+                        <!-- <th>Contact</th> -->
+                        <!-- <th>Gender</th> -->
+                        <!-- <th>Password</th> -->
                         <th>Role</th>
                         <th>Status</th>
                         <th>Last Login</th>
@@ -139,9 +139,9 @@
                         <td><%= user[0] %></td>
                         <td><%= user[1] %></td>
                         <td><%= user[2] %></td>
-                        <td><%= user[3] %></td>
-                        <td><%= user[4] != null ? user[4] : "N/A" %></td>
-                        <td><%= user[5] != null ? user[5] : "N/A" %></td>
+                        <!-- <td><%= user[3] %></td> -->
+                        <!-- <td><%= user[4] != null ? user[4] : "N/A" %></td> -->
+                        <!-- <td><%= user[5] != null ? user[5] : "N/A" %></td> -->
                         <td><%= user[6] %></td>
                         <td>
                             <% if ("Active".equalsIgnoreCase(user[7])) { %>

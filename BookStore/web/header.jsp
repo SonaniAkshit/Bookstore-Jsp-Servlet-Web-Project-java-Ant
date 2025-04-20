@@ -4,6 +4,11 @@
     String userName = (String) session.getAttribute("userName");
     String userEmail = (String) session.getAttribute("userEmail");
 %>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

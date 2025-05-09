@@ -10,6 +10,23 @@ A fully functional and modern digital bookstore built using **Java Servlets**, *
 
 > 🔗 *Coming Soon*
 
+## 📸 Screenshots
+
+### Home Page
+![Home Page](web/images/screenshots/home.png)
+
+### Book Details
+![Book Details](web/images/screenshots/book-details.png)
+
+### Shopping Cart
+![Shopping Cart](web/images/screenshots/cart.png)
+
+### Admin Dashboard
+![Admin Dashboard](web/images/screenshots/admin-dashboard.png)
+
+### Publisher Panel
+![Publisher Panel](web/images/screenshots/publisher-panel.png)
+
 ---
 
 ## 🌟 Key Features

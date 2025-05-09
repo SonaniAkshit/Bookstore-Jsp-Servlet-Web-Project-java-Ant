@@ -27,7 +27,7 @@ A fully functional and modern digital bookstore built using **Java Servlets**, *
 ![Publisher Panel](BookStore/web/images/screenshots/publisher.png)
 
 ### Show More
-> BookStore/web/images/screenshots/
+> **Screenshots**[Screenshots](https://github.com/SonaniAkshit/Bookstore-JspServlet/tree/main/BookStore/web/images/screenshots)
 
 # 🌟 Key Features
 

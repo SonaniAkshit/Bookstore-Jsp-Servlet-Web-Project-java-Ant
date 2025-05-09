@@ -26,6 +26,8 @@ A fully functional and modern digital bookstore built using **Java Servlets**, *
 ### Publisher Panel
 ![Publisher Panel](web/images/screenshots/publisher.png)
 
+### Show More
+>[Screenshots](https://github.com/SonaniAkshit/Bookstore-JspServlet/tree/main/BookStore/web/images/screenshots)
 
 # 🌟 Key Features
 
@@ -146,9 +148,8 @@ ant deploy
 - Pull requests and feedback are welcome! Whether it's fixing bugs, improving UI, or adding features — your help is appreciated.
 
 ## 📧 Contact
-- 👤 Developer: Akshit Sonani
-- 📬 Email: sonaniakshit777@gmail.com
-- 🌐 GitHub: github.com/SonaniAkshit
+- **Developer:** Akshit Sonani
+- **Email:** sonaniakshit684.com
+- **GitHub:** [SonaniAkshit](https://github.com/SonaniAkshit)
 
-
-
+# 🔥 Happy Coding! 🚀

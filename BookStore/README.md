@@ -11,17 +11,20 @@ A fully functional and modern digital bookstore built using **Java Servlets**, *
 ### Home Page
 ![Home Page](web/images/screenshots/home.png)
 
-### Book Details
-![Book Details](web/images/screenshots/book-details.png)
+### User Profile
+![User Profile](web/images/screenshots/userdetail.png)
 
-### Shopping Cart
-![Shopping Cart](web/images/screenshots/cart.png)
+### Book List
+![Book List](web/images/screenshots/books.png)
+
+### Book Details
+![Book Details](web/images/screenshots/bookdetail.png)
 
 ### Admin Dashboard
-![Admin Dashboard](web/images/screenshots/admin-dashboard.png)
+![Admin Dashboard](web/images/screenshots/admin.png)
 
 ### Publisher Panel
-![Publisher Panel](web/images/screenshots/publisher-panel.png)
+![Publisher Panel](web/images/screenshots/publisher.png)
 
 
 # 🌟 Key Features
@@ -72,7 +75,7 @@ A fully functional and modern digital bookstore built using **Java Servlets**, *
    ├── Database(SQL)/              # SQL schema and sample data
    └── README.md                   # Project documentation
 ```
----
+
 ## 💾 Database Overview
 MySQL database named bookstore with tables:
 - users – Customer and publisher accounts

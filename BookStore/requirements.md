@@ -6,5 +6,5 @@
 - commons-labg3-3.13.0.jar
 - mysql-connector-j-9.1.0.jar
 
-##📌Location
->[Jar](https://github.com/SonaniAkshit/Bookstore-JspServlet/tree/main/JARS)
+## 📌Location
+>[🫙JAR](https://github.com/SonaniAkshit/Bookstore-JspServlet/tree/main/JARS)

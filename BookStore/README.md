@@ -8,7 +8,7 @@ A fully functional and modern digital bookstore built using **Java Servlets**, *
 
 ## 🚀 Live Demo
 
-> 🔗 *Coming Soon*
+ 🔗 *Coming Soon*
 
 ## 📸 Screenshots
 

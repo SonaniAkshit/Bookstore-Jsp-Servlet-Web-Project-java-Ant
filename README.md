@@ -6,28 +6,13 @@ A fully functional and modern digital bookstore built using **Java Servlets**, *
 
 > 🔗 *Coming Soon*
 
-## 📸 Screenshots
+## 🖼️ Screenshots
 
 ### Home Page
 ![Home Page](BookStore/web/images/screenshots/home.png)
 
-### User Profile
-![User Profile](BookStore/web/images/screenshots/userdetail.png)
-
-### Book List
-![Book List](BookStore/web/images/screenshots/books.png)
-
-### Book Details
-![Book Details](BookStore/web/images/screenshots/bookdetail.png)
-
-### Admin Dashboard
-![Admin Dashboard](BookStore/web/images/screenshots/admin.png)
-
-### Publisher Panel
-![Publisher Panel](BookStore/web/images/screenshots/publisher.png)
-
 ### Show More
->[Screenshots](https://github.com/SonaniAkshit/Bookstore-JspServlet/tree/main/BookStore/web/images/screenshots)
+>[More Screenshots...](https://github.com/SonaniAkshit/Bookstore-JspServlet/tree/main/BookStore/web/images/screenshots/README.md)
 
 # 🌟 Key Features
 
